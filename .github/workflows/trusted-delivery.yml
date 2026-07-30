@@ -1,0 +1,206 @@
+name: trusted-delivery
+
+on:
+  push:
+    branches:
+      - "**"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: verify
+    if: >-
+      github.repository == 'RGCsAGupta/driftlens' &&
+      github.actor == github.repository_owner
+    runs-on:
+      - self-hosted
+      - Linux
+      - X64
+      - driftlens-ci
+    timeout-minutes: 20
+    steps:
+      - name: Check out the pushed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 24.15.0
+
+      - name: Verify delivery policy
+        run: node --test tests/workflow-policy.test.mjs
+
+      - name: Cache npm downloads
+        if: hashFiles('package-lock.json') != ''
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+
+      - name: Install application dependencies
+        if: hashFiles('package-lock.json') != ''
+        run: npm ci
+
+      - name: Run application quality gates
+        if: hashFiles('package-lock.json') != ''
+        run: npm run verify
+
+      - name: Require the application foundation on main
+        if: github.ref == 'refs/heads/main' && hashFiles('package-lock.json') == ''
+        run: |
+          echo "Application foundation missing; main release blocked." >&2
+          exit 1
+
+  release:
+    name: private-release
+    needs:
+      - verify
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      github.repository == 'RGCsAGupta/driftlens' &&
+      github.actor == github.repository_owner
+    runs-on:
+      - self-hosted
+      - Linux
+      - X64
+      - driftlens-deploy
+    timeout-minutes: 30
+    environment:
+      name: private-demo
+    concurrency:
+      group: driftlens-private-deployment
+      cancel-in-progress: false
+    steps:
+      - name: Check out the verified revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+
+      - name: Validate and mask release inputs
+        env:
+          DEPLOY_HOST: ${{ secrets.DRIFTLENS_DEPLOY_HOST }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DRIFTLENS_DEPLOY_KNOWN_HOSTS }}
+          DEPLOY_SSH_KEY: ${{ secrets.DRIFTLENS_DEPLOY_SSH_KEY }}
+          DEPLOY_USER: ${{ secrets.DRIFTLENS_DEPLOY_USER }}
+          REGISTRY: ${{ secrets.DRIFTLENS_REGISTRY }}
+          REGISTRY_PASSWORD: ${{ secrets.DRIFTLENS_REGISTRY_PASSWORD }}
+          REGISTRY_USERNAME: ${{ secrets.DRIFTLENS_REGISTRY_USERNAME }}
+        run: |
+          set -eu
+          for value in \
+            "$DEPLOY_HOST" \
+            "$DEPLOY_KNOWN_HOSTS" \
+            "$DEPLOY_SSH_KEY" \
+            "$DEPLOY_USER" \
+            "$REGISTRY" \
+            "$REGISTRY_PASSWORD" \
+            "$REGISTRY_USERNAME"
+          do
+            test -n "$value"
+          done
+          printf '%s' "$GITHUB_SHA" | grep -Eq '^[0-9a-f]{40}$'
+          printf '%s' "$DEPLOY_USER" | grep -Eq '^[a-z_][a-z0-9_-]*$'
+          printf '%s' "$DEPLOY_HOST" | grep -Eq '^([A-Za-z0-9.-]+|\[[0-9A-Fa-f:]+\])$'
+          printf '%s' "$REGISTRY" |
+            grep -Eq '^([A-Za-z0-9.-]+|\[[0-9A-Fa-f:]+\])(:[0-9]{1,5})?$'
+          test "${REGISTRY#http://}" = "$REGISTRY"
+          test "${REGISTRY#https://}" = "$REGISTRY"
+
+      - name: Build and publish immutable image
+        id: publish
+        env:
+          REGISTRY: ${{ secrets.DRIFTLENS_REGISTRY }}
+          REGISTRY_PASSWORD: ${{ secrets.DRIFTLENS_REGISTRY_PASSWORD }}
+          REGISTRY_USERNAME: ${{ secrets.DRIFTLENS_REGISTRY_USERNAME }}
+        run: |
+          set -eu
+          image_tag="${REGISTRY%/}/driftlens:${GITHUB_SHA}"
+          echo "::add-mask::$image_tag"
+          printf '%s' "$REGISTRY_PASSWORD" |
+            docker login "$REGISTRY" --username "$REGISTRY_USERNAME" --password-stdin
+          docker build \
+            --build-arg "DRIFTLENS_BUILD_SHA=$GITHUB_SHA" \
+            --tag "$image_tag" \
+            .
+          docker push "$image_tag"
+          repository="${REGISTRY%/}/driftlens"
+          image_digest=""
+          while IFS= read -r candidate
+          do
+            if test "${candidate%%@*}" = "$repository"; then
+              test -z "$image_digest"
+              image_digest="$candidate"
+            fi
+          done <<EOF
+          $(docker image inspect "$image_tag" --format '{{range .RepoDigests}}{{println .}}{{end}}')
+          EOF
+          printf '%s' "$image_digest" | grep -Eq '@sha256:[0-9a-f]{64}$'
+          echo "::add-mask::$image_digest"
+          printf 'image_tag=%s\n' "$image_tag" >> "$GITHUB_OUTPUT"
+          printf 'image_digest=%s\n' "$image_digest" >> "$GITHUB_OUTPUT"
+
+      - name: Configure pinned SSH trust
+        env:
+          DEPLOY_HOST: ${{ secrets.DRIFTLENS_DEPLOY_HOST }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DRIFTLENS_DEPLOY_KNOWN_HOSTS }}
+          DEPLOY_SSH_KEY: ${{ secrets.DRIFTLENS_DEPLOY_SSH_KEY }}
+          DEPLOY_USER: ${{ secrets.DRIFTLENS_DEPLOY_USER }}
+        run: |
+          set -eu
+          install -m 0700 -d "$RUNNER_TEMP/driftlens-ssh"
+          printf '%s\n' "$DEPLOY_SSH_KEY" > "$RUNNER_TEMP/driftlens-ssh/key"
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$RUNNER_TEMP/driftlens-ssh/known_hosts"
+          chmod 0600 \
+            "$RUNNER_TEMP/driftlens-ssh/key" \
+            "$RUNNER_TEMP/driftlens-ssh/known_hosts"
+          ssh-keygen -l -f "$RUNNER_TEMP/driftlens-ssh/key" >/dev/null
+          ssh-keygen -F "$DEPLOY_HOST" -f "$RUNNER_TEMP/driftlens-ssh/known_hosts" >/dev/null
+          {
+            echo "Host driftlens-target"
+            printf '  HostName %s\n' "$DEPLOY_HOST"
+            printf '  User %s\n' "$DEPLOY_USER"
+            echo "  BatchMode yes"
+            echo "  ConnectTimeout 10"
+            echo "  IdentitiesOnly yes"
+            echo "  LogLevel ERROR"
+            echo "  StrictHostKeyChecking yes"
+            echo "  IdentityFile $RUNNER_TEMP/driftlens-ssh/key"
+            echo "  UserKnownHostsFile $RUNNER_TEMP/driftlens-ssh/known_hosts"
+          } > "$RUNNER_TEMP/driftlens-ssh/config"
+          chmod 0600 "$RUNNER_TEMP/driftlens-ssh/config"
+
+      - name: Deploy exact digest
+        env:
+          IMAGE_DIGEST: ${{ steps.publish.outputs.image_digest }}
+        run: |
+          set -eu
+          ssh -F "$RUNNER_TEMP/driftlens-ssh/config" driftlens-target \
+            sudo --non-interactive /usr/local/sbin/driftlens-release \
+              "$IMAGE_DIGEST" \
+              "$GITHUB_SHA"
+
+      - name: Verify private health, readiness, and version
+        run: |
+          set -eu
+          ssh -F "$RUNNER_TEMP/driftlens-ssh/config" driftlens-target \
+            sudo --non-interactive /usr/local/sbin/driftlens-smoke \
+              "$GITHUB_SHA"
+
+      - name: Remove transient release material
+        if: always()
+        env:
+          IMAGE_DIGEST: ${{ steps.publish.outputs.image_digest }}
+          IMAGE_TAG: ${{ steps.publish.outputs.image_tag }}
+          REGISTRY: ${{ secrets.DRIFTLENS_REGISTRY }}
+        run: |
+          docker logout "$REGISTRY" >/dev/null 2>&1 || true
+          docker image rm "$IMAGE_DIGEST" "$IMAGE_TAG" >/dev/null 2>&1 || true
+          rm -f \
+            "$RUNNER_TEMP/driftlens-ssh/config" \
+            "$RUNNER_TEMP/driftlens-ssh/key" \
+            "$RUNNER_TEMP/driftlens-ssh/known_hosts"
+          rmdir "$RUNNER_TEMP/driftlens-ssh" 2>/dev/null || true

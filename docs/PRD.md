@@ -401,7 +401,9 @@ primary live demo. MVP Extended tests cover cancellation and timeout.
   - one simple demo Deployment runs inside a private Kubernetes cluster on
     pve1;
   - pve1 is currently a viable small-app and virtualization host;
-  - UI and API reuse the existing Cloudflare-protected route and access policy;
+  - UI and API reuse the existing Cloudflare account, tunnel, proxy, and access
+    policy;
+  - hostname selection and route binding wait for release issue #12;
   - direct origin access must not bypass Cloudflare protection;
   - any new pve2 placement, domain route, access policy, identity, or permission
     requires a separate decision and remains outside Core.

@@ -301,8 +301,10 @@ failure becomes an explanation error and never alters scan truth.
 - The private demo cluster runs separately from the DriftLens process.
 - CI and application identities remain isolated even if they share pve1.
 - The application uses an immutable build tied to the merged commit SHA.
-- The existing Cloudflare-protected access path is reused for the basic hosted
-  Core deployment; direct origin access must not bypass it.
+- The existing Cloudflare account, tunnel, proxy, and access-policy
+  infrastructure is reused for the hosted Core deployment. Hostname selection
+  and route binding wait for release issue #12; direct origin access must not
+  bypass Cloudflare protection.
 
 The delivery specification verifies existing configuration before reuse.
 Creating or expanding a runner host, deployment identity, Cloudflare account,
