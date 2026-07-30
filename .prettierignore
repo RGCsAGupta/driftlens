@@ -1,0 +1,7 @@
+.next
+coverage
+node_modules
+package-lock.json
+AGENTS.md
+docs/PRD.md
+docs/architecture.md
