@@ -1,8 +1,11 @@
 # DriftLens Collaboration Contract
 
-Status: proposed for user approval
+Status: approved and effective
 Version: 1.0
 Proposed: 2026-07-30
+Effective: 2026-07-30
+Approved head: `39edb29d633a5b84abebdb07c81ef17c40883659`
+Activation merge: `27b2b08e039063ec6da7c5c00dd32510ed93b30b`
 
 ## Intent
 
