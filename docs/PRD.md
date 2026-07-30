@@ -428,7 +428,7 @@ completion without submission evidence is incomplete.
 | State and failure handling | Proof that scan state/history persist and failures remain actionable | Planned |
 | Local development setup | Clean-clone setup instructions and a successful local `kind` demonstration | Planned |
 | Comprehensive README | Setup, use-case rationale, demo, design decisions, trade-offs, and limitations | Planned |
-| Architecture overview | UI/API/backend boundaries, workflow state, persistence, security boundaries, and trade-offs | Deferred until architecture is selected |
+| Architecture overview | UI/API/backend boundaries, workflow state, persistence, security boundaries, and trade-offs | `docs/architecture.md` pending pull-request review |
 | Next-work writeup | MVP Extended, Future scope, known limitations, and production hardening | Seeded by this PRD |
 | Meaningful Git history | Incremental, scoped commits showing planning, workflow, UI, tests, and documentation | Scope document ready as first commit |
 | Complete AI interaction logs | Full exported conversations from initial planning through delivery | In progress; this conversation is required |
