@@ -67,6 +67,10 @@ MVP does not attempt to replace a GitOps controller or provide remediation.
 - Backend API capabilities required by UI and independently accessible.
 - Local runnable demonstration with DriftLens outside `kind` and one simple
   Deployment inside the demo cluster.
+- Basic hosted deployment by reusing the existing Proxmox and
+  Cloudflare-protected delivery environment. This does not authorize a new
+  runner host, Cloudflare account, access policy, deployment identity, or
+  permission expansion.
 - Tests and submission documentation required by assessment.
 
 MVP Core does not include frontend or API management of repository and target
@@ -92,8 +96,11 @@ configuration.
   - operator provides one namespace;
   - DriftLens lists Deployments in that namespace;
   - no namespace discovery, pagination, or bulk selection.
-- Hosted demo with DriftLens outside Kubernetes on pve1 or pve2, protected by
-  Cloudflare, and a private demo Kubernetes cluster on the selected node.
+- New or expanded Proxmox placement, Cloudflare configuration, domain routing,
+  access policy, or deployment permissions beyond the reused Core environment.
+
+CPU and memory requests/limits are the first comparison enhancement after
+replicas and images work and all MVP Core gates pass.
 
 ### 4.3 Future
 
@@ -390,13 +397,14 @@ primary live demo. MVP Extended tests cover cancellation and timeout.
   and must not be exposed publicly without external access control.
 - DriftLens is not required to be deployed as a Kubernetes application.
 - Hosted demo target:
-  - DriftLens runs outside Kubernetes on pve1 or pve2;
+  - DriftLens runs outside Kubernetes on the existing pve1 environment;
   - one simple demo Deployment runs inside a private Kubernetes cluster on
-    the selected node;
+    pve1;
   - pve1 is currently a viable small-app and virtualization host;
-  - Cloudflare-protected UI and API;
+  - UI and API reuse the existing Cloudflare-protected route and access policy;
   - direct origin access must not bypass Cloudflare protection;
-  - domain selected later.
+  - any new pve2 placement, domain route, access policy, identity, or permission
+    requires a separate decision and remains outside Core.
 - Hosted and local modes use the same product scope.
 
 ### Optional pve2 placement prerequisite
@@ -482,6 +490,8 @@ Supporting evidence should also include:
 MVP Core is complete when:
 
 - local setup works from documented steps;
+- the existing Proxmox/Cloudflare delivery path deploys and identifies the
+  exact merged revision without exposing the origin directly;
 - UI initiates a real read-only scan through backend API;
 - progress and actionable failure are visible;
 - `IN_SYNC`, `DRIFTED`, and `MISSING_LIVE` are demonstrated;
