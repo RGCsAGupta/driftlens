@@ -3,6 +3,8 @@ import {
   type ConfigurationIssue,
 } from "./runtime-config";
 
+const embeddedBuildSha = process.env.DRIFTLENS_BUILD_SHA;
+
 export interface HealthStatus {
   service: "driftlens";
   status: "ok";
@@ -31,8 +33,9 @@ export function healthStatus(): HealthStatus {
 
 export function readinessStatus(
   environment: NodeJS.ProcessEnv = process.env,
+  buildSha: string | undefined = embeddedBuildSha,
 ): ReadinessStatus {
-  const configuration = resolveRuntimeConfiguration(environment);
+  const configuration = resolveRuntimeConfiguration(environment, buildSha);
 
   return {
     checks: {
@@ -46,9 +49,10 @@ export function readinessStatus(
 
 export function versionStatus(
   environment: NodeJS.ProcessEnv = process.env,
+  buildSha: string | undefined = embeddedBuildSha,
 ): VersionStatus {
   return {
-    buildSha: resolveRuntimeConfiguration(environment).buildSha,
+    buildSha: resolveRuntimeConfiguration(environment, buildSha).buildSha,
     service: "driftlens",
   };
 }

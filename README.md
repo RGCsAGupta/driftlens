@@ -28,9 +28,28 @@ Open `http://localhost:3000`.
 | `GET /api/ready`   | `200` or `503` | Configuration readiness with safe issue codes          |
 | `GET /api/version` | `200`          | Embedded build commit SHA                              |
 
+Successful responses use these stable shapes:
+
+```json
+{"service":"driftlens","status":"ok"}
+{"checks":{"configuration":"pass"},"issues":[],"service":"driftlens","status":"ready"}
+{"buildSha":"0123456789abcdef0123456789abcdef01234567","service":"driftlens"}
+```
+
+Readiness failures return `503`, set `status` to `not_ready`, set the
+configuration check to `fail`, and report only safe issue codes:
+
+| Issue code           | Action                                                    |
+| -------------------- | --------------------------------------------------------- |
+| `BUILD_SHA_REQUIRED` | Inject a full commit SHA when building a production app   |
+| `BUILD_SHA_INVALID`  | Use exactly 40 lowercase hexadecimal characters           |
+| `DATA_DIR_INVALID`   | Use an absolute, null-byte-free production data directory |
+
 Local development defaults to build version `development`. Production requires
-`DRIFTLENS_BUILD_SHA` to be a lowercase, full 40-character Git SHA. A missing
-or invalid production value leaves health successful but makes readiness fail.
+`DRIFTLENS_BUILD_SHA` at build time as a lowercase, full 40-character Git SHA.
+The value is embedded during `next build` and cannot be changed through the
+runtime environment. A missing or invalid production value leaves health
+successful but makes readiness fail.
 
 `DRIFTLENS_DATA_DIR` reserves the persistent-data location for the later SQLite
 slice. It defaults to `.driftlens` locally and `/data` in production. A

@@ -68,14 +68,11 @@ function resolveDataDirectory(
 
 export function resolveRuntimeConfiguration(
   environment: NodeJS.ProcessEnv = process.env,
+  buildShaValue: string | undefined = environment.DRIFTLENS_BUILD_SHA,
 ): RuntimeConfiguration {
   const mode = runtimeMode(environment.NODE_ENV);
   const issues: ConfigurationIssue[] = [];
-  const buildSha = resolveBuildSha(
-    environment.DRIFTLENS_BUILD_SHA,
-    mode,
-    issues,
-  );
+  const buildSha = resolveBuildSha(buildShaValue, mode, issues);
   const dataDirectory = resolveDataDirectory(
     environment.DRIFTLENS_DATA_DIR,
     mode,
