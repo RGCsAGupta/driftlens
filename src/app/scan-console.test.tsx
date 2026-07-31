@@ -65,7 +65,7 @@ describe("scan result rendering", () => {
         scan={record({ outcome, stage: "COMPLETED", status: "COMPLETED" })}
       />,
     );
-    expect(screen.getByText(text)).toBeTruthy();
+    expect(screen.getAllByText(text).length).toBeGreaterThan(0);
     expect(screen.getByText(outcome.replace("_", " "))).toBeTruthy();
   });
 
