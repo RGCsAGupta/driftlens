@@ -113,7 +113,7 @@ test("operator starts, follows, reviews, and reloads a scan accessibly", async (
   await expect(
     page.getByRole("table", { name: "Supported field differences" }),
   ).toContainText("Container app image");
-  await expect(page.getByText("demo/app")).toBeVisible();
+  await expect(page.getByText("demo/app", { exact: true })).toBeVisible();
   await expect(page.getByText(SHA)).toBeVisible();
   await expect(
     page.getByRole("button", { name: /main.*COMPLETED.*DRIFTED/i }),
