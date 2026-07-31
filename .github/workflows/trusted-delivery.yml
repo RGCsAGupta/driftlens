@@ -32,7 +32,13 @@ jobs:
           node-version: 24.15.0
 
       - name: Verify delivery policy
-        run: node --test tests/workflow-policy.test.mjs
+        run: >-
+          node --test
+          tests/workflow-policy.test.mjs
+          tests/deployment-policy.test.mjs
+
+      - name: Check target script syntax
+        run: sh -n ops/deployment/v1/*.sh
 
       - name: Cache npm downloads
         if: hashFiles('package-lock.json') != ''
@@ -107,17 +113,29 @@ jobs:
           printf '%s' "$DEPLOY_HOST" | grep -Eq '^([A-Za-z0-9.-]+|\[[0-9A-Fa-f:]+\])$'
           printf '%s' "$REGISTRY" |
             grep -Eq '^([A-Za-z0-9.-]+|\[[0-9A-Fa-f:]+\])(:[0-9]{1,5})?$'
+          printf '%s' "$REGISTRY_USERNAME" |
+            grep -Eq '^[A-Za-z0-9._@-]+$'
           test "${REGISTRY#http://}" = "$REGISTRY"
           test "${REGISTRY#https://}" = "$REGISTRY"
+          for value in \
+            "$DEPLOY_HOST" \
+            "$DEPLOY_USER" \
+            "$REGISTRY" \
+            "$REGISTRY_USERNAME"
+          do
+            echo "::add-mask::$value"
+          done
 
       - name: Build and publish immutable image
         id: publish
         env:
+          DOCKER_CONFIG: ${{ runner.temp }}/driftlens-docker-config
           REGISTRY: ${{ secrets.DRIFTLENS_REGISTRY }}
           REGISTRY_PASSWORD: ${{ secrets.DRIFTLENS_REGISTRY_PASSWORD }}
           REGISTRY_USERNAME: ${{ secrets.DRIFTLENS_REGISTRY_USERNAME }}
         run: |
           set -eu
+          install -m 0700 -d "$DOCKER_CONFIG"
           image_tag="${REGISTRY%/}/driftlens:${GITHUB_SHA}"
           echo "::add-mask::$image_tag"
           printf '%s' "$REGISTRY_PASSWORD" |
@@ -193,12 +211,15 @@ jobs:
       - name: Remove transient release material
         if: always()
         env:
+          DOCKER_CONFIG: ${{ runner.temp }}/driftlens-docker-config
           IMAGE_DIGEST: ${{ steps.publish.outputs.image_digest }}
           IMAGE_TAG: ${{ steps.publish.outputs.image_tag }}
           REGISTRY: ${{ secrets.DRIFTLENS_REGISTRY }}
         run: |
           docker logout "$REGISTRY" >/dev/null 2>&1 || true
           docker image rm "$IMAGE_DIGEST" "$IMAGE_TAG" >/dev/null 2>&1 || true
+          rm -f "$DOCKER_CONFIG/config.json"
+          rmdir "$DOCKER_CONFIG" 2>/dev/null || true
           rm -f \
             "$RUNNER_TEMP/driftlens-ssh/config" \
             "$RUNNER_TEMP/driftlens-ssh/key" \

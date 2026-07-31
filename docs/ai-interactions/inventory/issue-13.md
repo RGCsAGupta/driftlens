@@ -9,6 +9,11 @@ The task was delegated from the primary DriftLens coordinator. Preserve the
 complete coordinator delegation, feature-owner interaction, coordinator
 updates, implementation, verification, and final handoff.
 
+The same feature-owner session also contains the user-directed dedicated
+topology correction, issue re-review transition, target-script implementation,
+and corrected exact-head verification. Preserve that continuation with the
+original interaction.
+
 One read-only infrastructure audit output in the persisted source includes
 private infrastructure identifiers from an earlier evidence summary. The final
 derived submission copy must replace those identifiers with an explicit

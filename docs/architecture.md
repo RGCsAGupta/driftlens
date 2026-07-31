@@ -295,20 +295,26 @@ failure becomes an explanation error and never alters scan truth.
 
 ### Hosted demo
 
-- DriftLens remains outside Kubernetes and reuses the existing Proxmox
-  deployment environment, initially on pve1 unless placement is changed
-  through an approved decision.
-- The private demo cluster runs separately from the DriftLens process.
-- CI and application identities remain isolated even if they share pve1.
+- DriftLens remains outside Kubernetes on a dedicated private Docker
+  application host.
+- The private demo cluster runs on a separate dedicated host from the
+  DriftLens process.
+- A dedicated runner host provides distinct non-sudo CI and deployment
+  services. Disabled former shared services remain rollback-only.
+- CI, deployment, application, and demo-cluster identities and credentials
+  remain isolated.
 - The application uses an immutable build tied to the merged commit SHA.
+- The existing private registry is reused without configuration or authority
+  changes.
 - The existing Cloudflare account, tunnel, proxy, and access-policy
   infrastructure is reused for the hosted Core deployment. Hostname selection
   and route binding wait for release issue #12; direct origin access must not
   bypass Cloudflare protection.
 
-The delivery specification verifies existing configuration before reuse.
-Creating or expanding a runner host, deployment identity, Cloudflare account,
-domain route, access policy, or permission remains a new user decision.
+The delivery specification verifies the dedicated topology and existing
+configuration before reuse. Another host or identity, registry change,
+Cloudflare account, domain route, access policy, or broader permission remains
+a new user decision.
 
 ## 9. Security and trust boundaries
 

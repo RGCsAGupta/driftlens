@@ -386,43 +386,48 @@ primary live demo. MVP Extended tests cover cancellation and timeout.
 - GitHub Issues hold specifications and project work.
 - Meaningful incremental Git history is required.
 - Full AI interaction logs are required and must contain no secrets.
-- GitHub Actions use self-hosted runners on pve1.
+- GitHub Actions use isolated CI and deployment services on a dedicated private
+  runner host.
 - Self-hosted runners accept trusted repository branches and authorized
   collaborator activity only.
 - Public fork code must never execute on home-lab self-hosted runners.
-- If pve1 hosts both CI and demo workloads, their runtime and credentials must
-  remain isolated.
+- Dedicated private hosts isolate the application runtime, private demo cluster, and
+  runner services.
 - Local execution on an operator laptop or server is required.
 - Local mode must remain on an operator-controlled machine or private network
   and must not be exposed publicly without external access control.
 - DriftLens is not required to be deployed as a Kubernetes application.
 - Hosted demo target:
-  - DriftLens runs outside Kubernetes on the existing pve1 environment;
-  - one simple demo Deployment runs inside a private Kubernetes cluster on
-    pve1;
-  - pve1 is currently a viable small-app and virtualization host;
+  - DriftLens runs outside Kubernetes with Docker on a dedicated private host;
+  - one simple demo Deployment runs inside a private Kubernetes cluster on a
+    separate dedicated host;
+  - a dedicated runner host provides separate non-sudo CI and deployment
+    services;
+  - the existing private registry is reused without changes;
+  - the approved private virtualization environment supports the hosted demo;
   - UI and API reuse the existing Cloudflare account, tunnel, proxy, and access
     policy;
   - hostname selection and route binding wait for release issue #12;
   - direct origin access must not bypass Cloudflare protection;
-  - any new pve2 placement, domain route, access policy, identity, or permission
-    requires a separate decision and remains outside Core.
+  - any additional host or identity, alternate placement, registry change, domain
+    route, access policy, or broader permission requires a separate decision
+    and remains outside Core.
 - Hosted and local modes use the same product scope.
 
-### Optional pve2 placement prerequisite
+### Optional alternate-host placement prerequisite
 
-pve2 has sufficient capacity but hardware virtualization is not currently
-available. If VM-based placement is selected, a demo Kubernetes cluster
-requires:
+An alternate private host had sufficient capacity at planning time but lacked
+hardware virtualization. If VM-based placement is selected there, a demo
+Kubernetes cluster requires:
 
 1. enable Intel VT-x in BIOS;
-2. reboot pve2;
+2. reboot the alternate private host;
 3. verify CPU virtualization flags and `/dev/kvm`;
 4. recheck placement readiness.
 
-No VM-based pve2 demo-cluster work begins until this prerequisite passes.
-pve1 provides a viable hosted-demo path, so pve2 readiness does not block MVP
-delivery.
+No VM-based alternate-host demo-cluster work begins until this prerequisite
+passes. The approved private placement already provides a viable hosted-demo
+path, so alternate-host readiness does not block MVP delivery.
 
 ## 16. Assessment deliverables and evidence
 

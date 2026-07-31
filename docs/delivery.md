@@ -11,20 +11,37 @@ owner review and a new trusted branch in the canonical repository.
 
 ## Public-safe prerequisites
 
-- Existing isolated CI and deployment identities receive repository-scoped
-  DriftLens runner registrations with distinct `driftlens-ci` and
-  `driftlens-deploy` labels.
+- Dedicated private hosts isolate the Docker application runtime, private demo
+  cluster, and self-hosted runner services.
+- The runner host uses distinct non-sudo CI and deployment services
+  with repository-scoped registrations and separate labels. Former shared
+  services remain disabled; retained registrations are rollback-only.
 - The `private-demo` GitHub environment permits protected `main` only.
 - Environment secrets bind the existing least-privilege registry publisher,
   pinned SSH trust, and deployment identity. Secret values, internal addresses,
   and identity names never belong in repository content or logs.
-- The private target preinstalls `/usr/local/sbin/driftlens-release` and
-  `/usr/local/sbin/driftlens-smoke`. Its `sudoers` rule permits only those
-  commands for the deployment identity.
+- The dedicated application target runs DriftLens with Docker only. The
+  separate demo-cluster host is not an application deployment target.
 
-No new runner host, OS identity, Proxmox environment, registry authority,
+No host or identity beyond this approved dedicated topology, registry change,
 Cloudflare account, tunnel, access policy, hostname, public route, or router
-forwarding is part of this foundation.
+forwarding is part of this revision.
+
+## Target bootstrap contract
+
+The versioned scripts live in `ops/deployment/v1`. An operator runs
+`bootstrap.sh` once on the dedicated application target. The bootstrap:
+
+- requires Docker, a pre-existing deployment user, existing private-registry
+  authentication, and a root-owned approved repository configuration;
+- creates no user and performs no registry login or registry configuration;
+- installs versioned `release.sh` and `smoke.sh` implementations behind the
+  stable `/usr/local/sbin/driftlens-release` and
+  `/usr/local/sbin/driftlens-smoke` command paths; and
+- validates a narrow `sudoers` rule before installation.
+
+The repository deliberately contains no target identifier, registry endpoint,
+credential, or internal address. Re-running the same version is idempotent.
 
 ## Immutable release contract
 
@@ -38,20 +55,25 @@ The target release command must reject any digest or revision mismatch, retain
 the previous immutable image and release metadata, and keep persistent data
 outside the replaceable image lifecycle.
 
-The target runs the image as its non-root image user with
-`no-new-privileges`, a read-only root filesystem, a bounded temporary mount,
-and one explicitly configured persistent data mount. It binds only to the
-preconfigured private origin. It must not change Cloudflare or public routing.
+The target pulls only from its root-owned approved repository configuration.
+It runs the image as numeric non-root user `1001:1001` with all capabilities
+dropped, `no-new-privileges`, a read-only root filesystem, a bounded temporary
+mount, and one persistent data bind mount. The container publishes only on
+loopback. It must not change Cloudflare or public routing.
 
-After release, the deployment runner calls the private origin directly and
-requires:
+After release, the target smoke command performs a bounded local readiness wait
+inside the container and requires:
 
 - `/api/health`: service `driftlens`, status `ok`;
 - `/api/ready`: ready status, passing configuration, no issues; and
 - `/api/version`: the exact merged 40-character Git SHA.
 
-Any request, payload, readiness, or version mismatch fails delivery. The smoke
-command reads its preconfigured private origin without printing it.
+Any request, payload, hardening, readiness, or version mismatch fails delivery.
+The release stops the current private origin before starting an isolated
+candidate, so deployment has a bounded downtime window. A failed candidate or
+stable-origin smoke removes the unverified container and leaves the origin
+stopped for explicit manual rollback. Only a successful stable-origin smoke
+promotes candidate metadata to current.
 
 ## Rollback
 
@@ -67,12 +89,15 @@ require explicit authority before removal or reversion.
 ## Local policy checks
 
 ```bash
-node --test tests/workflow-policy.test.mjs
+node --test \
+  tests/workflow-policy.test.mjs \
+  tests/deployment-policy.test.mjs
+sh -n ops/deployment/v1/*.sh
 ```
 
-The workflow policy test covers the trusted happy path, non-cancelling
-deployment edge, mutable-tag failure, and exact-version smoke failure without
-network access.
+The policy tests cover trusted workflow execution, non-cancelling deployment,
+rollback metadata, immutable images, container hardening, and exact-version
+smoke failure without network access.
 
 ## Official references
 
@@ -81,3 +106,5 @@ network access.
 - [Managing deployment environments](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments)
 - [Adding self-hosted runners](https://docs.github.com/en/actions/how-tos/manage-runners/self-hosted-runners/add-runners)
 - [Protected branches REST API](https://docs.github.com/en/rest/branches/branch-protection)
+- [Docker run reference](https://docs.docker.com/reference/cli/docker/container/run/)
+- [Docker CLI configuration files](https://docs.docker.com/reference/cli/docker/#configuration-files)

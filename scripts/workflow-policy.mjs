@@ -54,7 +54,10 @@ export function validateWorkflowPolicy(workflow) {
   assert.match(verify, /github\.actor == github\.repository_owner/);
   assert.match(verify, /- driftlens-ci/);
   assert.match(verify, /timeout-minutes: 20/);
-  assert.match(verify, /node --test tests\/workflow-policy\.test\.mjs/);
+  assert.match(verify, /node --test/);
+  assert.match(verify, /tests\/workflow-policy\.test\.mjs/);
+  assert.match(verify, /tests\/deployment-policy\.test\.mjs/);
+  assert.match(verify, /sh -n ops\/deployment\/v1\/\*\.sh/);
   assert.match(verify, /npm ci/);
   assert.match(verify, /npm run verify/);
   assert.doesNotMatch(verify, /REGISTRY_PASSWORD|DEPLOY_SSH_KEY/);
@@ -75,6 +78,13 @@ export function validateWorkflowPolicy(workflow) {
   assert.match(release, /BatchMode yes/);
   assert.match(release, /StrictHostKeyChecking yes/);
   assert.match(release, /UserKnownHostsFile /);
+  assert.match(release, /echo "::add-mask::\$value"/);
+  assert.match(
+    release,
+    /DOCKER_CONFIG: \$\{\{ runner\.temp \}\}\/driftlens-docker-config/,
+  );
+  assert.match(release, /install -m 0700 -d "\$DOCKER_CONFIG"/);
+  assert.match(release, /rm -f "\$DOCKER_CONFIG\/config\.json"/);
   assert.match(
     release,
     /sudo --non-interactive \/usr\/local\/sbin\/driftlens-release/,
