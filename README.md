@@ -544,7 +544,7 @@ setup does not require or create this route.
   supported deterministic projection.
 - No private Git, configuration UI, cancellation, retry, monitoring dashboard,
   or multi-user behavior.
-- Live demo scenarios and release evidence remain owned by issue #12.
+- Live demo scenarios and release evidence are retained in issues #12 and #3.
 
 Implementation follows the official
 [Next.js `after()` contract](https://nextjs.org/docs/app/api-reference/functions/after),
