@@ -1,6 +1,6 @@
 # DriftLens MVP Architecture
 
-Status: proposed record of approved issue #4; pending pull-request review
+Status: approved baseline merged through PR #7; parent #3 release reconciliation in issue #12
 Architecture specification: GitHub issue #4
 Product scope: [PRD](./PRD.md)
 
@@ -46,6 +46,32 @@ flowchart LR
 
 The browser never connects directly to GitHub, Kubernetes, SQLite, or OpenAI.
 All credentials and external-service calls remain server-side.
+
+### Deployment and public route boundary
+
+The protected-main workflow deploys the immutable application privately first.
+Parent issue #3 then uses one dedicated remotely managed Cloudflare Tunnel for
+the assessment route:
+
+```mermaid
+flowchart LR
+    Public["Public operator"]
+    Edge["Cloudflare public hostname"]
+    Connector["Dedicated cloudflared connector<br/>on DriftLens app server"]
+    Origin["Existing private-interface origin<br/>port 3000"]
+
+    Public --> Edge
+    Edge -->|"Dedicated tunnel"| Connector
+    Connector -->|"Same-host private route"| Origin
+```
+
+The selected hostname is intentionally public. This topology has no
+Cloudflare Access application or identity policy, no shared reverse proxy, and
+no router port-forward. Host firewall controls admit only the same-host
+connector and dedicated deployment runner to port `3000`; unrelated
+private-network clients are denied. Public evidence proves the exact deployed
+commit and failed direct-origin bypass. Tunnel identifiers, credentials,
+internal addresses, and connector details remain outside public evidence.
 
 ## 3. Application boundaries
 
@@ -310,14 +336,16 @@ failure becomes an explanation error and never alters scan truth.
   value is stored in the repository.
 - The existing private registry is reused without configuration or authority
   changes.
-- The existing Cloudflare account, tunnel, proxy, and access-policy
-  infrastructure is reused for the hosted Core deployment. Hostname selection
-  and route binding wait for release issue #12; direct origin access must not
-  bypass Cloudflare protection.
+- The existing Cloudflare account is reused. Issue #12 adds one dedicated
+  remotely managed Tunnel whose connector runs on the DriftLens application
+  host and reaches the existing private-interface application origin on port
+  `3000`.
+- The public route uses no Cloudflare Access application or policy and no
+  shared reverse proxy. Direct origin access must remain unavailable.
 
 The delivery specification verifies the dedicated topology and existing
 configuration before reuse. Another host or identity, registry change,
-Cloudflare account, domain route, access policy, or broader permission remains
+Cloudflare account, Access policy, shared proxy, or broader permission remains
 a new user decision.
 
 ## 9. Security and trust boundaries
@@ -335,8 +363,10 @@ a new user decision.
   boundary.
 
 Core has no application-managed authentication or authorization. Local mode
-relies on operator-controlled network placement; hosted access reuses the
-existing Cloudflare protection.
+relies on operator-controlled network placement. The assessment hostname is
+intentionally public through the dedicated Tunnel; Cloudflare Access is not a
+security boundary. Origin isolation and failed direct-origin bypass remain
+mandatory.
 
 ### GitHub Actions
 
@@ -442,7 +472,8 @@ secret scan, and documentation review.
 Deferred work remains defined by PRD MVP Extended and Future scope. In
 particular: configuration CRUD, private repositories, resource quantities,
 cancel/timeout/manual retry, discovery, in-cluster ServiceAccount mode,
-new or expanded Proxmox/Cloudflare configuration, multiple clusters,
+additional Proxmox/Cloudflare configuration beyond the approved dedicated
+Tunnel, multiple clusters,
 scheduling, alerts, remediation, authentication, audit retention, and high
 availability. CPU and memory requests/limits are the first comparison
 enhancement after replicas and images pass.
@@ -473,9 +504,10 @@ recalculated from the live ledger before the first implementation issue begins:
 | Demo, deployment, docs, and evidence | 42 minutes |
 | Risk reserve | 8 minutes 9 seconds |
 
-New Cloudflare/Proxmox infrastructure, private Git, configuration CRUD, and
-resource quantities do not begin inside this Core budget. Core only reuses the
-already configured hosted-delivery path.
+No new Cloudflare account, Access policy, shared proxy, or Proxmox
+infrastructure begins inside this Core budget. Core adds only the explicitly
+approved dedicated Tunnel route during issue #12; private Git, configuration
+CRUD, and resource quantities remain deferred.
 
 ## 14. Official references
 

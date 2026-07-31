@@ -407,10 +407,13 @@ primary live demo. MVP Extended tests cover cancellation and timeout.
     configuration, a read-only kubeconfig, and a private origin address;
   - the existing private registry is reused without changes;
   - the approved private virtualization environment supports the hosted demo;
-  - UI and API reuse the existing Cloudflare account, tunnel, proxy, and access
-    policy;
-  - hostname selection and route binding wait for release issue #12;
-  - direct origin access must not bypass Cloudflare protection;
+  - UI and API use a dedicated remotely managed Cloudflare Tunnel whose
+    outbound-only connector runs on the application host and routes to the
+    existing private-interface origin on port 3000;
+  - the selected hostname is intentionally public, with no Cloudflare Access
+    policy, shared reverse proxy, or router port-forward;
+  - direct origin access must remain unavailable, with host firewall ingress
+    limited to the same-host connector and dedicated deployment runner;
   - any additional host or identity, alternate placement, registry change, domain
     route, access policy, or broader permission requires a separate decision
     and remains outside Core.

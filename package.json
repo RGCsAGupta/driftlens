@@ -17,9 +17,11 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "test:scanner": "./scripts/scan-secrets.test.sh",
+    "export:ai-session": "node scripts/export-ai-session.mjs",
+    "verify:ai-exports": "node scripts/verify-ai-exports.mjs",
     "audit": "npm audit --omit=dev --audit-level=high",
     "secret:scan": "./scripts/scan-secrets.sh",
-    "verify": "npm run format:check && npm run lint && npm run typecheck && npm run test:coverage && npm run test:scanner && npm run build && npm run test:e2e && npm run audit && npm run secret:scan"
+    "verify": "npm run format:check && npm run lint && npm run typecheck && npm run test:coverage && npm run test:scanner && npm run verify:ai-exports && npm run build && npm run test:e2e && npm run audit && npm run secret:scan"
   },
   "dependencies": {
     "@kubernetes/client-node": "1.4.0",

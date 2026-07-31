@@ -27,7 +27,27 @@ owner review and a new trusted branch in the canonical repository.
 
 No host or identity beyond this approved dedicated topology, registry change,
 Cloudflare account, tunnel, access policy, hostname, public route, or router
-forwarding is part of this revision.
+forwarding was part of the #13 delivery-foundation revision. Parent issue #3
+adds the separately approved public-route boundary below.
+
+## Parent #3 public route boundary
+
+Issue #12 approves one new dedicated remotely managed Cloudflare Tunnel for
+`nayanse.com`. The outbound-only `cloudflared` connector runs on the same host
+as DriftLens and routes to the existing private-interface application origin
+on port `3000`.
+
+The hostname is intentionally public. Do not create a Cloudflare Access
+application or policy, use the shared reverse proxy, add a router port-forward,
+or expose the origin directly. Host firewall controls admit the same-host
+connector and dedicated deployment runner while denying unrelated
+private-network clients. Retained proof confirms the public response reports
+the exact deployed SHA and direct-origin bypass fails.
+
+The #13 scripts still publish the stable container on the preprovisioned
+private origin used for private smoke verification. They do not create or
+manage the tunnel or firewall policy. The separately authorized #12 execution
+completed that control-plane configuration and retained public-safe proof.
 
 ## Target bootstrap contract
 
@@ -90,8 +110,10 @@ read-only, and runs the image as numeric non-root user `10001:10001` with all
 capabilities dropped, `no-new-privileges`, a read-only root filesystem, a
 bounded temporary mount, and one persistent data bind mount. The candidate is
 unpublished. The stable container publishes only on the preprovisioned private
-origin address required by the existing separate proxy path. Scripts do not
-print that address or change Cloudflare or public routing.
+origin address used by the current private release path. Scripts do not print
+that address or change Cloudflare or public routing. Public exposure uses the
+separately managed dedicated Tunnel and host-firewall boundary described
+above.
 
 After release, the target smoke command performs a bounded local readiness wait
 inside the container and requires:

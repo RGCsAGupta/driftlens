@@ -5,3 +5,4 @@ package-lock.json
 AGENTS.md
 docs/PRD.md
 docs/architecture.md
+docs/ai-interactions/sessions/*.jsonl

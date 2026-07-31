@@ -64,6 +64,43 @@ At code freeze, issue #12 will:
    account export, as backup completeness checks.
 10. Rerun the repository secret scan against the final derived evidence.
 
+## Rolling export for completed sessions
+
+The user authorized a partial rolling export before final freeze. Export only
+a completed, stable persisted session. Keep the primary coordinator, the
+current #12 owner, and any feature lane still receiving turns as inventory-only
+until those sessions close.
+
+Run the checked-in exporter against a privately resolved source path:
+
+```bash
+npm run export:ai-session -- \
+  /private/source/rollout-SESSION_ID.jsonl \
+  SESSION_ID \
+  docs/ai-interactions/sessions/safe-name.jsonl \
+  docs/ai-interactions/redactions/safe-name.json
+```
+
+The exporter fails closed on unreadable/invalid JSONL and an ID mismatch. It
+retains every JSONL record and recursively replaces recognized credentials,
+key/kubeconfig material, personal email addresses, private network/topology
+values, and local paths. Its machine report records every replacement locator
+without the removed value.
+
+Automation is not the final review. After generation:
+
+1. verify every output line parses and input/output line counts match;
+2. run prohibited credential, private-network, and personal-data scans;
+3. review remaining URLs, hostnames, identifiers, prompts, tool output, and
+   unrelated context manually;
+4. record the checksum and review state in
+   `docs/ai-interactions/manifest.md`; and
+5. leave `Final review` as `PENDING` until a human completes that review.
+
+At final freeze, repeat source enumeration and checksum/reconciliation for all
+rolling exports. A rolling copy never substitutes for the final active-session
+export.
+
 ## Official sources
 
 - [Codex App Server](https://learn.chatgpt.com/docs/app-server.md)
