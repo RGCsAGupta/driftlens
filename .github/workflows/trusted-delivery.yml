@@ -53,7 +53,7 @@ jobs:
 
       - name: Install pinned Chromium test browser
         if: hashFiles('package-lock.json') != ''
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install chromium
 
       - name: Run application quality gates
         if: hashFiles('package-lock.json') != ''

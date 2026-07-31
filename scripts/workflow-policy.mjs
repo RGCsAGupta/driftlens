@@ -59,7 +59,7 @@ export function validateWorkflowPolicy(workflow) {
   assert.match(verify, /tests\/deployment-policy\.test\.mjs/);
   assert.match(verify, /sh -n ops\/deployment\/v1\/\*\.sh/);
   assert.match(verify, /npm ci/);
-  assert.match(verify, /npx playwright install --with-deps chromium/);
+  assert.match(verify, /npx playwright install chromium/);
   assert.match(verify, /npm run verify/);
   assert.doesNotMatch(verify, /REGISTRY_PASSWORD|DEPLOY_SSH_KEY/);
 

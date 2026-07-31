@@ -204,10 +204,12 @@ npm run audit
 npm run secret:scan
 ```
 
-Chromium is required for the operator flow. CI installs the lockfile-pinned
-browser and system dependencies with
-`npx playwright install --with-deps chromium`; local environments with browser
-dependencies already present may use `npx playwright install chromium`. The
+Chromium is required for the operator flow. The dedicated CI runner is
+preprovisioned with the operating-system libraries
+required by headless Chromium. The workflow installs the lockfile-pinned
+headless browser payload with `npx playwright install chromium`; local
+environments that need the operating-system libraries may use
+`npx playwright install --with-deps chromium`. The
 test runs with one worker, zero retries, and controlled same-origin API
 adapters; it does not contact GitHub or Kubernetes.
 
