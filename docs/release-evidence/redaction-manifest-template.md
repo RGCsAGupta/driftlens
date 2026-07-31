@@ -2,11 +2,29 @@
 
 Status: template only; do not mark complete before functional code freeze.
 
-## Submission file manifest
+## Session and submission manifest
 
-| Purpose           | Source session ID | Submitted file               | SHA-256           | Parse result | Completeness | Redactions        |
-| ----------------- | ----------------- | ---------------------------- | ----------------- | ------------ | ------------ | ----------------- |
-| Replace at freeze | Replace at freeze | `sessions/<safe-name>.jsonl` | Replace at freeze | PENDING      | PENDING      | See entries below |
+| Purpose           | Source session ID | Parent/delegation              | Interaction status                          | Submitted file               | SHA-256           | Parse result | Completeness | Redactions        |
+| ----------------- | ----------------- | ------------------------------ | ------------------------------------------- | ---------------------------- | ----------------- | ------------ | ------------ | ----------------- |
+| Replace at freeze | Replace at freeze | Root, child, reviewer, or none | Completed, interrupted, or active-at-freeze | `sessions/<safe-name>.jsonl` | Replace at freeze | PENDING      | PENDING      | See entries below |
+
+## Export procedure
+
+1. Freeze functional code at one exact SHA. Any later functional change reopens
+   affected gates and reconciliation.
+2. Copy each original `$CODEX_HOME/sessions/YYYY/MM/DD/rollout-*.jsonl` into a
+   private staging area without changing the source.
+3. Parse each staged file, read its `session_meta` identifier, and map it to
+   exactly one inventory row plus its parent/delegation relationship.
+4. Reconcile prompt, interaction, output, owner review, corrections, final
+   outcome, and interrupted work whose output influenced delivery.
+5. Secret-review a derived copy. Apply explicit markers only in that copy and
+   add one redaction row below for every replacement.
+6. Place reviewed copies under `docs/ai-interactions/sessions/`, compute SHA-256
+   checksums, then run manifest/file reconciliation and the final secret scan.
+
+Never publish original private staging paths, missing-session guesses, or a
+summary in place of an available full interaction.
 
 ## Redaction entries
 
