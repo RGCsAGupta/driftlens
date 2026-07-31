@@ -54,12 +54,26 @@ export function validateDeploymentPolicy({
   assert.match(release, /stat -c '%a' "\$repository_file"/);
   assert.match(release, /approved image repository is invalid/);
   assert.match(release, /"\$\{image_digest%%@\*\}" = "\$repository"/);
+  assert.match(release, /registry=\$\{repository%%\/\*\}/);
+  assert.match(release, /IFS= read -r registry_username/);
+  assert.match(release, /IFS= read -r registry_password/);
+  assert.match(release, /registry_auth_parent=\/run\/driftlens/);
+  assert.match(release, /mktemp -d "\$registry_auth_parent\/auth\.XXXXXX"/);
+  assert.match(release, /chmod 0700 "\$docker_config"/);
+  assert.match(release, /DOCKER_CONFIG=\$docker_config/);
+  assert.match(release, /docker login "\$registry"/);
+  assert.match(release, /--password-stdin/);
+  assert.match(release, /cleanup_registry_auth_on_exit/);
+  assert.match(release, /trap cleanup_registry_auth_on_exit EXIT/);
+  assert.match(release, /docker logout "\$registry"/);
+  assert.match(release, /rm -f "\$docker_config\/config\.json"/);
+  assert.match(release, /rmdir "\$docker_config"/);
   assert.match(release, /docker pull "\$image_digest"/);
   assert.match(
     release,
     /docker pull "\$image_digest" >\/dev\/null 2>&1 \|\| fail/,
   );
-  assert.doesNotMatch(release, /docker login|(^|[^a-z])latest([^a-z]|$)/i);
+  assert.doesNotMatch(release, /(^|[^a-z])latest([^a-z]|$)/i);
   assert.match(release, /cp -p "\$release_root\/current"/);
   assert.match(release, /"\$release_root\/previous"/);
   assert.match(release, /"\$release_root\/candidate"/);

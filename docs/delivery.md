@@ -18,8 +18,10 @@ owner review and a new trusted branch in the canonical repository.
   services remain disabled; retained registrations are rollback-only.
 - The `private-demo` GitHub environment permits protected `main` only.
 - Environment secrets bind the existing least-privilege registry publisher,
-  pinned SSH trust, and deployment identity. Secret values, internal addresses,
-  and identity names never belong in repository content or logs.
+  pinned SSH trust, and deployment identity. The deployment runner sends the
+  registry username and password only through the pinned SSH command's standard
+  input. Secret values, internal addresses, and identity names never belong in
+  repository content or logs.
 - The dedicated application target runs DriftLens with Docker only. The
   separate demo-cluster host is not an application deployment target.
 
@@ -32,8 +34,8 @@ forwarding is part of this revision.
 The versioned scripts live in `ops/deployment/v1`. An operator runs
 `bootstrap.sh` once on the dedicated application target. The bootstrap:
 
-- requires Docker, a pre-existing deployment user, existing private-registry
-  authentication, and a root-owned approved repository configuration;
+- requires Docker, a pre-existing deployment user, and a root-owned approved
+  repository configuration; no registry credential is persisted on the target;
 - requires a root-owned mode-`0600` runtime environment file containing
   `NODE_ENV=production`, `DRIFTLENS_DATA_DIR=/data`, the fixed in-container
   kubeconfig path, `DRIFTLENS_GITHUB_REPOSITORY`,
@@ -44,7 +46,8 @@ The versioned scripts live in `ops/deployment/v1`. An operator runs
   plugins, and is mounted read-only at `/run/driftlens/kubeconfig`;
 - requires a root-owned mode-`0600` private origin address containing one
   strict RFC1918 IPv4 address reachable by the existing proxy path;
-- creates no user and performs no registry login or registry configuration;
+- creates no user and performs no persistent registry login or registry
+  configuration;
 - installs versioned `release.sh` and `smoke.sh` implementations behind the
   stable `/usr/local/sbin/driftlens-release` and
   `/usr/local/sbin/driftlens-smoke` command paths; and
@@ -75,6 +78,13 @@ the previous immutable image and release metadata, and keep persistent data
 outside the replaceable image lifecycle.
 
 The target pulls only from its root-owned approved repository configuration.
+For each release, the workflow streams the existing environment-scoped
+registry username and password over the pinned SSH standard-input channel. The
+root release command uses them only with `docker login --password-stdin` and a
+root-only temporary `DOCKER_CONFIG`. It logs out and removes that authentication
+material after the verified pull and on every failure path. The target has no
+persistent registry credential prerequisite.
+
 It passes the validated runtime environment, mounts the validated kubeconfig
 read-only, and runs the image as numeric non-root user `1001:1001` with all
 capabilities dropped, `no-new-privileges`, a read-only root filesystem, a
@@ -129,4 +139,5 @@ smoke failure without network access.
 - [Adding self-hosted runners](https://docs.github.com/en/actions/how-tos/manage-runners/self-hosted-runners/add-runners)
 - [Protected branches REST API](https://docs.github.com/en/rest/branches/branch-protection)
 - [Docker run reference](https://docs.docker.com/reference/cli/docker/container/run/)
+- [Docker login reference](https://docs.docker.com/reference/cli/docker/login/)
 - [Docker CLI configuration files](https://docs.docker.com/reference/cli/docker/#configuration-files)

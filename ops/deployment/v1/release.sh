@@ -11,10 +11,31 @@ state_root=/var/lib/driftlens
 release_root=$state_root/releases
 data_root=$state_root/data
 repository_file=/etc/driftlens/image-repository
+registry_auth_parent=/run/driftlens
 
 fail() {
   printf '%s\n' "$1" >&2
   exit 1
+}
+
+cleanup_registry_auth() {
+  cleanup_failed=0
+
+  docker logout "$registry" >/dev/null 2>&1 || cleanup_failed=1
+  unset registry_username registry_password
+  rm -f "$docker_config/config.json" || cleanup_failed=1
+  rmdir "$docker_config" || cleanup_failed=1
+
+  return "$cleanup_failed"
+}
+
+cleanup_registry_auth_on_exit() {
+  release_status=$?
+  trap - EXIT INT TERM
+  if ! cleanup_registry_auth && test "$release_status" -eq 0; then
+    release_status=1
+  fi
+  exit "$release_status"
 }
 
 . /usr/local/libexec/driftlens/v1/common.sh
@@ -46,11 +67,46 @@ test "${image_digest%%@*}" = "$repository" ||
   fail "image repository does not match approved target"
 validate_runtime_files
 
+registry=${repository%%/*}
+IFS= read -r registry_username ||
+  fail "registry credentials are missing"
+IFS= read -r registry_password ||
+  fail "registry credentials are incomplete"
+if IFS= read -r unexpected_credential_input; then
+  fail "registry credentials contain unexpected input"
+fi
+printf '%s' "$registry_username" |
+  grep -Eq '^[A-Za-z0-9._@-]+$' ||
+  fail "registry username is invalid"
+test -n "$registry_password" || fail "registry password is empty"
+if printf '%s' "$registry_password" | LC_ALL=C grep -q '[[:cntrl:]]'; then
+  fail "registry password contains unsupported control characters"
+fi
+
+install -d -o root -g root -m 0700 "$registry_auth_parent"
+docker_config=$(mktemp -d "$registry_auth_parent/auth.XXXXXX")
+chmod 0700 "$docker_config"
+DOCKER_CONFIG=$docker_config
+export DOCKER_CONFIG
+trap cleanup_registry_auth_on_exit EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+
+printf '%s' "$registry_password" |
+  docker login "$registry" \
+    --username "$registry_username" \
+    --password-stdin >/dev/null 2>&1 ||
+  fail "registry authentication failed"
+unset registry_username registry_password
+
 docker pull "$image_digest" >/dev/null 2>&1 || fail "image pull failed"
 docker image inspect "$image_digest" \
   --format '{{range .RepoDigests}}{{println .}}{{end}}' 2>/dev/null |
   grep -Fx "$image_digest" >/dev/null ||
   fail "pulled image digest does not match requested digest"
+
+cleanup_registry_auth || fail "registry authentication cleanup failed"
+trap - EXIT INT TERM
 
 install -d -o root -g root -m 0750 "$release_root"
 install -d -o 1001 -g 1001 -m 0750 "$data_root"

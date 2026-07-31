@@ -87,6 +87,10 @@ export function validateWorkflowPolicy(workflow) {
   assert.match(release, /rm -f "\$DOCKER_CONFIG\/config\.json"/);
   assert.match(
     release,
+    /printf '%s\\n' "\$REGISTRY_USERNAME"[\s\S]*printf '%s\\n' "\$REGISTRY_PASSWORD"[\s\S]*ssh -F "\$RUNNER_TEMP\/driftlens-ssh\/config"/,
+  );
+  assert.match(
+    release,
     /sudo --non-interactive \/usr\/local\/sbin\/driftlens-release/,
   );
   assert.match(

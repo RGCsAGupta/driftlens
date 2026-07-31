@@ -1,6 +1,13 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import {
+  chmodSync,
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import { readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -82,6 +89,92 @@ async function deploymentScripts() {
   );
 
   return { common, bootstrap, release, smoke };
+}
+
+async function runReleaseWithFailedPull() {
+  const fixtureRoot = mkdtempSync(join(tmpdir(), "driftlens-release-"));
+  const mockBin = join(fixtureRoot, "bin");
+  const stateRoot = join(fixtureRoot, "state");
+  const repositoryPath = join(fixtureRoot, "image-repository");
+  const registryAuthParent = join(fixtureRoot, "registry-auth");
+  const dockerLog = join(fixtureRoot, "docker.log");
+  const releasePath = join(fixtureRoot, "release.sh");
+  const registry = "registry.example.test";
+  const repository = `${registry}/driftlens`;
+  const username = "release-user";
+  const password = "not-a-real-secret";
+  const digest = `${repository}@sha256:${"a".repeat(64)}`;
+  const revision = "b".repeat(40);
+
+  mkdirSync(mockBin);
+  writeFileSync(repositoryPath, `${repository}\n`, { mode: 0o600 });
+  writeFileSync(
+    join(mockBin, "docker"),
+    `#!/bin/sh
+set -eu
+printf '%s|%s\\n' "$1" "$DOCKER_CONFIG" >>"$MOCK_DOCKER_LOG"
+case "$1" in
+  login)
+    supplied_password=$(cat)
+    test "$supplied_password" = "$EXPECTED_REGISTRY_PASSWORD"
+    install -m 0600 /dev/null "$DOCKER_CONFIG/config.json"
+    ;;
+  pull)
+    exit 41
+    ;;
+  logout)
+    test -f "$DOCKER_CONFIG/config.json"
+    ;;
+  *)
+    exit 42
+    ;;
+esac
+`,
+  );
+  chmodSync(join(mockBin, "docker"), 0o755);
+
+  const release = (
+    await readFile(new URL("release.sh", deploymentRoot), "utf8")
+  )
+    .replace(
+      "PATH=/usr/sbin:/usr/bin:/sbin:/bin",
+      `PATH=${mockBin}:/usr/sbin:/usr/bin:/sbin:/bin`,
+    )
+    .replace("state_root=/var/lib/driftlens", `state_root=${stateRoot}`)
+    .replace(
+      "repository_file=/etc/driftlens/image-repository",
+      `repository_file=${repositoryPath}`,
+    )
+    .replace(
+      "registry_auth_parent=/run/driftlens",
+      `registry_auth_parent=${registryAuthParent}`,
+    )
+    .replace(
+      ". /usr/local/libexec/driftlens/v1/common.sh",
+      "validate_runtime_files() { :; }",
+    );
+  writeFileSync(releasePath, release, { mode: 0o700 });
+
+  const result = spawnSync("sh", [releasePath, digest, revision], {
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      EXPECTED_REGISTRY_PASSWORD: password,
+      MOCK_DOCKER_LOG: dockerLog,
+    },
+    input: `${username}\n${password}\n`,
+  });
+  const dockerCalls = await readFile(dockerLog, "utf8");
+  const authEntries = readdirSync(registryAuthParent);
+
+  rmSync(fixtureRoot, { force: true, recursive: true });
+  return {
+    authEntries,
+    dockerCalls,
+    password,
+    result,
+    username,
+  };
 }
 
 test("content validator accepts bounded private runtime fixtures", () => {
@@ -210,6 +303,40 @@ test("versioned target scripts satisfy the private Docker contract", async () =>
   const scripts = await deploymentScripts();
 
   assert.doesNotThrow(() => validateDeploymentPolicy(scripts));
+});
+
+test("failed image pulls remove transient target registry authentication", async () => {
+  const { authEntries, dockerCalls, password, result, username } =
+    await runReleaseWithFailedPull();
+
+  assert.equal(result.status, 1);
+  assert.match(result.stderr, /image pull failed/);
+  assert.deepEqual(
+    dockerCalls
+      .trim()
+      .split("\n")
+      .map((entry) => entry.split("|", 1)[0]),
+    ["login", "pull", "logout"],
+  );
+  assert.deepEqual(authEntries, []);
+  assert.doesNotMatch(
+    `${result.stdout}${result.stderr}${dockerCalls}`,
+    new RegExp(username),
+  );
+  assert.doesNotMatch(
+    `${result.stdout}${result.stderr}${dockerCalls}`,
+    new RegExp(password),
+  );
+});
+
+test("missing transient registry cleanup fails the deployment policy", async () => {
+  const scripts = await deploymentScripts();
+  scripts.release = scripts.release.replace(
+    'rm -f "$docker_config/config.json"',
+    ":",
+  );
+
+  assert.throws(() => validateDeploymentPolicy(scripts));
 });
 
 test("last-known-good metadata is required for rollback", async () => {
