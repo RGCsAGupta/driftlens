@@ -43,7 +43,7 @@ const REDACTION_RULES = [
     category: "CREDENTIAL",
     marker: "[REDACTED: CREDENTIAL]",
     pattern:
-      /github_pat_[A-Za-z0-9_]{20,}|gh[pousr]_[A-Za-z0-9_]{20,}|sk-proj-[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}/g,
+      /github_pat_[A-Za-z0-9_]{20,}|gh[pousr]_[A-Za-z0-9_]{20,}|sk-proj-[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}/gi,
   },
   {
     category: "CREDENTIAL",
@@ -77,6 +77,12 @@ const REDACTION_RULES = [
     category: "PRIVATE TOPOLOGY",
     marker: "[REDACTED: PRIVATE TOPOLOGY]",
     pattern: /\bssh:[^@\s"']+@[^:\s"']+(?::\d+)?/gi,
+  },
+  {
+    category: "PRIVATE TOPOLOGY",
+    marker: "[REDACTED: PRIVATE TOPOLOGY]",
+    pattern:
+      /\bpve(?:[-_]?(?:host[-_]?)?\d+)?(?:\.[a-z0-9-]+)*\b|\bvm[-_ ]?\d+(?:\.[a-z0-9-]+)*\b|\bdriftlens-(?:app|application)(?:-host)?(?:-\d+)?(?:\.[a-z0-9-]+)*\b|\bdriftlens-(?:(?:ci|deploy)-)?runner(?:-host)?(?:-\d+)?(?:\.[a-z0-9-]+)*\b/gi,
   },
   {
     category: "PRIVATE NETWORK",

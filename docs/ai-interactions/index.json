@@ -7,7 +7,7 @@
       "status": "completed",
       "sessionFile": "sessions/architecture-timebox-review.jsonl",
       "redactionReport": "redactions/architecture-timebox-review.json",
-      "sha256": "932e08714dcd06d7574732dd27a18bd95d9f970fa04edc3b0e2d2b79e669a190",
+      "sha256": "d62614bdb29853d89acaaac3440ee10921e0bed3d43c1ac71d915076bd51763c",
       "lines": 1491,
       "finalReview": "pass"
     },
@@ -17,7 +17,7 @@
       "status": "completed",
       "sessionFile": "sessions/architecture-traceability-review.jsonl",
       "redactionReport": "redactions/architecture-traceability-review.json",
-      "sha256": "83952a309f33a3dfffa3ce0f7e77e49247d5bfca5615c52a2fc7af13c6e94b18",
+      "sha256": "ac8ce343b4cb7e7855ad55e190516bd97a1e45a180b65630ded55f810d4121fa",
       "lines": 1563,
       "finalReview": "pass"
     },
@@ -27,7 +27,7 @@
       "status": "completed",
       "sessionFile": "sessions/collaboration-contract-audit.jsonl",
       "redactionReport": "redactions/collaboration-contract-audit.json",
-      "sha256": "8c62c93bca079a37c488c760f9cf73b52ca369161d1fd81a08fba31a974475ea",
+      "sha256": "4f8e211559d704a3e586b1249f39e571c257af7e0e92cca5f3c97241686d9492",
       "lines": 1053,
       "finalReview": "pass"
     },
@@ -37,7 +37,7 @@
       "status": "completed",
       "sessionFile": "sessions/delivery-pattern-research.jsonl",
       "redactionReport": "redactions/delivery-pattern-research.json",
-      "sha256": "fb118c4a9d2bf670a0dbfbcb15a5de5edaf479ffd601d5d5eadccbd8320aba2b",
+      "sha256": "054eb6fd92c0e75e0d5648cbbf2ed2b179386d229850b381f603598ab2c102e3",
       "lines": 1571,
       "finalReview": "pass"
     },
@@ -47,7 +47,7 @@
       "status": "completed",
       "sessionFile": "sessions/infrastructure-readiness-audit.jsonl",
       "redactionReport": "redactions/infrastructure-readiness-audit.json",
-      "sha256": "f0b34ad00e50212a0b018c94e3b805ad8f17a125925ed30d4321fe795b8cec0d",
+      "sha256": "caa5c86aecb046c365758374f731e106ddd2d46cc928e6541ba1f928994247c8",
       "lines": 465,
       "finalReview": "pass"
     },
@@ -67,7 +67,7 @@
       "status": "completed",
       "sessionFile": "sessions/issue-10-exact-head-review.jsonl",
       "redactionReport": "redactions/issue-10-exact-head-review.json",
-      "sha256": "e81a350fcf4add63a6fbe680149e64f110da7de4969e79301757c126054b228b",
+      "sha256": "479b279988053f17e99eac2b159d45f827f15c39b4eda8a4bc6f404943083b09",
       "lines": 4136,
       "finalReview": "pass"
     },
@@ -77,7 +77,7 @@
       "status": "completed",
       "sessionFile": "sessions/issue-10-implementation-owner.jsonl",
       "redactionReport": "redactions/issue-10-implementation-owner.json",
-      "sha256": "17361f774b7362255f2afe54e0d47650a86685e426b08898be084ef31e2f6fe8",
+      "sha256": "423ac9bf74b1db2d82a4efce8d7606095d668f5a0754515b546cf777355ab063",
       "lines": 3900,
       "finalReview": "pass"
     },
@@ -87,7 +87,7 @@
       "status": "completed",
       "sessionFile": "sessions/issue-11-implementation-owner.jsonl",
       "redactionReport": "redactions/issue-11-implementation-owner.json",
-      "sha256": "babebe24a2d311fd47ef118764bf7942eeb656609df187301172a0ccf5939ebd",
+      "sha256": "0404fb01a213d42f44afbeb6187cd589d361d5ede960e9d0458c312f0c51e5d4",
       "lines": 3980,
       "finalReview": "pass"
     },
@@ -97,7 +97,7 @@
       "status": "completed",
       "sessionFile": "sessions/issue-11-review-a.jsonl",
       "redactionReport": "redactions/issue-11-review-a.json",
-      "sha256": "5a504a66e5164042126db6d59aaffee3293f9b200b252ab2893bb22b7a244e10",
+      "sha256": "8418fba857287aa3eac6bf0168dc799c8caf1e934b6054f38643850496cccaab",
       "lines": 4513,
       "finalReview": "pass"
     },
@@ -107,7 +107,7 @@
       "status": "completed",
       "sessionFile": "sessions/issue-11-review-b.jsonl",
       "redactionReport": "redactions/issue-11-review-b.json",
-      "sha256": "982e0ae5e09d0177d093c78327a84ad36dd02b541cd9ad8f1e7bf5e57b9889b5",
+      "sha256": "4f10e9481ee22e83eb3a4248933ef49ce58e27eda128598d8b6c0e1e358b96c4",
       "lines": 4557,
       "finalReview": "pass"
     },
@@ -117,7 +117,7 @@
       "status": "completed",
       "sessionFile": "sessions/issue-11-user-facing-delivery.jsonl",
       "redactionReport": "redactions/issue-11-user-facing-delivery.json",
-      "sha256": "08db69ea3f1b235864972057037f1d8c919af61880161897d5af608453c9bfa5",
+      "sha256": "cef2c704c1f7501c573f47f7e918765647608c63781a84ae50d854e06250db26",
       "lines": 106,
       "finalReview": "pass"
     },
@@ -127,7 +127,7 @@
       "status": "completed",
       "sessionFile": "sessions/issue-12-docs-audit.jsonl",
       "redactionReport": "redactions/issue-12-docs-audit.json",
-      "sha256": "1233b51392dfe21bcebe9efd35a60316c389453895b04eac5ca7131b626567d5",
+      "sha256": "533b781549dc932007300226c67cfbf215726fb69dde2d74a09eff8f62d53464",
       "lines": 94,
       "finalReview": "pass"
     },
@@ -137,7 +137,7 @@
       "status": "completed",
       "sessionFile": "sessions/issue-12-github-audit.jsonl",
       "redactionReport": "redactions/issue-12-github-audit.json",
-      "sha256": "247bb40fe141b686695c3eb250ac32c491fd8db9ff3fd1e5a3001956423edde8",
+      "sha256": "68b571a71fcd38ae5adf2e3599342c792d2bfbfd79c1c4b1b3888fc1bc148a5f",
       "lines": 108,
       "finalReview": "pass"
     },
@@ -147,7 +147,7 @@
       "status": "completed",
       "sessionFile": "sessions/issue-12-submission-audit.jsonl",
       "redactionReport": "redactions/issue-12-submission-audit.json",
-      "sha256": "4d9e25dbf10fa2ef4406a85cc04234ba62de1252b313c745b8560347e46b9b4b",
+      "sha256": "e98a173332a3d3b3150b1cdb658573f1c9ad2f7db234ead63d964db5e9538621",
       "lines": 325,
       "finalReview": "pass"
     },
@@ -157,7 +157,7 @@
       "status": "completed",
       "sessionFile": "sessions/issue-13-delivery-owner.jsonl",
       "redactionReport": "redactions/issue-13-delivery-owner.json",
-      "sha256": "848bce676bb24c69190e33b70c66cd8cd55b87e04d806de6575054e9fc41fc5f",
+      "sha256": "31a023721f2dbcc948f7bd39a8a09309f749bcb0ea73910a662355832a5e0c33",
       "lines": 3336,
       "finalReview": "pass"
     },
@@ -167,7 +167,7 @@
       "status": "completed",
       "sessionFile": "sessions/issue-13-exact-head-review.jsonl",
       "redactionReport": "redactions/issue-13-exact-head-review.json",
-      "sha256": "7c5d2ccea1bc8c492b62d5feba92e5f7c311c28005941d191ceb6aaf95753393",
+      "sha256": "163eb83948142b28f29d06b2097a6bbede54190985475d9820fe1d3464c1dfea",
       "lines": 3101,
       "finalReview": "pass"
     },
@@ -177,7 +177,7 @@
       "status": "completed",
       "sessionFile": "sessions/issue-17-repository-assets.jsonl",
       "redactionReport": "redactions/issue-17-repository-assets.json",
-      "sha256": "55bac6359f219d11a06ca72e048821dec5f7c7bb0f60c79576cef024d3f99022",
+      "sha256": "c4c23ab6b00b0a8d91205fcd4f2b55b9a4477f2dd5395563aa48ad3ea0d5b565",
       "lines": 3384,
       "finalReview": "pass"
     },
@@ -187,7 +187,7 @@
       "status": "completed",
       "sessionFile": "sessions/prd-review.jsonl",
       "redactionReport": "redactions/prd-review.json",
-      "sha256": "e6acdefa5fc0c655d0f611194e3ae64715f70ff88c9437805c2fde88c7de1663",
+      "sha256": "7edc0744e68f3411dc31986cf74a663d8f69f9ea2277c31beec6fbce65334f70",
       "lines": 711,
       "finalReview": "pass"
     },
@@ -197,7 +197,7 @@
       "status": "completed",
       "sessionFile": "sessions/prd-traceability-audit.jsonl",
       "redactionReport": "redactions/prd-traceability-audit.json",
-      "sha256": "94a788ebb755ee59b71c1a517a8b539fae723bf9809e5768e3d6c29da3cde96b",
+      "sha256": "0b694b95c461cfc666fea5a22948fba9bd538b9842af4be07cf6a8139d0d1dff",
       "lines": 1002,
       "finalReview": "pass"
     },
@@ -207,7 +207,7 @@
       "status": "completed",
       "sessionFile": "sessions/release-evidence-audit.jsonl",
       "redactionReport": "redactions/release-evidence-audit.json",
-      "sha256": "866700ec81e8b28fc878ffa2cbf7dc93f451c4a7aa234f218d6e4d697fc2476c",
+      "sha256": "e515ca2fe543d78be07c24d13410a3ce5d7ca3e479a7fbccbcb1a55b715d67bf",
       "lines": 4272,
       "finalReview": "pass"
     },
@@ -217,7 +217,7 @@
       "status": "completed",
       "sessionFile": "sessions/scope-review.jsonl",
       "redactionReport": "redactions/scope-review.json",
-      "sha256": "d6f3acd095b9508bae563123c23748a517a7ac2974092adf3a18a8df6dae9ad5",
+      "sha256": "7817cc489a334e836c95d58fa4455363e5eabc099a724513b15a13028e0b6abd",
       "lines": 27,
       "finalReview": "pass"
     },
@@ -227,7 +227,7 @@
       "status": "completed",
       "sessionFile": "sessions/timebox-review.jsonl",
       "redactionReport": "redactions/timebox-review.json",
-      "sha256": "143884b5b60119a4990c5d3dcdef5f9620e82a83b2b9482cc2690fd445fc4e37",
+      "sha256": "fa656d20e249696d113fc8ab74a99ce12414ea9f3a2d4ccee3bd152d166ebb27",
       "lines": 39,
       "finalReview": "pass"
     }

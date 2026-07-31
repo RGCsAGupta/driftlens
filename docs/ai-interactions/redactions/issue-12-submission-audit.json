@@ -3,6 +3,7 @@
     "LOCAL PATH": 573,
     "CREDENTIAL": 22,
     "PERSONAL DATA": 9,
+    "PRIVATE TOPOLOGY": 5,
     "PRIVATE NETWORK": 2
   },
   "inputLines": 325,
@@ -121,6 +122,30 @@
       "jsonPath": "$.payload.base_instructions.text",
       "line": 99,
       "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 195,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 195,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 195,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 195,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -679,6 +704,12 @@
       "jsonPath": "$.payload.output[1].text",
       "line": 222,
       "marker": "[REDACTED: PERSONAL DATA]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 222,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",

@@ -1,11 +1,11 @@
 {
   "categoryCounts": {
     "LOCAL PATH": 1548,
-    "CREDENTIAL": 253,
+    "CREDENTIAL": 254,
     "PERSONAL DATA": 14,
+    "PRIVATE TOPOLOGY": 326,
     "PRIVATE NETWORK": 34,
-    "KUBECONFIG MATERIAL": 6,
-    "PRIVATE TOPOLOGY": 8
+    "KUBECONFIG MATERIAL": 6
   },
   "inputLines": 4513,
   "outputLines": 4513,
@@ -51,6 +51,30 @@
       "jsonPath": "$.payload.base_instructions.text",
       "line": 2,
       "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 4,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 4,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 4,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 4,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -1595,6 +1619,30 @@
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 389,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 389,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 390,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 390,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.cwd",
       "line": 391,
@@ -1605,6 +1653,12 @@
       "jsonPath": "$.payload.base_instructions.text",
       "line": 391,
       "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 396,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -1643,6 +1697,12 @@
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 414,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.agent_path",
       "line": 417,
@@ -1661,10 +1721,472 @@
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 429,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.query",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.query",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.action.queries[0]",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.action.queries[0]",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "CREDENTIAL",
       "jsonPath": "$.payload.results[9].snippet",
       "line": 430,
       "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.results[12].domain",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.results[12].url",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.results[12].url",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.results[12].url",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.results[13].domain",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.results[13].url",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.results[13].url",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.results[13].url",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.results[14].domain",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.results[14].url",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.results[14].url",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.results[14].url",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.results[15].domain",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.results[15].url",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.results[15].url",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.results[15].url",
+      "line": 430,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.memory_citation.entries[0].note",
+      "line": 439,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 440,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 442,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -1691,6 +2213,18 @@
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 446,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 447,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.cwd",
       "line": 448,
@@ -1701,6 +2235,42 @@
       "jsonPath": "$.payload.base_instructions.text",
       "line": 448,
       "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 453,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 453,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 454,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 454,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 456,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 456,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -2063,6 +2633,24 @@
       "marker": "[REDACTED: CREDENTIAL]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 564,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 565,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 567,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.thread_settings.cwd",
       "line": 568,
@@ -2105,16 +2693,52 @@
       "marker": "[REDACTED: CREDENTIAL]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 579,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 579,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "CREDENTIAL",
       "jsonPath": "$.payload.content[0].text",
       "line": 580,
       "marker": "[REDACTED: CREDENTIAL]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 580,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 580,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "CREDENTIAL",
       "jsonPath": "$.payload.last_agent_message",
       "line": 582,
       "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 582,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 582,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -2151,6 +2775,12 @@
       "jsonPath": "$.payload.base_instructions.text",
       "line": 588,
       "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 602,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -2207,10 +2837,52 @@
       "marker": "[REDACTED: CREDENTIAL]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].content",
+      "line": 625,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].content",
+      "line": 625,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].content",
+      "line": 625,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].content",
+      "line": 625,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].content",
+      "line": 625,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].content",
+      "line": 625,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.agent_path",
       "line": 627,
       "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 641,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -2285,6 +2957,24 @@
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 668,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 668,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 668,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.agent_path",
       "line": 670,
@@ -2315,16 +3005,34 @@
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 685,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.message",
       "line": 685,
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 686,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.content[0].text",
       "line": 686,
       "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 688,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -2381,16 +3089,118 @@
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 702,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 702,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 702,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 702,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 702,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 702,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 702,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 702,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 706,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 706,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 706,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.message",
       "line": 706,
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 707,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 707,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 707,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.content[0].text",
       "line": 707,
       "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 709,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 709,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 709,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -2423,6 +3233,18 @@
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 713,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 714,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.cwd",
       "line": 715,
@@ -2433,6 +3255,18 @@
       "jsonPath": "$.payload.base_instructions.text",
       "line": 715,
       "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 718,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 718,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -2447,16 +3281,244 @@
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 720,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 720,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 720,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 720,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 720,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 720,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 720,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 720,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 720,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 720,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 720,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 720,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 720,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 720,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 723,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 723,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 723,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 723,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 723,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 723,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 723,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 723,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.message",
       "line": 723,
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 724,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 724,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 724,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 724,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 724,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 724,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 724,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 724,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.content[0].text",
       "line": 724,
       "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 726,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 726,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 726,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 726,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 726,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 726,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 726,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 726,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -2717,16 +3779,52 @@
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 838,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 838,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.message",
       "line": 838,
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 839,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 839,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.content[0].text",
       "line": 839,
       "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 841,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 841,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -2793,6 +3891,54 @@
       "jsonPath": "$.payload.changes.[KEY]",
       "line": 877,
       "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 885,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 885,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[30].content[0].text",
+      "line": 885,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[45].content[0].text",
+      "line": 885,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[52].content[1].text",
+      "line": 885,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[52].content[1].text",
+      "line": 885,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[52].content[1].text",
+      "line": 885,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[52].content[1].text",
+      "line": 885,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -3407,6 +4553,12 @@
       "marker": "[REDACTED: CREDENTIAL]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 933,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.agent_path",
       "line": 948,
@@ -3551,6 +4703,18 @@
       "marker": "[REDACTED: CREDENTIAL]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].content",
+      "line": 1097,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].content",
+      "line": 1097,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.agent_path",
       "line": 1101,
@@ -3639,6 +4803,12 @@
       "jsonPath": "$.payload.agent_path",
       "line": 1185,
       "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 1199,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -3773,6 +4943,18 @@
       "marker": "[REDACTED: CREDENTIAL]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 1278,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 1278,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.changes.[KEY]",
       "line": 1278,
@@ -3783,6 +4965,66 @@
       "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH]#2.unified_diff",
       "line": 1278,
       "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH]#2.unified_diff",
+      "line": 1278,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH]#2.unified_diff",
+      "line": 1278,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 1284,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 1284,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[30].content[0].text",
+      "line": 1284,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[45].content[0].text",
+      "line": 1284,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[57].content[1].text",
+      "line": 1284,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[57].content[1].text",
+      "line": 1284,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[57].content[1].text",
+      "line": 1284,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[57].content[1].text",
+      "line": 1284,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -4349,6 +5591,42 @@
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 1327,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 1327,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 1327,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 1327,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 1327,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes.[REDACTED: LOCAL PATH].unified_diff",
+      "line": 1327,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.stdout",
       "line": 1331,
@@ -4535,16 +5813,34 @@
       "marker": "[REDACTED: CREDENTIAL]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.invocation.arguments.body",
+      "line": 1472,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "CREDENTIAL",
       "jsonPath": "$.payload.result.Ok.structuredContent.issue.body",
       "line": 1472,
       "marker": "[REDACTED: CREDENTIAL]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.result.Ok.structuredContent.issue.body",
+      "line": 1472,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "CREDENTIAL",
       "jsonPath": "$.payload.result.Ok.structuredContent.issue.body",
       "line": 1485,
       "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.result.Ok.structuredContent.issue.body",
+      "line": 1485,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -5111,6 +6407,54 @@
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 1647,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 1647,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[30].content[0].text",
+      "line": 1647,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[45].content[0].text",
+      "line": 1647,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[62].content[1].text",
+      "line": 1647,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[62].content[1].text",
+      "line": 1647,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[62].content[1].text",
+      "line": 1647,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[62].content[1].text",
+      "line": 1647,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.replacement_history[62].content[1].text",
       "line": 1647,
@@ -5415,6 +6759,12 @@
       "jsonPath": "$.payload.replacement_history[64].content[2].text",
       "line": 1647,
       "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.replacement_history[66].encrypted_content",
+      "line": 1647,
+      "marker": "[REDACTED: CREDENTIAL]"
     },
     {
       "category": "LOCAL PATH",
@@ -5807,6 +7157,18 @@
       "marker": "[REDACTED: CREDENTIAL]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.result.Ok.structuredContent.issue.body",
+      "line": 1807,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.result.Ok.structuredContent.issue.body",
+      "line": 1807,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.thread_settings.cwd",
       "line": 1835,
@@ -5961,6 +7323,54 @@
       "jsonPath": "$.payload.base_instructions.text",
       "line": 1978,
       "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 1985,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 1985,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[30].content[0].text",
+      "line": 1985,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[45].content[0].text",
+      "line": 1985,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[72].content[1].text",
+      "line": 1985,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[72].content[1].text",
+      "line": 1985,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[72].content[1].text",
+      "line": 1985,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[72].content[1].text",
+      "line": 1985,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -6647,6 +8057,24 @@
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 2188,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 2189,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 2191,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.cwd",
       "line": 2193,
@@ -6693,6 +8121,24 @@
       "jsonPath": "$.payload.base_instructions.text",
       "line": 2218,
       "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 2228,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 2229,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 2231,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "CREDENTIAL",
@@ -6762,7 +8208,55 @@
     },
     {
       "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 2241,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 2241,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[30].content[0].text",
+      "line": 2241,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[45].content[0].text",
+      "line": 2241,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
       "jsonPath": "$.payload.replacement_history[78].content[0].text",
+      "line": 2241,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[79].content[1].text",
+      "line": 2241,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[79].content[1].text",
+      "line": 2241,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[79].content[1].text",
+      "line": 2241,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[79].content[1].text",
       "line": 2241,
       "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
@@ -7085,6 +8579,24 @@
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 2259,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 2260,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 2262,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.cwd",
       "line": 2264,
@@ -7109,6 +8621,42 @@
       "marker": "[REDACTED: CREDENTIAL]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 2273,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 2273,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 2277,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 2277,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 2298,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 2298,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.cwd",
       "line": 2310,
@@ -7119,6 +8667,18 @@
       "jsonPath": "$.payload.base_instructions.text",
       "line": 2310,
       "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 2326,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 2326,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -7143,6 +8703,12 @@
       "jsonPath": "$.payload.base_instructions.text",
       "line": 2459,
       "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.message",
+      "line": 2463,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -7158,7 +8724,55 @@
     },
     {
       "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 2535,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 2535,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[30].content[0].text",
+      "line": 2535,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[45].content[0].text",
+      "line": 2535,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
       "jsonPath": "$.payload.replacement_history[78].content[0].text",
+      "line": 2535,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[84].content[1].text",
+      "line": 2535,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[84].content[1].text",
+      "line": 2535,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[84].content[1].text",
+      "line": 2535,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[84].content[1].text",
       "line": 2535,
       "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
@@ -7518,7 +9132,55 @@
     },
     {
       "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 2844,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 2844,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[30].content[0].text",
+      "line": 2844,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[45].content[0].text",
+      "line": 2844,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
       "jsonPath": "$.payload.replacement_history[78].content[0].text",
+      "line": 2844,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[85].content[1].text",
+      "line": 2844,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[85].content[1].text",
+      "line": 2844,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[85].content[1].text",
+      "line": 2844,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[85].content[1].text",
       "line": 2844,
       "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
@@ -7883,10 +9545,76 @@
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes./tmp/driftlens-bind-identity.sh.content",
+      "line": 2910,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes./tmp/driftlens-bind-identity.sh.unified_diff",
+      "line": 2918,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes./tmp/driftlens-bind-identity.sh.unified_diff",
+      "line": 2918,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes./tmp/driftlens-discover-registry.sh.content",
+      "line": 2939,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.text",
+      "line": 2944,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes./tmp/driftlens-discover-registry.sh.unified_diff",
+      "line": 2945,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes./tmp/driftlens-discover-registry.sh.unified_diff",
+      "line": 2945,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes./tmp/driftlens-discover-registry.sh.unified_diff",
+      "line": 2945,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes./tmp/driftlens-provision-target-config.sh.content",
+      "line": 2965,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes./tmp/driftlens-install-target-contract.sh.content",
+      "line": 2978,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.changes./tmp/driftlens-install-target-contract.sh.content",
       "line": 2978,
       "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes./tmp/driftlens-install-target-contract.sh.unified_diff",
+      "line": 2985,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -7907,10 +9635,40 @@
       "marker": "[REDACTED: LOCAL PATH]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes./tmp/driftlens-provision-target-config.sh.content",
+      "line": 3066,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes./tmp/driftlens-install-target-contract.sh.content",
+      "line": 3066,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.changes./tmp/driftlens-install-target-contract.sh.content",
       "line": 3066,
       "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes./tmp/driftlens-discover-registry.sh.content",
+      "line": 3066,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes./tmp/driftlens-discover-registry.sh.content",
+      "line": 3066,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes./tmp/driftlens-bind-identity.sh.content",
+      "line": 3066,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -8345,6 +10103,12 @@
       "marker": "[REDACTED: KUBECONFIG MATERIAL]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes./tmp/driftlens-provision-demo-cluster.sh.content",
+      "line": 3281,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.changes./tmp/driftlens-provision-demo-cluster.sh.content",
       "line": 3281,
@@ -8370,7 +10134,61 @@
     },
     {
       "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.changes./tmp/driftlens-kind-diagnostic.sh.content",
+      "line": 3297,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 3305,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 3305,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[30].content[0].text",
+      "line": 3305,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[45].content[0].text",
+      "line": 3305,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
       "jsonPath": "$.payload.replacement_history[78].content[0].text",
+      "line": 3305,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[98].content[1].text",
+      "line": 3305,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[98].content[1].text",
+      "line": 3305,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[98].content[1].text",
+      "line": 3305,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[98].content[1].text",
       "line": 3305,
       "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
@@ -9156,7 +10974,55 @@
     },
     {
       "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 3797,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 3797,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[30].content[0].text",
+      "line": 3797,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[45].content[0].text",
+      "line": 3797,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
       "jsonPath": "$.payload.replacement_history[78].content[0].text",
+      "line": 3797,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[119].content[1].text",
+      "line": 3797,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[119].content[1].text",
+      "line": 3797,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[119].content[1].text",
+      "line": 3797,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[119].content[1].text",
       "line": 3797,
       "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
@@ -9612,7 +11478,55 @@
     },
     {
       "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 4062,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[27].content[0].text",
+      "line": 4062,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[30].content[0].text",
+      "line": 4062,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[45].content[0].text",
+      "line": 4062,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
       "jsonPath": "$.payload.replacement_history[78].content[0].text",
+      "line": 4062,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[125].content[1].text",
+      "line": 4062,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[125].content[1].text",
+      "line": 4062,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[125].content[1].text",
+      "line": 4062,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.replacement_history[125].content[1].text",
       "line": 4062,
       "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },

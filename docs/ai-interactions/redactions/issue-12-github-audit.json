@@ -3,6 +3,7 @@
     "LOCAL PATH": 94,
     "CREDENTIAL": 14,
     "PERSONAL DATA": 4,
+    "PRIVATE TOPOLOGY": 6,
     "PRIVATE NETWORK": 4
   },
   "inputLines": 108,
@@ -55,6 +56,30 @@
       "jsonPath": "$.payload.git.repository_url",
       "line": 2,
       "marker": "[REDACTED: PERSONAL DATA]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 4,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 4,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 4,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 4,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     },
     {
       "category": "LOCAL PATH",
@@ -621,6 +646,12 @@
       "marker": "[REDACTED: CREDENTIAL]"
     },
     {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 48,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
       "category": "LOCAL PATH",
       "jsonPath": "$.payload.input",
       "line": 51,
@@ -703,6 +734,12 @@
       "jsonPath": "$.payload.output[1].text",
       "line": 97,
       "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 97,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
     }
   ],
   "sourceSessionId": "019fb869-0231-7f40-908f-3c9e12957e3d",

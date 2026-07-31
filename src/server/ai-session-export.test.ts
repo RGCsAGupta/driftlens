@@ -82,7 +82,7 @@ describe("AI session exporter", () => {
     try {
       writeFileSync(
         source,
-        `${JSON.stringify({ type: "session_meta", payload: { id: sessionId } })}\n`,
+        `${JSON.stringify({ type: "session_meta", payload: { id: sessionId, deployment: "driftlens-demo" } })}\n`,
       );
       execFileSync(
         process.execPath,
@@ -91,6 +91,52 @@ describe("AI session exporter", () => {
       );
 
       expect(JSON.parse(readFileSync(report, "utf8")).redactions).toEqual([]);
+      expect(readFileSync(destination, "utf8")).toContain("driftlens-demo");
+    } finally {
+      rmSync(directory, { recursive: true, force: true });
+    }
+  });
+
+  it("redacts synthetic internal host and VM labels as private topology", () => {
+    const directory = fixtureDirectory();
+    const source = join(directory, "source.jsonl");
+    const destination = join(directory, "submitted.jsonl");
+    const report = join(directory, "redactions.json");
+    const privateLabels = [
+      "pve-host-42",
+      "vm-4242",
+      "driftlens-app-host-42",
+      "driftlens-runner-host-42",
+    ];
+    try {
+      writeFileSync(
+        source,
+        [
+          JSON.stringify({ type: "session_meta", payload: { id: sessionId } }),
+          JSON.stringify({
+            type: "response_item",
+            payload: {
+              deployment: "driftlens-demo",
+              labels: privateLabels,
+            },
+          }),
+        ].join("\n") + "\n",
+      );
+
+      execFileSync(
+        process.execPath,
+        [exporter, source, sessionId, destination, report],
+        { encoding: "utf8" },
+      );
+
+      const submitted = readFileSync(destination, "utf8");
+      for (const label of privateLabels) {
+        expect(submitted).not.toContain(label);
+      }
+      expect(submitted).toContain("driftlens-demo");
+      expect(JSON.parse(readFileSync(report, "utf8")).categoryCounts).toEqual({
+        "PRIVATE TOPOLOGY": 4,
+      });
     } finally {
       rmSync(directory, { recursive: true, force: true });
     }
@@ -331,6 +377,61 @@ describe("AI session export verifier", () => {
               sessionFile: "submitted.jsonl",
               sessionId,
               sha256: "0".repeat(64),
+              status: "completed",
+            },
+          ],
+        }),
+      );
+
+      expect(spawnSync(process.execPath, [verifier, index]).status).toBe(2);
+    } finally {
+      rmSync(directory, { recursive: true, force: true });
+    }
+  });
+
+  it("fails closed when a submitted session retains internal labels", () => {
+    const directory = fixtureDirectory();
+    const destination = join(directory, "submitted.jsonl");
+    const report = join(directory, "redactions.json");
+    const index = join(directory, "index.json");
+    try {
+      const submitted = `${JSON.stringify({
+        type: "session_meta",
+        payload: {
+          id: sessionId,
+          deployment: "driftlens-demo",
+          labels: [
+            "pve-host-42",
+            "vm-4242",
+            "driftlens-app-host-42",
+            "driftlens-deploy-runner-42",
+          ],
+        },
+      })}\n`;
+      writeFileSync(destination, submitted);
+      writeFileSync(
+        report,
+        JSON.stringify({
+          inputLines: 1,
+          outputLines: 1,
+          redactions: [],
+          sourceSessionId: sessionId,
+          submittedFile: "submitted.jsonl",
+        }),
+      );
+      writeFileSync(
+        index,
+        JSON.stringify({
+          version: 1,
+          exported: [
+            {
+              finalReview: "pass",
+              lines: 1,
+              purpose: "test",
+              redactionReport: "redactions.json",
+              sessionFile: "submitted.jsonl",
+              sessionId,
+              sha256: createHash("sha256").update(submitted).digest("hex"),
               status: "completed",
             },
           ],

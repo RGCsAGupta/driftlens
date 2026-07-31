@@ -17,10 +17,10 @@ its ID, line count, checksum, and report reconcile.
   intentionally omitted.
 - Automated review found and replaced credential-shaped values, sensitive-key
   values, private keys, kubeconfig material, personal email addresses, private
-  topology/network values, and local paths, including paths stored as object
-  keys.
-- Repository secret scanning and explicit credential, private-network, and
-  local-path scans pass on the derived copies.
+  topology/network values (including internal host and VM labels), and local
+  paths, including paths stored as object keys.
+- Repository secret scanning and explicit credential, private-network,
+  internal-label, and local-path scans pass on the derived copies.
 - These passes cover the submitted rolling copies only. They do not make an
   active or unavailable source complete.
 
