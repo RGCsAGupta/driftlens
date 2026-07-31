@@ -128,7 +128,7 @@ validate_origin_address() {
 
 validate_runtime_files() {
   require_config_file "runtime environment" "$runtime_env_file" 0 0 600
-  require_config_file "kubeconfig" "$kubeconfig_file" 0 1001 440
+  require_config_file "kubeconfig" "$kubeconfig_file" 0 10001 440
   require_config_file "private origin address" "$origin_address_file" 0 0 600
 
   validate_runtime_environment

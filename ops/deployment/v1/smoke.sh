@@ -39,7 +39,7 @@ validate_container() {
   test "$(docker container inspect "$checked_name" --format '{{.Config.Image}}' 2>/dev/null)" = \
     "$candidate_image" || return 1
   test "$(docker container inspect "$checked_name" --format '{{.Config.User}}' 2>/dev/null)" = \
-    1001:1001 || return 1
+    10001:10001 || return 1
   test "$(docker container inspect "$checked_name" --format '{{.HostConfig.ReadonlyRootfs}}' 2>/dev/null)" = \
     true || return 1
   docker container inspect "$checked_name" \
@@ -112,7 +112,7 @@ docker run --detach \
   --read-only \
   --security-opt no-new-privileges \
   --cap-drop ALL \
-  --user 1001:1001 \
+  --user 10001:10001 \
   --env-file "$runtime_env_file" \
   --tmpfs /tmp:rw,noexec,nosuid,nodev,size=64m \
   --mount "type=bind,source=$data_root,target=/data" \

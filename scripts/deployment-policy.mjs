@@ -1,16 +1,24 @@
 import assert from "node:assert/strict";
 
 export function validateDeploymentPolicy({
+  dockerfile,
   common,
   bootstrap,
   release,
   smoke,
 }) {
+  assert.match(dockerfile, /addgroup --system --gid 10001 nodejs/);
+  assert.match(
+    dockerfile,
+    /adduser --system --uid 10001 --ingroup nodejs nextjs/,
+  );
+  assert.match(dockerfile, /USER 10001:10001/);
+
   assert.match(common, /runtime_env_file=\/etc\/driftlens\/runtime\.env/);
   assert.match(common, /kubeconfig_file=\/etc\/driftlens\/kubeconfig/);
   assert.match(common, /origin_address_file=\/etc\/driftlens\/origin-address/);
   assert.match(common, /require_config_file "runtime environment".*0 0 600/);
-  assert.match(common, /require_config_file "kubeconfig".*0 1001 440/);
+  assert.match(common, /require_config_file "kubeconfig".*0 10001 440/);
   assert.match(common, /DRIFTLENS_KUBECONFIG_PATH=\$container_kubeconfig/);
   assert.match(common, /DRIFTLENS_GITHUB_REPOSITORY/);
   assert.match(common, /DRIFTLENS_MANIFEST_PATH/);
@@ -35,8 +43,8 @@ export function validateDeploymentPolicy({
     /deployment user must not share the container identity/,
   );
   assert.match(bootstrap, /deployment user must not share the container group/);
-  assert.match(bootstrap, /getent passwd 1001/);
-  assert.match(bootstrap, /getent group 1001/);
+  assert.match(bootstrap, /getent passwd 10001/);
+  assert.match(bootstrap, /getent group 10001/);
   assert.match(bootstrap, /container UID must not map to a host account/);
   assert.match(bootstrap, /container GID must not map to a host group/);
   assert.match(bootstrap, /\(docker\|sudo\|wheel\)/);
@@ -80,7 +88,7 @@ export function validateDeploymentPolicy({
   assert.match(release, /--read-only/);
   assert.match(release, /--security-opt no-new-privileges/);
   assert.match(release, /--cap-drop ALL/);
-  assert.match(release, /--user 1001:1001/);
+  assert.match(release, /--user 10001:10001/);
   assert.match(release, /--tmpfs \/tmp:rw,noexec,nosuid,nodev,size=64m/);
   assert.match(release, /type=bind,source=\$data_root,target=\/data/);
   assert.match(release, /candidate_name=driftlens-candidate/);
@@ -94,6 +102,7 @@ export function validateDeploymentPolicy({
 
   assert.match(smoke, /test "\$#" -eq 1/);
   assert.match(smoke, /test "\$candidate_revision" = "\$expected_revision"/);
+  assert.match(smoke, /= \\\n {4}10001:10001 \|\| return 1/);
   assert.match(smoke, /ReadonlyRootfs/);
   assert.match(smoke, /no-new-privileges/);
   assert.match(smoke, /CapDrop/);
@@ -103,6 +112,7 @@ export function validateDeploymentPolicy({
   assert.match(smoke, /\["health", "ready", "version"\]/);
   assert.match(smoke, /result\.version\.buildSha !== expected/);
   assert.match(smoke, /--read-only/);
+  assert.match(smoke, /--user 10001:10001/);
   assert.match(smoke, /--env-file "\$runtime_env_file"/);
   assert.match(
     smoke,

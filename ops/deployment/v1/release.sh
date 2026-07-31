@@ -109,7 +109,7 @@ cleanup_registry_auth || fail "registry authentication cleanup failed"
 trap - EXIT INT TERM
 
 install -d -o root -g root -m 0750 "$release_root"
-install -d -o 1001 -g 1001 -m 0750 "$data_root"
+install -d -o 10001 -g 10001 -m 0750 "$data_root"
 
 if test -f "$release_root/candidate"; then
   mv -f "$release_root/candidate" "$release_root/failed"
@@ -142,7 +142,7 @@ docker run --detach \
   --read-only \
   --security-opt no-new-privileges \
   --cap-drop ALL \
-  --user 1001:1001 \
+  --user 10001:10001 \
   --env-file "$runtime_env_file" \
   --tmpfs /tmp:rw,noexec,nosuid,nodev,size=64m \
   --mount "type=bind,source=$data_root,target=/data" \

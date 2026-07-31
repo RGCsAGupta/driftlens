@@ -86,7 +86,7 @@ material after the verified pull and on every failure path. The target has no
 persistent registry credential prerequisite.
 
 It passes the validated runtime environment, mounts the validated kubeconfig
-read-only, and runs the image as numeric non-root user `1001:1001` with all
+read-only, and runs the image as numeric non-root user `10001:10001` with all
 capabilities dropped, `no-new-privileges`, a read-only root filesystem, a
 bounded temporary mount, and one persistent data bind mount. The candidate is
 unpublished. The stable container publishes only on the preprovisioned private

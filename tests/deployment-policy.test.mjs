@@ -82,13 +82,14 @@ function runContentValidation({
 }
 
 async function deploymentScripts() {
-  const [common, bootstrap, release, smoke] = await Promise.all(
-    ["common.sh", "bootstrap.sh", "release.sh", "smoke.sh"].map((name) =>
+  const [dockerfile, common, bootstrap, release, smoke] = await Promise.all([
+    readFile(new URL("../Dockerfile", import.meta.url), "utf8"),
+    ...["common.sh", "bootstrap.sh", "release.sh", "smoke.sh"].map((name) =>
       readFile(new URL(name, deploymentRoot), "utf8"),
     ),
-  );
+  ]);
 
-  return { common, bootstrap, release, smoke };
+  return { dockerfile, common, bootstrap, release, smoke };
 }
 
 async function runReleaseWithFailedPull() {
@@ -439,12 +440,19 @@ test("privileged deployment accounts fail the bootstrap policy", async () => {
   assert.throws(() => validateDeploymentPolicy(scripts));
 });
 
-test("host identity collisions fail the bootstrap policy", async () => {
+test("the exact container host identity collision check is required", async () => {
   const scripts = await deploymentScripts();
   scripts.bootstrap = scripts.bootstrap.replace(
-    "getent passwd 1001",
-    "getent passwd 1002",
+    "getent passwd 10001",
+    "getent passwd 10002",
   );
+
+  assert.throws(() => validateDeploymentPolicy(scripts));
+});
+
+test("container image identity drift fails the deployment policy", async () => {
+  const scripts = await deploymentScripts();
+  scripts.dockerfile = scripts.dockerfile.replace("--uid 10001", "--uid 10002");
 
   assert.throws(() => validateDeploymentPolicy(scripts));
 });
