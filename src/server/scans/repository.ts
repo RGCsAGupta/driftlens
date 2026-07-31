@@ -116,6 +116,15 @@ const SCHEMA = `
   CREATE INDEX scans_created_at_idx ON scans(created_at DESC);
 `;
 
+const EXPLANATION_COLUMNS = [
+  ["explanation_state", "TEXT NOT NULL DEFAULT 'NOT_REQUESTED'"],
+  ["explanation_json", "TEXT"],
+  ["explanation_error_code", "TEXT"],
+  ["explanation_error_message", "TEXT"],
+  ["explanation_requested_at", "TEXT"],
+  ["explanation_saved_at", "TEXT"],
+] as const;
+
 function parseJson<T>(value: string | null, fallback: T): T {
   if (value === null) {
     return fallback;
@@ -455,41 +464,49 @@ export class SqliteScanRepository implements ScanRepository {
     const row = this.database.prepare("PRAGMA user_version").get() as {
       user_version: number;
     };
-    if (row.user_version === 2) {
-      return;
-    }
-    if (row.user_version === 1) {
-      this.write(() => {
-        this.database.exec(
-          `ALTER TABLE scans ADD COLUMN explanation_state TEXT NOT NULL DEFAULT 'NOT_REQUESTED';
-           ALTER TABLE scans ADD COLUMN explanation_json TEXT;
-           ALTER TABLE scans ADD COLUMN explanation_error_code TEXT;
-           ALTER TABLE scans ADD COLUMN explanation_error_message TEXT;
-           ALTER TABLE scans ADD COLUMN explanation_requested_at TEXT;
-           ALTER TABLE scans ADD COLUMN explanation_saved_at TEXT;`,
-        );
-        this.database.exec("PRAGMA user_version = 2");
-      });
-      return;
-    }
-    if (row.user_version !== 0) {
+    if (![0, 1, 2].includes(row.user_version)) {
       throw new Error(
         `Unsupported database schema version: ${row.user_version}`,
       );
     }
 
+    if (row.user_version === 0) {
+      this.write(() => {
+        this.database.exec(SCHEMA);
+        this.addMissingExplanationColumns();
+        this.database.exec("PRAGMA user_version = 1");
+      });
+      return;
+    }
+
+    const missingColumns = this.missingExplanationColumns();
+    if (missingColumns.length === 0 && row.user_version === 1) return;
+
     this.write(() => {
-      this.database.exec(SCHEMA);
-      this.database.exec(
-        `ALTER TABLE scans ADD COLUMN explanation_state TEXT NOT NULL DEFAULT 'NOT_REQUESTED';
-         ALTER TABLE scans ADD COLUMN explanation_json TEXT;
-         ALTER TABLE scans ADD COLUMN explanation_error_code TEXT;
-         ALTER TABLE scans ADD COLUMN explanation_error_message TEXT;
-         ALTER TABLE scans ADD COLUMN explanation_requested_at TEXT;
-         ALTER TABLE scans ADD COLUMN explanation_saved_at TEXT;`,
-      );
-      this.database.exec("PRAGMA user_version = 2");
+      this.addMissingExplanationColumns(missingColumns);
+      // Version 2 existed only on the unmerged feature branch. Returning it to
+      // version 1 lets the last-known-good binary ignore these additive columns.
+      this.database.exec("PRAGMA user_version = 1");
     });
+  }
+
+  private addMissingExplanationColumns(
+    columns = this.missingExplanationColumns(),
+  ): void {
+    for (const [name, definition] of columns) {
+      this.database.exec(`ALTER TABLE scans ADD COLUMN ${name} ${definition}`);
+    }
+  }
+
+  private missingExplanationColumns(): (typeof EXPLANATION_COLUMNS)[number][] {
+    const existing = new Set(
+      (
+        this.database.prepare("PRAGMA table_info(scans)").all() as Array<{
+          name: string;
+        }>
+      ).map(({ name }) => name),
+    );
+    return EXPLANATION_COLUMNS.filter(([name]) => !existing.has(name));
   }
 
   private appendStage(id: string, stage: ScanStage, at: string): void {

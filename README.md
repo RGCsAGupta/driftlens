@@ -116,7 +116,9 @@ content, or complete manifests.
 ## Persistence
 
 `DRIFTLENS_DATA_DIR` contains `driftlens.sqlite`. Node 24 `node:sqlite`
-bootstraps schema version 2 idempotently and uses prepared statements for every
+keeps rollback-compatible schema version 1 while adding explanation columns
+idempotently. The previous immutable image ignores those additive columns and
+can still pass storage readiness after rollback. Prepared statements bind every
 dynamic value. The database retains only requested/resolved revisions,
 supported projections and differences, target identity, timestamps, stages,
 outcomes, and safe errors. It never stores complete manifests or kubeconfig

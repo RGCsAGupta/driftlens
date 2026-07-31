@@ -89,6 +89,19 @@ function createSchemaV1Database(path: string): void {
   database.close();
 }
 
+function openAsLastKnownGoodBinary(path: string): DatabaseSync {
+  const database = new DatabaseSync(path);
+  const row = database.prepare("PRAGMA user_version").get() as {
+    user_version: number;
+  };
+  if (row.user_version !== 1) {
+    database.close();
+    throw new Error(`Unsupported database schema version: ${row.user_version}`);
+  }
+  database.exec("PRAGMA foreign_keys = ON");
+  return database;
+}
+
 afterEach(() => {
   for (const directory of directories.splice(0)) {
     rmSync(directory, { force: true, recursive: true });
@@ -96,7 +109,7 @@ afterEach(() => {
 });
 
 describe("SqliteScanRepository", () => {
-  it("bootstraps schema version two idempotently and preserves restart history", () => {
+  it("bootstraps rollback-compatible schema version one idempotently", () => {
     const path = databasePath();
     const first = new SqliteScanRepository(path);
     first.createQueued("scan-1", "main", "2026-07-31T00:00:00.000Z");
@@ -116,7 +129,7 @@ describe("SqliteScanRepository", () => {
 
     const inspection = new DatabaseSync(path, { readOnly: true });
     expect(inspection.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: 2,
+      user_version: 1,
     });
     inspection.close();
   });
@@ -176,9 +189,60 @@ describe("SqliteScanRepository", () => {
 
     const inspection = new DatabaseSync(path, { readOnly: true });
     expect(inspection.prepare("PRAGMA user_version").get()).toEqual({
-      user_version: 2,
+      user_version: 1,
     });
     inspection.close();
+  });
+
+  it("keeps a migrated database usable by the last-known-good binary", () => {
+    const path = databasePath();
+    createSchemaV1Database(path);
+
+    const migrated = new SqliteScanRepository(path);
+    migrated.requestExplanation("scan-v1", "2026-07-31T00:00:02.000Z");
+    migrated.close();
+
+    const preCorrection = new DatabaseSync(path);
+    preCorrection.exec("PRAGMA user_version = 2");
+    preCorrection.close();
+    expect(() => openAsLastKnownGoodBinary(path)).toThrow(
+      "Unsupported database schema version: 2",
+    );
+
+    const corrected = new SqliteScanRepository(path);
+    corrected.close();
+
+    const rolledBack = openAsLastKnownGoodBinary(path);
+    rolledBack.exec("BEGIN IMMEDIATE");
+    rolledBack
+      .prepare(
+        `INSERT INTO scans (
+          id, requested_ref, status, stage, created_at, updated_at
+        ) VALUES (?, ?, 'QUEUED', 'QUEUED', ?, ?)`,
+      )
+      .run(
+        "rollback-readiness",
+        "readiness-probe",
+        "1970-01-01T00:00:00.000Z",
+        "1970-01-01T00:00:00.000Z",
+      );
+    rolledBack.exec("ROLLBACK");
+    expect(
+      rolledBack
+        .prepare(
+          `SELECT id, requested_ref, status, stage, outcome, desired_json,
+            live_json, differences_json, error_code, error_message,
+            created_at, updated_at, completed_at
+          FROM scans WHERE id = ?`,
+        )
+        .get("scan-v1"),
+    ).toMatchObject({
+      id: "scan-v1",
+      outcome: "DRIFTED",
+      requested_ref: "main",
+      status: "COMPLETED",
+    });
+    rolledBack.close();
   });
 
   it("binds injection-shaped values and preserves ordered append-only stages", () => {
