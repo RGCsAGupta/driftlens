@@ -109,6 +109,26 @@ async function runReleaseWithFailedPull() {
   mkdirSync(mockBin);
   writeFileSync(repositoryPath, `${repository}\n`, { mode: 0o600 });
   writeFileSync(
+    join(mockBin, "id"),
+    `#!/bin/sh
+if test "$#" -eq 1 && test "$1" = "-u"; then
+  printf '0\\n'
+  exit 0
+fi
+exec /usr/bin/id "$@"
+`,
+  );
+  writeFileSync(
+    join(mockBin, "stat"),
+    `#!/bin/sh
+if test "$#" -eq 3 && test "$1" = "-c" && test "$2" = "%u"; then
+  printf '0\\n'
+  exit 0
+fi
+exec /usr/bin/stat "$@"
+`,
+  );
+  writeFileSync(
     join(mockBin, "docker"),
     `#!/bin/sh
 set -eu
@@ -131,7 +151,9 @@ case "$1" in
 esac
 `,
   );
-  chmodSync(join(mockBin, "docker"), 0o755);
+  for (const command of ["docker", "id", "stat"]) {
+    chmodSync(join(mockBin, command), 0o755);
+  }
 
   const release = (
     await readFile(new URL("release.sh", deploymentRoot), "utf8")
@@ -148,6 +170,10 @@ esac
     .replace(
       "registry_auth_parent=/run/driftlens",
       `registry_auth_parent=${registryAuthParent}`,
+    )
+    .replace(
+      'install -d -o root -g root -m 0700 "$registry_auth_parent"',
+      'install -d -m 0700 "$registry_auth_parent"',
     )
     .replace(
       ". /usr/local/libexec/driftlens/v1/common.sh",
