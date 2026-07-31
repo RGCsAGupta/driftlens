@@ -30,8 +30,6 @@ safe relative path to one plain-YAML `apps/v1` Deployment with explicit
 `metadata.name` and `metadata.namespace`. The kubeconfig identity must have
 only the namespaced Deployment `get` permission needed for the target.
 
-## Scan API
-
 ## Operator console
 
 Open `http://localhost:3000`, enter one branch or full commit SHA, and choose

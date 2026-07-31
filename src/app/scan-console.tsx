@@ -340,6 +340,14 @@ export function ScanConsole({
                         <strong>{scan.requestedRef}</strong>
                         <span>{formatTime(scan.createdAt)}</span>
                         <span>
+                          Target:{" "}
+                          {scan.target
+                            ? `${scan.target.namespace}/${scan.target.name}`
+                            : TERMINAL.has(scan.status)
+                              ? "Unavailable"
+                              : "Pending"}
+                        </span>
+                        <span>
                           {scan.status}
                           {scan.outcome
                             ? ` · ${scan.outcome.replace("_", " ")}`

@@ -177,6 +177,15 @@ describe("scan console interaction", () => {
         outcome,
         stage: status === "RUNNING" ? "READING_LIVE" : status,
         status,
+        target:
+          status === "COMPLETED"
+            ? {
+                apiVersion: "apps/v1",
+                kind: "Deployment",
+                name: "app",
+                namespace: "demo",
+              }
+            : null,
       });
       render(
         <ScanConsole
@@ -185,6 +194,13 @@ describe("scan console interaction", () => {
       );
       expect(
         await screen.findByRole("button", { name: new RegExp(expected) }),
+      ).toBeTruthy();
+      expect(
+        screen.getByText(
+          status === "COMPLETED"
+            ? "Target: demo/app"
+            : `Target: ${status === "FAILED" ? "Unavailable" : "Pending"}`,
+        ),
       ).toBeTruthy();
     },
   );

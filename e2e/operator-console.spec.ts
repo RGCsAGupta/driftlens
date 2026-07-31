@@ -117,6 +117,9 @@ test("operator starts, follows, reviews, and reloads a scan accessibly", async (
   await expect(
     page.getByRole("button", { name: /main.*COMPLETED.*DRIFTED/i }),
   ).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: /Target: demo\/app/i }),
+  ).toBeVisible();
   await expect(page).toHaveURL(/\?scan=scan-1$/);
 
   await page.reload();
