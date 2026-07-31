@@ -27,7 +27,7 @@ digest belongs in this file.
 | User-selected domain          | PENDING | No approved hostname recorded in #12; do not guess one                                                                             |
 | Server-side OpenAI preflight  | PENDING | No current server-side preflight evidence; no secret value was inspected or printed                                                |
 | Session source readability    | PARTIAL | Candidate files found; final mapping, derived exports, and secret review wait for code freeze                                      |
-| #12 continuation authority    | PASS    | `25m22s` charged through the demo correction push; user explicitly authorized immediate continuation without another time approval |
+| #12 continuation authority    | PASS    | `25m32s` charged through the demo correction push; user explicitly authorized immediate continuation without another time approval |
 
 Go/no-go result: **NO-GO for release execution**. Continue only preparation
 that does not conflict with #11. Recalculate this table after #11 merges.
@@ -87,7 +87,7 @@ not count.
 | #10  |               `24m05s` | Final issue-owner checkpoint; delivered through protected main          |
 | #11  | approximately `10m00s` | Initial target consumed; owner findings remain before publication       |
 | #17  |               `24m00s` | Final acceptance checkpoint; original combined cap was `32m00s`         |
-| #12  |               `25m22s` | `12m00s` prior plus `13m22s` demo/correction segment; CI waits excluded |
+| #12  |               `25m32s` | `12m00s` prior plus `13m32s` demo/correction segment; CI waits excluded |
 | #8   |              RECONCILE | Exact active-only total not yet consolidated here                       |
 | #13  |              RECONCILE | Exact active-only total not yet consolidated here                       |
 
@@ -96,8 +96,8 @@ sum authoritative issue-owner handoffs against the 240-active-minute ceiling.
 The parent records one `65m39s` implementation/review window spanning #8
 completion while #13 was active, with parallel work counted once; it is not a
 defensible per-issue total. The original target was `12m00s` for each lane.
-The combined #17/#12 record is now `49m22s`, exceeding its original `32m00s`
-cap by `17m22s`. The continuation was explicitly authorized, but this overrun
+The combined #17/#12 record is now `49m32s`, exceeding its original `32m00s`
+cap by `17m32s`. The continuation was explicitly authorized, but this overrun
 must remain visible in the final 240-active-minute reconciliation. Time spent
 on this evidence-only reconciliation after the demo correction push is not yet
 included and remains a ledger gap.
