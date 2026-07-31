@@ -1,6 +1,6 @@
 # Submission preparation evidence
 
-Status: parent #3 submission freeze prepared; final coordinator export and evidence merge open
+Status: parent #3 final evidence checkpoint prepared; exact-head review and merge open
 
 Parent: [#3](https://github.com/RGCsAGupta/driftlens/issues/3)
 
@@ -11,56 +11,57 @@ Frozen functional and deployed release SHA: `f3afbb8d816559736ad4acdac3e0f104cd1
 Recorded: `2026-07-31T19:12:18Z`
 
 This document records public-safe parent #3 submission evidence after issues
-#8–#11, #13, #17, and bug #22 merged. `HANDOFF` identifies work owned by parent
-#3 after #12 release-join closure; it is not a #12 blocker.
+#8–#13, #17, and bug #22 merged. The functional release is frozen; the remaining
+steps are exact-head evidence review, approval, merge, deployment proof, and
+closure.
 No private endpoint, private hostname, identity, credential, kubeconfig value,
 or image digest belongs in this file.
 
 ## Release checkpoint
 
-| Prerequisite                  | State   | Evidence or handoff                                                                                                                                                                                                                 |
-| ----------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| #8 foundation                 | PASS    | PR [#14](https://github.com/RGCsAGupta/driftlens/pull/14), merge `c06562f004c30714dfd7eb799b43e0239ad9d719`                                                                                                                         |
-| #13 trusted delivery          | PASS    | PR [#15](https://github.com/RGCsAGupta/driftlens/pull/15), merge `43fc8fbb19d0a3709e6588e544e7d57d533556b4`                                                                                                                         |
-| #17 demo-cluster prerequisite | PASS    | PR [#18](https://github.com/RGCsAGupta/driftlens/pull/18), merge `96074e9c0373df37640378aba23eb4870c86feca`                                                                                                                         |
-| #9 deterministic scan         | PASS    | PR [#16](https://github.com/RGCsAGupta/driftlens/pull/16), merge `fb1bea1a8f359c8c52f32dbaa9a6e4e125e16965`                                                                                                                         |
-| #10 operator UI               | PASS    | PR [#20](https://github.com/RGCsAGupta/driftlens/pull/20), merge `d8cf01eac14384ffbff65b9d5b705537ae03f96d`                                                                                                                         |
-| #11 AI explanation            | PASS    | PR [#21](https://github.com/RGCsAGupta/driftlens/pull/21), merge `f26f887f1b5c97c7374da82459bd6cff5d040313`                                                                                                                         |
-| #22 manifest bug              | PASS    | PR [#23](https://github.com/RGCsAGupta/driftlens/pull/23), merge `2a607f91d61dda9f59650a52ad89da6299149bb7`                                                                                                                         |
-| User-selected domain/topology | PASS    | Dedicated app-host Tunnel to the existing private-interface origin; public route, firewall, exact-main, and failed direct-bypass proof retained in [#12](https://github.com/RGCsAGupta/driftlens/issues/12#issuecomment-5145385301) |
-| Server-side OpenAI preflight  | PASS    | Retained manual explanation reached `SAVED`; this proves configured server-side use without inspecting or printing the key                                                                                                          |
-| #12 release join              | PASS    | PR [#19](https://github.com/RGCsAGupta/driftlens/pull/19), merge `f3afbb8d816559736ad4acdac3e0f104cd12f0ad`; issue #12 closed after protected-main and public exact-revision proof                                                  |
-| Session source readability    | HANDOFF | 31 stable copies verify; every historical unavailable and exact-mapping gap is reconciled; the two active coordinator sessions remain held for the closure handoff                                                                  |
-| #12 continuation authority    | PASS    | `47m19s` charged through mandatory coordinator corrections and local gates; user explicitly authorized continued finish-line work                                                                                                   |
+| Prerequisite                  | State | Evidence or handoff                                                                                                                                                                                                                 |
+| ----------------------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #8 foundation                 | PASS  | PR [#14](https://github.com/RGCsAGupta/driftlens/pull/14), merge `c06562f004c30714dfd7eb799b43e0239ad9d719`                                                                                                                         |
+| #13 trusted delivery          | PASS  | PR [#15](https://github.com/RGCsAGupta/driftlens/pull/15), merge `43fc8fbb19d0a3709e6588e544e7d57d533556b4`                                                                                                                         |
+| #17 demo-cluster prerequisite | PASS  | PR [#18](https://github.com/RGCsAGupta/driftlens/pull/18), merge `96074e9c0373df37640378aba23eb4870c86feca`                                                                                                                         |
+| #9 deterministic scan         | PASS  | PR [#16](https://github.com/RGCsAGupta/driftlens/pull/16), merge `fb1bea1a8f359c8c52f32dbaa9a6e4e125e16965`                                                                                                                         |
+| #10 operator UI               | PASS  | PR [#20](https://github.com/RGCsAGupta/driftlens/pull/20), merge `d8cf01eac14384ffbff65b9d5b705537ae03f96d`                                                                                                                         |
+| #11 AI explanation            | PASS  | PR [#21](https://github.com/RGCsAGupta/driftlens/pull/21), merge `f26f887f1b5c97c7374da82459bd6cff5d040313`                                                                                                                         |
+| #22 manifest bug              | PASS  | PR [#23](https://github.com/RGCsAGupta/driftlens/pull/23), merge `2a607f91d61dda9f59650a52ad89da6299149bb7`                                                                                                                         |
+| User-selected domain/topology | PASS  | Dedicated app-host Tunnel to the existing private-interface origin; public route, firewall, exact-main, and failed direct-bypass proof retained in [#12](https://github.com/RGCsAGupta/driftlens/issues/12#issuecomment-5145385301) |
+| Server-side OpenAI preflight  | PASS  | Retained manual explanation reached `SAVED`; this proves configured server-side use without inspecting or printing the key                                                                                                          |
+| #12 release join              | PASS  | PR [#19](https://github.com/RGCsAGupta/driftlens/pull/19), merge `f3afbb8d816559736ad4acdac3e0f104cd12f0ad`; issue #12 closed after protected-main and public exact-revision proof                                                  |
+| Session source readability    | PASS  | 33 copies are indexed; historical gaps are reconciled, the Issue #3 coordinator is captured after task completion, and the primary coordinator has an explicit pre-final-review checkpoint                                          |
+| #12 continuation authority    | PASS  | `47m19s` charged through mandatory coordinator corrections and local gates; user explicitly authorized continued finish-line work                                                                                                   |
 
 Go/no-go result: **GO for parent #3 final closure handoff**. Application dependencies,
 exact-main private deployment, the dedicated public route, `MISSING_LIVE`,
 `IN_SYNC`, real `DRIFTED`, manual saved AI, read-only RBAC, and graceful
 failure/recovery evidence are retained. The assessment matrix, frozen-source
-gate, time reconciliation, and #12 merge/deploy proof are complete. The final
-active-session export, evidence-only merge/deploy, issue closure, and archival
-remain in the two-task closure handoff.
+gate, time reconciliation, session inventory, and #12 merge/deploy proof are
+complete. Exact-head evidence CI, approval, evidence-only merge/deploy, issue
+closure, and archival remain.
 
 ## Assessment deliverable matrix
 
-| Deliverable                      | State   | Retained or required evidence                                                                                                                                                                                           |
-| -------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Public repository and final SHA  | PASS    | Repository is public; frozen functional and deployed release SHA is `f3afbb8d816559736ad4acdac3e0f104cd12f0ad`; the later evidence-only merge SHA is recorded after merge                                               |
-| Working UI and backend workflow  | PASS    | Real-cluster `MISSING_LIVE`, `IN_SYNC`, exact-diff `DRIFTED`, durable history, saved AI, and UI proof retained                                                                                                          |
-| Persistence and graceful failure | PASS    | Retained `GITHUB_FILE_NOT_FOUND` failure is followed by later exact-main `IN_SYNC` history                                                                                                                              |
-| Clean-clone setup                | PASS    | Detached clean clone at `f3afbb8d816559736ad4acdac3e0f104cd12f0ad`: `npm ci`, 149/149 tests, 89.63% line coverage, build, E2E, audit, and secret scan passed                                                            |
-| Comprehensive README             | PASS    | Human/agent setup, AI, demo, API, security, limitations, and target-switching guidance are present                                                                                                                      |
-| Architecture overview            | PASS    | Approved baseline plus dedicated app-server Tunnel topology documented                                                                                                                                                  |
-| Design decisions and trade-offs  | PASS    | PRD and architecture retain the approved boundaries and trade-offs                                                                                                                                                      |
-| Next-work writeup                | PASS    | Approved non-blocking post-MVP tracker [#25](https://github.com/RGCsAGupta/driftlens/issues/25) owns all deferred work                                                                                                  |
-| Meaningful Git history           | PASS    | Bounded feature, correction, evidence, and merge history is retained                                                                                                                                                    |
-| Full quality pyramid             | PASS    | PR #19 exact head `a5b786a077735263276a44482e16ae5a7f2647dd` passed run 30655903874 / verify 91240106909; frozen clean-clone gate also passed                                                                           |
-| Read-only RBAC proof             | PASS    | Sanitized #17 live proof retained below                                                                                                                                                                                 |
-| CI/deployment links              | PASS    | Exact-main run 30656469358, verify 91241938129, and private release 91242612496 passed                                                                                                                                  |
-| Public-domain proof              | PASS    | Dedicated connector, firewall isolation, exact-main endpoints, failed direct-origin bypass, and final exact-revision proof retained in [#12](https://github.com/RGCsAGupta/driftlens/issues/12#issuecomment-5146418186) |
-| Complete AI exports              | HANDOFF | 31 completed historical full copies verify; the source and current coordinator tasks are exported after their active turns close                                                                                        |
-| Screenshots or recording         | PASS    | Secret-reviewed [IN_SYNC UI](./screenshots/in-sync-ui-proof.png) and [DRIFTED/AI UI](./screenshots/drifted-ai-ui-proof.png) proofs retained                                                                             |
-| Known risks/failed gates         | PASS    | Prior CI failure and the non-blocking authorization-provenance limitation are retained; deferred work is tracked in #25                                                                                                 |
+| Deliverable                      | State | Retained or required evidence                                                                                                                                                                                           |
+| -------------------------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Public repository and final SHA  | PASS  | Repository is public; frozen functional and deployed release SHA is `f3afbb8d816559736ad4acdac3e0f104cd12f0ad`; the later evidence-only merge SHA is recorded after merge                                               |
+| Working UI and backend workflow  | PASS  | Real-cluster `MISSING_LIVE`, `IN_SYNC`, exact-diff `DRIFTED`, durable history, saved AI, and UI proof retained                                                                                                          |
+| Persistence and graceful failure | PASS  | Retained `GITHUB_FILE_NOT_FOUND` failure is followed by later exact-main `IN_SYNC` history                                                                                                                              |
+| Clean-clone setup                | PASS  | Detached clean clone at `f3afbb8d816559736ad4acdac3e0f104cd12f0ad`: `npm ci`, 149/149 tests, 89.63% line coverage, build, E2E, audit, and secret scan passed                                                            |
+| Comprehensive README             | PASS  | Human/agent setup, AI, demo, API, security, limitations, and target-switching guidance are present                                                                                                                      |
+| Architecture overview            | PASS  | Approved baseline plus dedicated app-server Tunnel topology documented                                                                                                                                                  |
+| Design decisions and trade-offs  | PASS  | PRD and architecture retain the approved boundaries and trade-offs                                                                                                                                                      |
+| Next-work writeup                | PASS  | Approved non-blocking post-MVP tracker [#25](https://github.com/RGCsAGupta/driftlens/issues/25) owns all deferred work                                                                                                  |
+| Meaningful Git history           | PASS  | Bounded feature, correction, evidence, and merge history is retained                                                                                                                                                    |
+| Full quality pyramid             | PASS  | PR #19 exact head `a5b786a077735263276a44482e16ae5a7f2647dd` passed run 30655903874 / verify 91240106909; frozen clean-clone gate also passed                                                                           |
+| Read-only RBAC proof             | PASS  | Sanitized #17 live proof retained below                                                                                                                                                                                 |
+| CI/deployment links              | PASS  | Exact-main run 30656469358, verify 91241938129, and private release 91242612496 passed                                                                                                                                  |
+| Public-domain proof              | PASS  | Dedicated connector, firewall isolation, exact-main endpoints, failed direct-origin bypass, and final exact-revision proof retained in [#12](https://github.com/RGCsAGupta/driftlens/issues/12#issuecomment-5146418186) |
+| Complete AI exports              | PASS  | 33 copies are indexed with exact IDs, line counts, checksums, and reports; the primary coordinator checkpoint is explicit, while the unchanged raw platform source owns the unavoidable approval/archive tail           |
+| Screenshots or recording         | PASS  | Secret-reviewed [IN_SYNC UI](./screenshots/in-sync-ui-proof.png) and [DRIFTED/AI UI](./screenshots/drifted-ai-ui-proof.png) proofs retained                                                                             |
+| Known risks/failed gates         | PASS  | Prior CI failure and the non-blocking authorization-provenance limitation are retained; deferred work is tracked in #25                                                                                                 |
 
 ## Exact revision and CI/deployment evidence
 
@@ -259,20 +260,20 @@ audit must verify:
 The [machine index](../ai-interactions/index.json) and [human
 manifest](../ai-interactions/manifest.md) are authoritative:
 
-- 31 stable persisted sessions have full redacted JSONL copies with matching
+- 33 persisted session records have full redacted JSONL copies with matching
   line counts, SHA-256 checksums, redaction reports, and `finalReview: pass`;
 - the #12 owner is exported after its completed delivery turn;
 - five previously unavailable exact IDs were recovered from the local archive;
 - the #8 owner/reviewer and requested #12 review exact mappings are reconciled;
 - the interrupted duplicate #12 task is preserved without a completion claim;
-  and
-- the two still-growing coordinator tasks remain held for the final closure
-  handoff.
+- the Issue #3 coordinator is captured after its task-complete record; and
+- the primary coordinator is captured at an explicit pre-final-review
+  checkpoint. Its immutable raw platform source owns the unavoidable later
+  approval, merge, and archival tail.
 
-The source/root task re-exports its own session after it becomes idle. This task
-then stops; the source/root task exports this final coordinator session, reruns
-the same gates, and lands the evidence-only closure. No historical source or
-exact-session mapping remains unresolved.
+No historical source or exact-session mapping remains unresolved. The
+checkpoint boundary avoids the impossible self-reference of committing a file
+that also contains its own final commit and merge interaction.
 
 ## Parent #3 code-freeze export checklist
 
@@ -290,27 +291,28 @@ exact-session mapping remains unresolved.
       copies only.
 - [x] Record submitted filename, checksum, completeness, and each redaction in
       the final manifest.
-- [ ] Run JSONL parse, manifest/file reconciliation, checksum, repository secret
+- [x] Run JSONL parse, manifest/file reconciliation, checksum, repository secret
       scan, and dependency audit gates.
-- [ ] Export account/app history as backup completeness evidence when available.
+- [x] Retain the immutable persisted session sources as backup completeness
+      evidence; the final platform/account export owns the post-checkpoint tail.
 - [x] Confirm interrupted/archived tasks are present or explicitly reconciled;
       never silently omit a partial interaction whose output influenced work.
-- [ ] Record final manifest relative paths only; keep private staging paths out
+- [x] Record final manifest relative paths only; keep private staging paths out
       of repository evidence.
 
 ## Documentation gap audit
 
-| Artifact               | Current gap                                                                                                                                       | Final owner/action                                             |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| `AGENTS.md`            | No #12 amendment; PR #19 leaves the approved collaboration contract unchanged                                                                     | None in this PR                                                |
-| `README.md`            | Public-source, arbitrary-cluster, least-privilege, AI, local setup, switching, troubleshooting, agent, and dedicated-route contracts are complete | Frozen-source clean-clone evidence captured                    |
-| Setup                  | Human/agent clean-clone sequence and local `kind` path are documented                                                                             | Exact frozen-source verification passed                        |
-| `docs/architecture.md` | Approved baseline and actual dedicated app-server Tunnel topology are reconciled; public exact-main/bypass proof is retained                      | No #12 action remains                                          |
-| Design decisions       | PRD, architecture, issue specifications, and this evidence join retain the reviewer path and trade-offs                                           | Parent #3 includes links in the final matrix                   |
-| Next steps             | Approved issue #25 consolidates Extended, Future, authorization-provenance, and production-hardening work                                         | No #12 action remains                                          |
-| OpenAPI                | Scan and #11 explanation contracts exist; operational health/ready/version routes remain outside the current file                                 | Parent #3 records the final assessment-matrix disposition      |
-| Delivery               | Actual connector/private-interface topology and public route, firewall, exact-main, bypass, and private-deployment proof are documented           | Parent #3 records final merge/deploy proof                     |
-| AI evidence            | 31 completed historical full JSONL copies pass line/checksum/report/final-review gates; no unavailable or mapping gap remains                     | Source task adds both active coordinator exports after closure |
+| Artifact               | Current gap                                                                                                                                       | Final owner/action                                                                   |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `AGENTS.md`            | No #12 amendment; PR #19 leaves the approved collaboration contract unchanged                                                                     | None in this PR                                                                      |
+| `README.md`            | Public-source, arbitrary-cluster, least-privilege, AI, local setup, switching, troubleshooting, agent, and dedicated-route contracts are complete | Frozen-source clean-clone evidence captured                                          |
+| Setup                  | Human/agent clean-clone sequence and local `kind` path are documented                                                                             | Exact frozen-source verification passed                                              |
+| `docs/architecture.md` | Approved baseline and actual dedicated app-server Tunnel topology are reconciled; public exact-main/bypass proof is retained                      | No #12 action remains                                                                |
+| Design decisions       | PRD, architecture, issue specifications, and this evidence join retain the reviewer path and trade-offs                                           | Parent #3 includes links in the final matrix                                         |
+| Next steps             | Approved issue #25 consolidates Extended, Future, authorization-provenance, and production-hardening work                                         | No #12 action remains                                                                |
+| OpenAPI                | Scan and #11 explanation contracts exist; operational health/ready/version routes remain outside the product-workflow contract                    | Deliberate boundary; operational endpoints are documented in README and architecture |
+| Delivery               | Actual connector/private-interface topology and public route, firewall, exact-main, bypass, and private-deployment proof are documented           | Parent #3 records final merge/deploy proof                                           |
+| AI evidence            | 33 indexed copies cover every mapped interaction through the explicit submission checkpoint; no held, unavailable, or mapping gap remains         | Final platform/account export retains the post-checkpoint tail                       |
 
 ## What-next outline
 
@@ -357,10 +359,9 @@ implying any deferred capability exists today.
   `GITHUB_FILE_NOT_FOUND`; the later exact-main `IN_SYNC` scan is the retained
   graceful recovery proof.
 - Parent #3 has completed the assessment matrix, frozen-source clean clone,
-  historical session reconciliation, and #12 merge/deploy proof. The final
-  evidence-only PR still requires this coordinator's post-closure export,
-  exact-head CI, exact-head user approval, merge/deploy proof, issue closure,
-  and task archival.
+  session reconciliation/checkpoint, and #12 merge/deploy proof. The final
+  evidence-only PR still requires exact-head CI, exact-head user approval,
+  merge/deploy proof, issue closure, and task archival.
 - Historical trusted-delivery run
   [30613165928](https://github.com/RGCsAGupta/driftlens/actions/runs/30613165928)
   failed on an intermediate #13 correction. Later exact-head and main runs

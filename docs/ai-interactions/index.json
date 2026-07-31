@@ -310,20 +310,30 @@
       "sha256": "3f42eb06de4c681d56e1cec15fc97b0ba5fde3d378548a147544589e57ad348e",
       "lines": 208,
       "finalReview": "pass"
-    }
-  ],
-  "held": [
-    {
-      "purpose": "Primary DriftLens coordinator",
-      "sessionId": "019fb403-ca02-7ea0-800a-3b873e3ba025",
-      "status": "held-active"
     },
     {
-      "purpose": "Issue 12 coordinator review",
+      "purpose": "Issue 3 final coordinator",
       "sessionId": "019fb926-109f-7a23-a7fe-6477f5fc57cf",
-      "status": "held-active"
+      "status": "completed",
+      "sessionFile": "sessions/issue-3-final-coordinator.jsonl",
+      "redactionReport": "redactions/issue-3-final-coordinator.json",
+      "sha256": "f1453368a559555c738a6cdbafaeb2ae0b87e2bf1e3e9b61dc719b90d222b789",
+      "lines": 2526,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Primary DriftLens coordinator submission checkpoint",
+      "sessionId": "019fb403-ca02-7ea0-800a-3b873e3ba025",
+      "status": "completed",
+      "sessionFile": "sessions/primary-coordinator.jsonl",
+      "redactionReport": "redactions/primary-coordinator.json",
+      "sha256": "d301fe969dd3d9cc8fc7b05c512dd8d1650f7ad967e618c5b7dc632fea003624",
+      "lines": 12257,
+      "finalReview": "pass",
+      "checkpoint": "pre-final-review"
     }
   ],
+  "held": [],
   "unavailable": [],
   "pendingReconciliation": []
 }

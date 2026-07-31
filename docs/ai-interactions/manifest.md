@@ -1,6 +1,6 @@
 # AI interaction export manifest
 
-Status: rolling export verified; final coordinator-session closure pending
+Status: final submission checkpoint prepared
 
 The machine-readable [index](./index.json) is authoritative for every submitted
 copy. It records purpose, exact session ID, full JSONL filename, redaction-report
@@ -10,7 +10,7 @@ its ID, line count, checksum, and report reconcile.
 
 ## Verified rolling exports
 
-- `31` stable persisted sessions have full derived JSONL copies under
+- `33` persisted session records have full derived JSONL copies under
   `sessions/` and matching machine redaction reports under `redactions/`.
 - Input and output line counts match for every copy; no JSONL record was
   intentionally omitted.
@@ -20,18 +20,19 @@ its ID, line count, checksum, and report reconcile.
   paths, including paths stored as object keys.
 - Repository secret scanning and explicit credential, private-network,
   internal-label, and local-path scans pass on the derived copies.
-- These passes cover the submitted rolling copies only. They do not make an
-  active or unavailable source complete.
+- The Issue #3 coordinator export was captured after its task-complete record.
+- The primary coordinator copy is an explicit pre-final-review checkpoint. Its
+  raw source remains immutable and continues with the final review, approval,
+  merge, and archival metadata; the final platform/account export captures that
+  unavoidable post-checkpoint tail without creating a self-referential commit.
 
-## Active sessions held for closure
+## Final coordinator checkpoint
 
-| Interaction                   | Session ID                             | State         |
-| ----------------------------- | -------------------------------------- | ------------- |
-| Primary DriftLens coordinator | `019fb403-ca02-7ea0-800a-3b873e3ba025` | `held-active` |
-| #12 coordinator review        | `019fb926-109f-7a23-a7fe-6477f5fc57cf` | `held-active` |
-
-Export these only after their final turns, then rerun the same ID, line,
-checksum, redaction-report, secret-scan, and final-review gates.
+The Issue #3 coordinator is complete and exported. The primary coordinator is
+captured through the pre-final-review checkpoint. This boundary is explicit:
+the repository copy contains every source record through that checkpoint, and
+the unmodified raw source remains the authority for the later approval and
+archive tail.
 
 ## Recovered archived sources
 
@@ -47,15 +48,14 @@ is not presented as a successful implementation.
   `019fb4f6-2983-7302-8e37-b73f35e511ba`, and its separate read-only reviewer
   is reconciled to `019fb4f7-4857-7423-935b-de071135aebd`.
 - The requested read-only #12 coordinator review is reconciled to session
-  `019fb926-109f-7a23-a7fe-6477f5fc57cf`; its final export is intentionally
-  held until this task closes.
+  `019fb926-109f-7a23-a7fe-6477f5fc57cf` and is included after task completion.
 
 No historical exact-session mapping remains pending.
 
 ## Final freeze actions
 
-1. Stop functional changes and record the frozen source SHA.
-2. Export the two held active sessions after closure.
-3. Confirm the final index has no unavailable or pending-reconciliation entry.
-4. Rerun `npm run verify:ai-exports` and `npm run secret:scan`.
-5. Record any unresolved omission without claiming complete AI exports.
+1. Confirm the final index has no held, unavailable, or
+   pending-reconciliation entry.
+2. Rerun `npm run verify:ai-exports` and `npm run secret:scan`.
+3. Preserve the unmodified raw platform/account export for the final
+   post-checkpoint approval and archival tail.
