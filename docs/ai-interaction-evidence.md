@@ -5,13 +5,15 @@ exports. A summary is not a substitute for an available full transcript.
 
 ## Inventory
 
-| Interaction                              | Purpose                                                            | Export state                                                       |
-| ---------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| Primary DriftLens coordinator task       | Planning, specifications, reviews, and implementation coordination | Persisted session verified; inventory ID in final manifest         |
-| Issue #8 user-visible feature-owner task | Foundation review, correction, runtime proof, and publication      | Persisted session verified; inventory ID in final manifest         |
-| Issue #8 bounded read-only reviewer      | Independent scaffold review                                        | Prompt, result, and owner synthesis retained; ID in final manifest |
-| Architecture review agents               | Traceability and timebox review                                    | Inventory and reconcile each persisted delegated session           |
-| Restaurant OS read-only audit agent      | Read-only delivery-pattern research                                | Inventory and reconcile the persisted delegated session            |
+| Interaction                              | Purpose                                                            | Export state                                                               |
+| ---------------------------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------- |
+| Primary DriftLens coordinator task       | Planning, specifications, reviews, and implementation coordination | Persisted session verified; inventory ID in final manifest                 |
+| Issue #8 user-visible feature-owner task | Foundation review, correction, runtime proof, and publication      | Persisted session verified; inventory ID in final manifest                 |
+| Issue #8 bounded read-only reviewer      | Independent scaffold review                                        | Prompt, result, and owner synthesis retained; ID in final manifest         |
+| Issue #9 user-visible feature-owner task | Scan, persistence, API implementation, tests, review, publication  | Persisted session `019fb60b-0b49-7891-a35d-44ecfb24b23d`; reconcile in #12 |
+| Issue #9 bounded read-only reviewer      | Independent scanner-slice correctness and security review          | Persisted session `019fb690-a184-7022-825d-90bc4907257b`; reconcile in #12 |
+| Architecture review agents               | Traceability and timebox review                                    | Inventory and reconcile each persisted delegated session                   |
+| Restaurant OS read-only audit agent      | Read-only delivery-pattern research                                | Inventory and reconcile the persisted delegated session                    |
 
 ## Preflight result
 

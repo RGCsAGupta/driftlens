@@ -75,7 +75,8 @@ The API exposes product capabilities for:
 
 Route Handlers validate inputs, invoke application services, and translate
 typed results or errors into HTTP responses. Exact paths and schemas belong to
-the relevant vertical-slice specifications.
+the relevant vertical-slice specifications. The implemented deterministic scan
+routes are defined in the [OpenAPI 3.1 contract](openapi.yaml).
 
 ### Scan application service
 
