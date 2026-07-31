@@ -34,6 +34,7 @@ function service(
   repository: ScanRepository,
   desiredState: DesiredStateReader,
   liveState: LiveDeploymentReader,
+  idFactory: () => string = () => "scan-1",
 ): ScanService {
   return new ScanService(
     repository,
@@ -41,7 +42,7 @@ function service(
     liveState,
     SOURCE,
     clock(),
-    () => "scan-1",
+    idFactory,
   );
 }
 
@@ -199,6 +200,101 @@ describe("ScanService", () => {
     expect(() => scans.start("first")).toThrow();
     expect(durable.list(10)).toEqual([]);
     expect(scans.start("second")).toMatchObject({ requestedRef: "second" });
+    durable.close();
+  });
+
+  it("terminalizes a scheduler rejection and admits a subsequent scan", () => {
+    const repository = new SqliteScanRepository(":memory:");
+    const desiredState = { load: vi.fn() };
+    const liveState = { read: vi.fn() };
+    let id = 0;
+    const scans = service(
+      repository,
+      desiredState,
+      liveState,
+      () => `scan-${++id}`,
+    );
+
+    expect(() =>
+      scans.startScheduled("main", () => {
+        throw new Error("unsafe scheduler detail");
+      }),
+    ).toThrow("unsafe scheduler detail");
+
+    const history = repository.list(10);
+    expect(history).toHaveLength(1);
+    expect(history[0]).toMatchObject({
+      durable: true,
+      error: {
+        code: "INTERNAL_ERROR",
+        message: "Scan failed unexpectedly.",
+      },
+      id: "scan-1",
+      status: "FAILED",
+    });
+    expect(history[0]?.stages.map(({ stage }) => stage)).toEqual([
+      "QUEUED",
+      "FAILED",
+    ]);
+    expect(desiredState.load).not.toHaveBeenCalled();
+    expect(liveState.read).not.toHaveBeenCalled();
+
+    const tasks: Array<() => Promise<void>> = [];
+    expect(
+      scans.startScheduled("next", (task) => tasks.push(task)),
+    ).toMatchObject({ id: "scan-2", status: "QUEUED" });
+    expect(tasks).toHaveLength(1);
+    repository.close();
+  });
+
+  it("exposes a non-durable scheduler failure when terminal persistence fails", () => {
+    const durable = new SqliteScanRepository(":memory:");
+    const repository: ScanRepository = {
+      complete: (...args) => durable.complete(...args),
+      createQueued: (...args) => durable.createQueued(...args),
+      fail: () => {
+        throw new ScanExecutionError("STORAGE_WRITE_FAILED");
+      },
+      get: () => {
+        throw new ScanExecutionError("STORAGE_UNAVAILABLE");
+      },
+      list: (...args) => durable.list(...args),
+      saveDesired: (...args) => durable.saveDesired(...args),
+      saveLive: (...args) => durable.saveLive(...args),
+      transition: (...args) => durable.transition(...args),
+    };
+    let id = 0;
+    const scans = service(
+      repository,
+      { load: vi.fn() },
+      { read: vi.fn() },
+      () => `scan-${++id}`,
+    );
+
+    expect(() =>
+      scans.startScheduled("main", () => {
+        throw new Error("scheduler rejected");
+      }),
+    ).toThrow("scheduler rejected");
+
+    expect(scans.get("scan-1")).toMatchObject({
+      durable: false,
+      error: {
+        code: "STORAGE_WRITE_FAILED",
+        message: "Scan progress could not be saved.",
+      },
+      stage: "FAILED",
+      status: "FAILED",
+    });
+    expect(durable.get("scan-1")).toMatchObject({
+      durable: true,
+      stage: "QUEUED",
+      status: "QUEUED",
+    });
+    expect(scans.startScheduled("next", vi.fn())).toMatchObject({
+      id: "scan-2",
+      status: "QUEUED",
+    });
     durable.close();
   });
 

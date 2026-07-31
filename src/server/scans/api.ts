@@ -1,9 +1,8 @@
 import type { ScanRecord } from "@/server/scans/contracts";
 import { historyLimitSchema, startScanSchema } from "@/server/scans/contracts";
 import { ScanExecutionError } from "@/server/scans/errors";
-import type { ScanService } from "@/server/scans/service";
+import type { ScanScheduler, ScanService } from "@/server/scans/service";
 
-type Scheduler = (task: () => Promise<void>) => void;
 const MAX_REQUEST_BYTES = 1_024;
 
 function json(body: unknown, status = 200): Response {
@@ -69,7 +68,7 @@ async function readBoundedBody(request: Request): Promise<string | null> {
 export async function startScanResponse(
   request: Request,
   service: ScanService,
-  schedule: Scheduler,
+  schedule: ScanScheduler,
 ): Promise<Response> {
   try {
     const text = await readBoundedBody(request);
@@ -87,8 +86,7 @@ export async function startScanResponse(
       );
     }
 
-    const scan = service.start(parsed.data.ref);
-    schedule(() => service.run(scan.id));
+    const scan = service.startScheduled(parsed.data.ref, schedule);
     return json(scanEnvelope(scan), 202);
   } catch (error) {
     if (error instanceof SyntaxError) {

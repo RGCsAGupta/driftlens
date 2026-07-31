@@ -144,6 +144,56 @@ describe("scan API contracts", () => {
     expect(schedule).toHaveBeenCalledOnce();
   });
 
+  it("terminalizes scheduler rejection and admits a subsequent start", async () => {
+    const service = createService();
+    const rejectedSchedule = vi.fn(() => {
+      throw new Error("unsafe scheduler detail");
+    });
+
+    const rejected = await startScanResponse(
+      post('{"ref":"main"}'),
+      service,
+      rejectedSchedule,
+    );
+
+    expect(rejected.status).toBe(500);
+    await expect(rejected.json()).resolves.toEqual({
+      error: {
+        code: "INTERNAL_ERROR",
+        message: "Scan failed unexpectedly.",
+      },
+    });
+    expect(rejectedSchedule).toHaveBeenCalledOnce();
+
+    const history = listScansResponse(
+      new Request("http://localhost/api/scans"),
+      service,
+    );
+    await expect(history.json()).resolves.toMatchObject({
+      scans: [
+        {
+          durable: true,
+          error: {
+            code: "INTERNAL_ERROR",
+            message: "Scan failed unexpectedly.",
+          },
+          id: "scan-1",
+          stages: [{ stage: "QUEUED" }, { stage: "FAILED" }],
+          status: "FAILED",
+        },
+      ],
+    });
+
+    const tasks: Array<() => Promise<void>> = [];
+    const next = await startScanResponse(
+      post('{"ref":"next"}'),
+      service,
+      (task) => tasks.push(task),
+    );
+    expect(next.status).toBe(202);
+    expect(tasks).toHaveLength(1);
+  });
+
   it("returns bounded history, source metadata, invalid limit, and not-found", async () => {
     const service = createService();
     service.start("main");

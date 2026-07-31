@@ -13,6 +13,7 @@ import type { ScanRepository } from "@/server/scans/repository";
 
 export type Clock = () => string;
 export type IdFactory = () => string;
+export type ScanScheduler = (task: () => Promise<void>) => void;
 
 export class ScanService {
   private activeScanId: string | null = null;
@@ -45,6 +46,17 @@ export class ScanService {
       return scan;
     } catch (error) {
       this.activeScanId = null;
+      throw error;
+    }
+  }
+
+  startScheduled(requestedRef: string, schedule: ScanScheduler): ScanRecord {
+    const scan = this.start(requestedRef);
+    try {
+      schedule(() => this.run(scan.id));
+      return scan;
+    } catch (error) {
+      this.recordSchedulingFailure(scan, error);
       throw error;
     }
   }
@@ -112,12 +124,34 @@ export class ScanService {
     );
   }
 
-  private recordVolatileStorageFailure(id: string): void {
-    let record: ScanRecord | null = null;
+  private recordSchedulingFailure(scan: ScanRecord, error: unknown): void {
     try {
-      record = this.repository.get(id);
-    } catch {
-      // The API will surface repository unavailability if reads also fail.
+      const safeError = safeScanError(error);
+      try {
+        this.repository.fail(scan.id, safeError, this.clock());
+        this.logger.failed(scan.id, safeError.code, true);
+      } catch {
+        this.recordVolatileStorageFailure(scan.id, scan);
+        this.logger.failed(scan.id, "STORAGE_WRITE_FAILED", false);
+      }
+    } finally {
+      if (this.activeScanId === scan.id) {
+        this.activeScanId = null;
+      }
+    }
+  }
+
+  private recordVolatileStorageFailure(
+    id: string,
+    fallback: ScanRecord | null = null,
+  ): void {
+    let record = fallback;
+    if (!record) {
+      try {
+        record = this.repository.get(id);
+      } catch {
+        // The API will surface repository unavailability if reads also fail.
+      }
     }
     if (!record) {
       return;

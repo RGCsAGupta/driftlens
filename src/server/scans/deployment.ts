@@ -24,6 +24,10 @@ const containerSchema = z.object({
   image: z.string().trim().min(1).max(2_048),
   name: dnsLabel,
 });
+const resourceIdentitySchema = z.object({
+  apiVersion: z.string(),
+  kind: z.string(),
+});
 const deploymentSchema = z.object({
   apiVersion: z.string(),
   kind: z.string(),
@@ -62,16 +66,19 @@ export function parseDesiredDeployment(yaml: string): DesiredDeployment {
     throw new ScanExecutionError("MANIFEST_INVALID");
   }
 
-  const result = deploymentSchema.safeParse(documents[0].toJS());
-  if (!result.success) {
-    throw new ScanExecutionError("MANIFEST_INVALID");
-  }
-
+  const resource = documents[0].toJS();
+  const identity = resourceIdentitySchema.safeParse(resource);
   if (
-    result.data.apiVersion !== "apps/v1" ||
-    result.data.kind !== "Deployment"
+    identity.success &&
+    (identity.data.apiVersion !== "apps/v1" ||
+      identity.data.kind !== "Deployment")
   ) {
     throw new ScanExecutionError("MANIFEST_UNSUPPORTED");
+  }
+
+  const result = deploymentSchema.safeParse(resource);
+  if (!result.success) {
+    throw new ScanExecutionError("MANIFEST_INVALID");
   }
 
   const containerNames = result.data.spec.template.spec.containers.map(

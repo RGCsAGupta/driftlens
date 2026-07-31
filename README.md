@@ -142,9 +142,9 @@ successful but makes readiness fail.
 unknown value leaves liveness successful but fails readiness with the safe
 `RUNTIME_MODE_INVALID` code.
 
-`DRIFTLENS_DATA_DIR` reserves the persistent-data location for the later SQLite
-slice. It defaults to `.driftlens` locally and `/data` in production. A
-production override must be an absolute path.
+`DRIFTLENS_DATA_DIR` selects the directory containing the current
+`driftlens.sqlite` scan-history database. It defaults to `.driftlens` locally
+and `/data` in production. A production override must be an absolute path.
 
 ## Quality gates
 

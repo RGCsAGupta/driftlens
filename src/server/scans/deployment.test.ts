@@ -101,9 +101,30 @@ describe("Deployment projection and comparison", () => {
       "MANIFEST_INVALID",
     ],
     [
-      "wrong resource",
-      manifest().replace("apps/v1", "v1").replace("Deployment", "Pod"),
+      "real Pod resource",
+      `apiVersion: v1
+kind: Pod
+metadata:
+  name: driftlens-demo
+  namespace: demo
+spec:
+  containers:
+    - name: api
+      image: example/api:1
+`,
       "MANIFEST_UNSUPPORTED",
+    ],
+    [
+      "malformed supported Deployment",
+      `apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: driftlens-demo
+  namespace: demo
+spec:
+  containers: []
+`,
+      "MANIFEST_INVALID",
     ],
     [
       "duplicate containers",
