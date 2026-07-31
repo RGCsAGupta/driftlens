@@ -29,7 +29,9 @@ interface FakeCluster {
   remove: () => void;
 }
 
-function createFakeCluster(overrides: NodeJS.ProcessEnv = {}): FakeCluster {
+function createFakeCluster(
+  overrides: Partial<NodeJS.ProcessEnv> = {},
+): FakeCluster {
   const directory = mkdtempSync(join(tmpdir(), "driftlens-demo-contract-"));
   const binaryDirectory = join(directory, "bin");
   const adminKubeconfig = join(directory, "admin.kubeconfig");
@@ -68,6 +70,7 @@ fi
       PATH: `${binaryDirectory}:${process.env.PATH ?? ""}`,
       FAKE_CLUSTER_LOG: log,
       ...overrides,
+      NODE_ENV: process.env.NODE_ENV ?? "test",
     },
     log,
     remove: () => rmSync(directory, { recursive: true, force: true }),
