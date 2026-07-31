@@ -20,7 +20,7 @@ test("running deployment remains non-cancellable when a newer revision arrives",
 
   assert.match(
     workflow,
-    /group: driftlens-private-deployment\n      cancel-in-progress: false/,
+    /group: driftlens-private-deployment\n {6}cancel-in-progress: false/,
   );
 });
 

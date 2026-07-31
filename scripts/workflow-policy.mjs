@@ -29,12 +29,12 @@ function jobSlice(workflow, jobName, nextJobName) {
 }
 
 export function validateWorkflowPolicy(workflow) {
-  assert.match(workflow, /^on:\n  push:\n    branches:\n      - "\*\*"$/m);
+  assert.match(workflow, /^on:\n {2}push:\n {4}branches:\n {6}- "\*\*"$/m);
   for (const event of FORBIDDEN_EVENTS) {
     assert.doesNotMatch(workflow, new RegExp(`^  ${event}:`, "m"));
   }
 
-  assert.match(workflow, /^permissions:\n  contents: read$/m);
+  assert.match(workflow, /^permissions:\n {2}contents: read$/m);
 
   const actionReferences = [...workflow.matchAll(/^\s+uses:\s+([^\s#]+)$/gm)];
   assert.ok(actionReferences.length > 0, "workflow must use pinned actions");
