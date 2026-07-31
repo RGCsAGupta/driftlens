@@ -10,11 +10,16 @@ export default defineConfig({
   },
   test: {
     environment: "node",
-    include: ["src/**/*.test.ts"],
+    include: ["src/**/*.test.{ts,tsx}"],
     coverage: {
       provider: "v8",
       reporter: ["text", "json-summary"],
-      include: ["src/server/**/*.ts", "src/app/api/**/route.ts"],
+      include: [
+        "src/server/**/*.ts",
+        "src/app/api/**/route.ts",
+        "src/app/scan-api.ts",
+        "src/app/scan-console.tsx",
+      ],
       exclude: ["src/**/*.test.ts"],
       thresholds: {
         branches: 80,

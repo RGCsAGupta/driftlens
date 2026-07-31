@@ -24,6 +24,13 @@ test("running deployment remains non-cancellable when a newer revision arrives",
   );
 });
 
+test("trusted verification installs the pinned Chromium browser", async () => {
+  const workflow = await readFile(workflowPath, "utf8");
+
+  assert.match(workflow, /npx playwright install chromium/);
+  assert.match(workflow, /npm run verify/);
+});
+
 test("mutable image tags fail the policy", async () => {
   const workflow = await readFile(workflowPath, "utf8");
   const unsafeWorkflow = workflow.replace(

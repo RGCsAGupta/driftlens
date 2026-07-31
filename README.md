@@ -30,6 +30,29 @@ safe relative path to one plain-YAML `apps/v1` Deployment with explicit
 `metadata.name` and `metadata.namespace`. The kubeconfig identity must have
 only the namespaced Deployment `get` permission needed for the target.
 
+## Operator console
+
+Open `http://localhost:3000`, enter one branch or full commit SHA, and choose
+**Run scan**. The action stays unavailable while that browser session is
+following an active scan. After a reload, the backend still rejects a
+duplicate start with the safe `SCAN_ACTIVE` conflict.
+
+The console shows the configured public repository and manifest path, every
+Core stage, the resolved commit and Deployment identity, deterministic
+outcomes, exact replica/image differences, safe failures, and newest-first
+history. Selecting history updates the `scan` query parameter, so a selected
+result survives reload without browser storage.
+
+`IN_SYNC`, `DRIFTED`, `MISSING_LIVE`, and failed execution always include text
+and do not rely on color. Failed scans are terminal; correct the reported issue
+and start a new scan. There is no cancellation, retry, raw manifest/log view,
+configuration UI, monitoring dashboard, or AI explanation control in this
+slice.
+
+The UI renders only the API's bounded projection and safe error contract. It
+never requests or displays GitHub credentials, kubeconfig content, tokens,
+complete manifests, or raw upstream errors.
+
 ## Scan API
 
 The formal, machine-readable contract for these routes is
@@ -174,11 +197,21 @@ npm run lint
 npm run typecheck
 npm run test
 npm run test:coverage
+npm run test:e2e
 npm run test:scanner
 npm run build
 npm run audit
 npm run secret:scan
 ```
+
+Chromium is required for the operator flow. The dedicated CI runner is
+preprovisioned with the operating-system libraries
+required by headless Chromium. The workflow installs the lockfile-pinned
+headless browser payload with `npx playwright install chromium`; local
+environments that need the operating-system libraries may use
+`npx playwright install --with-deps chromium`. The
+test runs with one worker, zero retries, and controlled same-origin API
+adapters; it does not contact GitHub or Kubernetes.
 
 ## Production container
 
@@ -222,10 +255,10 @@ is documented in [docs/delivery.md](docs/delivery.md).
   overall workflow timeout, or restart resumability.
 - Replicas and regular-container images only.
 - Read-only namespaced Deployment lookup only; no list, watch, or write.
-- No operator scan UI yet.
-- No AI explanation yet.
-- No private Git, configuration CRUD, live `kind` proof, or infrastructure
-  changes in this slice.
+- No AI explanation yet; issue #11 owns that manual capability.
+- No private Git, configuration UI, cancellation, retry, monitoring dashboard,
+  or multi-user behavior.
+- Live demo scenarios and release evidence remain owned by issue #12.
 
 Implementation follows the official
 [Next.js `after()` contract](https://nextjs.org/docs/app/api-reference/functions/after),
