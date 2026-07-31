@@ -21,15 +21,15 @@ ENV DRIFTLENS_DATA_DIR=/data
 ARG DRIFTLENS_BUILD_SHA
 ENV DRIFTLENS_BUILD_SHA=$DRIFTLENS_BUILD_SHA
 
-RUN addgroup --system --gid 1001 nodejs \
-  && adduser --system --uid 1001 nextjs \
+RUN addgroup --system --gid 10001 nodejs \
+  && adduser --system --uid 10001 --ingroup nodejs nextjs \
   && install -d -o nextjs -g nodejs -m 0750 /data
 
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-USER nextjs
+USER 10001:10001
 EXPOSE 3000
 VOLUME ["/data"]
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \

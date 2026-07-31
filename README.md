@@ -111,6 +111,9 @@ curl --fail http://localhost:3000/api/ready
 curl --fail http://localhost:3000/api/version
 ```
 
+The versioned private-target bootstrap, release, smoke, and rollback contract
+is documented in [docs/delivery.md](docs/delivery.md).
+
 ## Current limitations
 
 - No scan workflow or Kubernetes access yet.
