@@ -124,6 +124,6 @@ test("operator starts, follows, reviews, and reloads a scan accessibly", async (
   await expect(page).toHaveURL(new RegExp(`\\?scan=${ID}$`));
 
   await page.reload();
-  await expect(page.getByText("DRIFTED")).toBeVisible();
+  await expect(page.getByText("DRIFTED", { exact: true })).toBeVisible();
   await expect(page.getByRole("button", { name: "Run scan" })).toBeEnabled();
 });
