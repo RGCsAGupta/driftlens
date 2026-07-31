@@ -23,6 +23,13 @@ function record(overrides: Partial<ScanRecord> = {}): ScanRecord {
     differences: [],
     durable: true,
     error: null,
+    explanation: {
+      analysis: null,
+      error: null,
+      requestedAt: null,
+      savedAt: null,
+      state: "NOT_REQUESTED",
+    },
     id: "scan-1",
     live: null,
     outcome: null,
@@ -39,6 +46,7 @@ function record(overrides: Partial<ScanRecord> = {}): ScanRecord {
 
 function api(overrides: Partial<ScanApi> = {}): ScanApi {
   return {
+    explainScan: vi.fn().mockResolvedValue(record()),
     getScan: vi.fn().mockResolvedValue(record()),
     getSource: vi.fn().mockResolvedValue({
       manifestPath: "deploy/app.yaml",
@@ -56,6 +64,59 @@ afterEach(() => {
 });
 
 describe("scan result rendering", () => {
+  it("offers explanation only for completed results and renders every saved section", async () => {
+    const completed = record({
+      explanation: {
+        analysis: null,
+        error: null,
+        requestedAt: null,
+        savedAt: null,
+        state: "NOT_REQUESTED",
+      },
+      outcome: "IN_SYNC",
+      stage: "COMPLETED",
+      status: "COMPLETED",
+    });
+    const explained = {
+      ...completed,
+      explanation: {
+        analysis: {
+          importantDifferences: [],
+          investigationChecks: ["Check rollout history."],
+          likelyImplications: ["No supported drift is present."],
+          limitations: ["Only replicas and images were compared."],
+          summary: "The supported fields are in sync.",
+        },
+        error: null,
+        requestedAt: "2026-07-31T12:01:00.000Z",
+        savedAt: "2026-07-31T12:01:01.000Z",
+        state: "SAVED" as const,
+      },
+    };
+    const explainScan = vi.fn().mockResolvedValue(explained);
+    render(
+      <ScanConsole
+        api={api({
+          explainScan,
+          listScans: vi.fn().mockResolvedValue([completed]),
+        })}
+      />,
+    );
+
+    fireEvent.click(
+      await screen.findByRole("button", { name: "Explain result" }),
+    );
+    expect(
+      await screen.findByText("The supported fields are in sync."),
+    ).toBeTruthy();
+    expect(screen.getByText("Important differences")).toBeTruthy();
+    expect(screen.getByText("Likely implications")).toBeTruthy();
+    expect(screen.getByText("Investigation checks")).toBeTruthy();
+    expect(screen.getByText("Limitations and uncertainty")).toBeTruthy();
+    expect(explainScan).toHaveBeenCalledOnce();
+    expect(screen.queryByRole("button", { name: "Explain result" })).toBeNull();
+  });
+
   it.each([
     ["IN_SYNC", /in sync/i],
     ["MISSING_LIVE", /live Deployment is missing/i],

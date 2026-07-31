@@ -2,6 +2,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({
   after: vi.fn(),
+  explainScanResponse: vi.fn(),
+  getExplanationService: vi.fn(),
   getScanResponse: vi.fn(),
   getScanService: vi.fn(),
   listScansResponse: vi.fn(),
@@ -13,6 +15,7 @@ const mocks = vi.hoisted(() => ({
 
 vi.mock("next/server", () => ({ after: mocks.after }));
 vi.mock("@/server/scans/api", () => ({
+  explainScanResponse: mocks.explainScanResponse,
   getScanResponse: mocks.getScanResponse,
   listScansResponse: mocks.listScansResponse,
   scanErrorResponse: mocks.scanErrorResponse,
@@ -20,16 +23,19 @@ vi.mock("@/server/scans/api", () => ({
   startScanResponse: mocks.startScanResponse,
 }));
 vi.mock("@/server/scans/runtime", () => ({
+  getExplanationService: mocks.getExplanationService,
   getScanService: mocks.getScanService,
 }));
 
 import { GET as listScans, POST as startScan } from "@/app/api/scans/route";
 import { GET as getScan } from "@/app/api/scans/[id]/route";
+import { POST as explainScan } from "@/app/api/scans/[id]/explanation/route";
 import { GET as getSource } from "@/app/api/source/route";
 
 describe("scan Route Handlers", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mocks.getExplanationService.mockReturnValue(mocks.service);
     mocks.getScanService.mockReturnValue(mocks.service);
   });
 
@@ -75,6 +81,46 @@ describe("scan Route Handlers", () => {
       }),
     ).resolves.toBe(expected);
     expect(mocks.getScanResponse).toHaveBeenCalledWith("scan-1", mocks.service);
+  });
+
+  it("awaits params and delegates an explanation request", async () => {
+    const expected = Response.json({ scan: { id: "scan-1" } });
+    mocks.explainScanResponse.mockResolvedValue(expected);
+
+    await expect(
+      explainScan(
+        new Request("http://localhost/api/scans/scan-1/explanation", {
+          method: "POST",
+        }),
+        { params: Promise.resolve({ id: "scan-1" }) },
+      ),
+    ).resolves.toBe(expected);
+    expect(mocks.explainScanResponse).toHaveBeenCalledWith(
+      "scan-1",
+      mocks.service,
+    );
+  });
+
+  it("maps explanation bootstrap failure through the safe API contract", async () => {
+    const expected = Response.json(
+      { error: { code: "CONFIGURATION_INVALID" } },
+      { status: 503 },
+    );
+    const error = new Error("unsafe provider configuration detail");
+    mocks.getExplanationService.mockImplementation(() => {
+      throw error;
+    });
+    mocks.scanErrorResponse.mockReturnValue(expected);
+
+    await expect(
+      explainScan(
+        new Request("http://localhost/api/scans/id/explanation", {
+          method: "POST",
+        }),
+        { params: Promise.resolve({ id: "id" }) },
+      ),
+    ).resolves.toBe(expected);
+    expect(mocks.scanErrorResponse).toHaveBeenCalledWith(error);
   });
 
   it("maps runtime bootstrap failure through the safe API contract", async () => {

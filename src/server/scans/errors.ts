@@ -2,6 +2,8 @@ import type { SafeScanError, ScanErrorCode } from "@/server/scans/contracts";
 
 const SAFE_MESSAGES: Record<ScanErrorCode, string> = {
   CONFIGURATION_INVALID: "Scan service configuration is invalid.",
+  EXPLANATION_NOT_ELIGIBLE: "Only completed scan results can be explained.",
+  EXPLANATION_TERMINAL: "This explanation request is already terminal.",
   GITHUB_FILE_NOT_FOUND: "Configured manifest file was not found.",
   GITHUB_REF_NOT_FOUND: "Requested Git reference was not found.",
   GITHUB_RESPONSE_INVALID: "GitHub returned an invalid response.",

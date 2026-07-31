@@ -238,6 +238,21 @@ button:disabled {
   font-size: 1.1rem;
   font-weight: 700;
 }
+.explanation-panel {
+  border-top: 1px solid var(--border);
+  margin-top: 24px;
+  padding-top: 18px;
+}
+.explanation-panel > p,
+.operator-analysis li {
+  color: var(--muted);
+}
+.operator-analysis h4 {
+  margin-bottom: 6px;
+}
+.operator-analysis ul {
+  margin-top: 0;
+}
 .table-wrap {
   overflow-x: auto;
 }

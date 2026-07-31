@@ -253,6 +253,7 @@ describe("ScanService", () => {
       checkWritable: () => durable.checkWritable(),
       complete: (...args) => durable.complete(...args),
       createQueued: (...args) => durable.createQueued(...args),
+      failExplanation: (...args) => durable.failExplanation(...args),
       fail: () => {
         throw new ScanExecutionError("STORAGE_WRITE_FAILED");
       },
@@ -260,8 +261,10 @@ describe("ScanService", () => {
         throw new ScanExecutionError("STORAGE_UNAVAILABLE");
       },
       list: (...args) => durable.list(...args),
+      requestExplanation: (...args) => durable.requestExplanation(...args),
       saveDesired: (...args) => durable.saveDesired(...args),
       saveLive: (...args) => durable.saveLive(...args),
+      saveExplanation: (...args) => durable.saveExplanation(...args),
       transition: (...args) => durable.transition(...args),
     };
     let id = 0;
@@ -307,17 +310,20 @@ describe("ScanService", () => {
         throw new ScanExecutionError("STORAGE_WRITE_FAILED");
       },
       createQueued: (...args) => durable.createQueued(...args),
+      failExplanation: (...args) => durable.failExplanation(...args),
       fail: () => {
         throw new ScanExecutionError("STORAGE_WRITE_FAILED");
       },
       get: (...args) => durable.get(...args),
       list: (...args) => durable.list(...args),
+      requestExplanation: (...args) => durable.requestExplanation(...args),
       saveDesired: () => {
         throw new ScanExecutionError("STORAGE_WRITE_FAILED");
       },
       saveLive: () => {
         throw new ScanExecutionError("STORAGE_WRITE_FAILED");
       },
+      saveExplanation: (...args) => durable.saveExplanation(...args),
       transition: () => {
         throw new ScanExecutionError("STORAGE_WRITE_FAILED");
       },
@@ -368,13 +374,16 @@ describe("ScanService", () => {
       checkWritable: () => durable.checkWritable(),
       complete: (...args) => durable.complete(...args),
       createQueued: (...args) => durable.createQueued(...args),
+      failExplanation: (...args) => durable.failExplanation(...args),
       fail: () => {
         throw new ScanExecutionError("STORAGE_WRITE_FAILED");
       },
       get: (...args) => durable.get(...args),
       list: (...args) => durable.list(...args),
+      requestExplanation: (...args) => durable.requestExplanation(...args),
       saveDesired: (...args) => durable.saveDesired(...args),
       saveLive: (...args) => durable.saveLive(...args),
+      saveExplanation: (...args) => durable.saveExplanation(...args),
       transition: (...args) => durable.transition(...args),
     };
     let id = 0;

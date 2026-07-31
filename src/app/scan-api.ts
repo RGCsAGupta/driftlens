@@ -2,6 +2,8 @@ import { z } from "zod";
 
 import {
   comparisonOutcomeSchema,
+  explanationStateSchema,
+  operatorAnalysisSchema,
   scanStageSchema,
   scanStatusSchema,
   type ScanRecord,
@@ -19,6 +21,7 @@ export class ScanApiError extends Error {
 }
 
 export interface ScanApi {
+  explainScan(id: string): Promise<ScanRecord>;
   getScan(id: string): Promise<ScanRecord>;
   getSource(): Promise<SourceMetadata>;
   listScans(): Promise<ScanRecord[]>;
@@ -28,6 +31,8 @@ export interface ScanApi {
 const boundedString = z.string().min(1).max(2_048);
 const apiErrorCodeSchema = z.enum([
   "CONFIGURATION_INVALID",
+  "EXPLANATION_NOT_ELIGIBLE",
+  "EXPLANATION_TERMINAL",
   "INTERNAL_ERROR",
   "INVALID_LIMIT",
   "INVALID_REQUEST",
@@ -38,6 +43,8 @@ const apiErrorCodeSchema = z.enum([
 ]);
 const scanErrorCodeSchema = z.enum([
   "CONFIGURATION_INVALID",
+  "EXPLANATION_NOT_ELIGIBLE",
+  "EXPLANATION_TERMINAL",
   "GITHUB_FILE_NOT_FOUND",
   "GITHUB_REF_NOT_FOUND",
   "GITHUB_RESPONSE_INVALID",
@@ -93,6 +100,25 @@ const scanRecordSchema = z.strictObject({
       message: z.string().min(1).max(500),
     })
     .nullable(),
+  explanation: z.strictObject({
+    analysis: operatorAnalysisSchema.nullable(),
+    error: z
+      .strictObject({
+        code: z.enum([
+          "AI_CONFIGURATION_INVALID",
+          "AI_INCOMPLETE",
+          "AI_INVALID_RESPONSE",
+          "AI_PROVIDER_UNAVAILABLE",
+          "AI_REFUSED",
+          "AI_TIMEOUT",
+        ]),
+        message: z.string().min(1).max(500),
+      })
+      .nullable(),
+    requestedAt: z.string().min(1).max(40).nullable(),
+    savedAt: z.string().min(1).max(40).nullable(),
+    state: explanationStateSchema,
+  }),
   id: z.string().uuid(),
   live: projectionSchema.nullable(),
   outcome: comparisonOutcomeSchema.nullable(),
@@ -169,6 +195,15 @@ function scanEnvelope(value: unknown): ScanRecord {
 
 export function createScanApi(fetcher: typeof fetch = fetch): ScanApi {
   return {
+    async explainScan(id) {
+      return scanEnvelope(
+        await requestJson(
+          fetcher,
+          `/api/scans/${encodeURIComponent(id)}/explanation`,
+          { method: "POST" },
+        ),
+      );
+    },
     async getScan(id) {
       return scanEnvelope(
         await requestJson(fetcher, `/api/scans/${encodeURIComponent(id)}`),

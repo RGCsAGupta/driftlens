@@ -18,6 +18,9 @@ export DRIFTLENS_GITHUB_REPOSITORY=owner/public-repository
 export DRIFTLENS_MANIFEST_PATH=path/to/deployment.yaml
 export DRIFTLENS_KUBECONFIG_PATH=/absolute/path/to/read-only.kubeconfig
 # Optional: export DRIFTLENS_KUBECONTEXT=explicit-context
+# AI analysis configuration (both required to enable the manual capability):
+export OPENAI_API_KEY=...
+export OPENAI_MODEL=gpt-5.6
 
 npm ci
 npm run dev
@@ -46,8 +49,13 @@ result survives reload without browser storage.
 `IN_SYNC`, `DRIFTED`, `MISSING_LIVE`, and failed execution always include text
 and do not rely on color. Failed scans are terminal; correct the reported issue
 and start a new scan. There is no cancellation, retry, raw manifest/log view,
-configuration UI, monitoring dashboard, or AI explanation control in this
-slice.
+configuration UI, monitoring dashboard, or automatic explanation.
+
+For any completed outcome, choose **Explain result** to make one manual AI
+analysis request. The saved structured response is secondary to deterministic
+truth and cannot alter scan status, outcome, or differences. Saved
+explanations survive restart and are returned without another provider call.
+A failed explanation is terminal and has no manual or automatic retry.
 
 The UI renders only the API's bounded projection and safe error contract. It
 never requests or displays GitHub credentials, kubeconfig content, tokens,
@@ -59,12 +67,13 @@ The formal, machine-readable contract for these routes is
 [OpenAPI 3.1](docs/openapi.yaml). It also records the current authentication
 and exposure boundary.
 
-| Endpoint             | Success | Purpose                                      |
-| -------------------- | ------- | -------------------------------------------- |
-| `GET /api/source`    | `200`   | Non-secret repository and manifest metadata  |
-| `POST /api/scans`    | `202`   | Persist and schedule one scan                |
-| `GET /api/scans`     | `200`   | Newest-first history, default 20, maximum 50 |
-| `GET /api/scans/:id` | `200`   | Status, stages, target, result, safe failure |
+| Endpoint                          | Success | Purpose                                      |
+| --------------------------------- | ------- | -------------------------------------------- |
+| `GET /api/source`                 | `200`   | Non-secret repository and manifest metadata  |
+| `POST /api/scans`                 | `202`   | Persist and schedule one scan                |
+| `GET /api/scans`                  | `200`   | Newest-first history, default 20, maximum 50 |
+| `GET /api/scans/:id`              | `200`   | Status, stages, target, result, safe failure |
+| `POST /api/scans/:id/explanation` | `200`   | Request or reuse AI analysis                 |
 
 Start and poll a scan:
 
@@ -107,7 +116,9 @@ content, or complete manifests.
 ## Persistence
 
 `DRIFTLENS_DATA_DIR` contains `driftlens.sqlite`. Node 24 `node:sqlite`
-bootstraps schema version 1 idempotently and uses prepared statements for every
+keeps rollback-compatible schema version 1 while adding explanation columns
+idempotently. The previous immutable image ignores those additive columns and
+can still pass storage readiness after rollback. Prepared statements bind every
 dynamic value. The database retains only requested/resolved revisions,
 supported projections and differences, target identity, timestamps, stages,
 outcomes, and safe errors. It never stores complete manifests or kubeconfig
@@ -126,6 +137,25 @@ truth.
 Structured scan logs contain only a generated scan identifier, stage or safe
 error code, severity, and durability flag. They exclude refs, repository paths,
 manifest content, kubeconfig data, credentials, and upstream error bodies.
+
+## AI explanation boundary
+
+The server uses the official OpenAI TypeScript SDK Responses API with Zod
+Structured Outputs. `OPENAI_API_KEY` never reaches the browser or persistence;
+`OPENAI_MODEL` must be configured, with `gpt-5.6` documented as the initial
+value. Missing or blank key/model configuration becomes a safe terminal
+explanation failure. The adapter sets `store: false`, one 12-second timeout,
+`maxRetries: 0`, and a bounded output budget. Provider cost and availability
+affect only a manual explanation, never scanning.
+
+The provider receives only outcome, desired/live replica and regular-container
+image projections, and deterministic field differences. DriftLens excludes
+repository refs and authorization, commit SHA, target identity, manifests,
+kubeconfig, history, raw errors/logs, secrets, and unrelated Kubernetes fields.
+Refusal, incomplete or invalid output, timeout, missing configuration, and
+provider failures become fixed safe persisted errors. There is no chat,
+streaming, external retrieval, root-cause confirmation, remediation, provider
+fallback, or retry.
 
 ## Operational endpoints
 
@@ -255,7 +285,8 @@ is documented in [docs/delivery.md](docs/delivery.md).
   overall workflow timeout, or restart resumability.
 - Replicas and regular-container images only.
 - Read-only namespaced Deployment lookup only; no list, watch, or write.
-- No AI explanation yet; issue #11 owns that manual capability.
+- AI analysis is manual, single-attempt, provider-dependent, and limited to the
+  supported deterministic projection.
 - No private Git, configuration UI, cancellation, retry, monitoring dashboard,
   or multi-user behavior.
 - Live demo scenarios and release evidence remain owned by issue #12.

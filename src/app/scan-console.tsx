@@ -53,7 +53,15 @@ function setScanQuery(id: string): void {
   window.history.replaceState(null, "", `${url.pathname}${url.search}`);
 }
 
-export function ScanDetails({ scan }: { scan: ScanRecord }) {
+export function ScanDetails({
+  explaining = false,
+  onExplain,
+  scan,
+}: {
+  explaining?: boolean;
+  onExplain?: () => void;
+  scan: ScanRecord;
+}) {
   return (
     <article className="scan-details" aria-labelledby="scan-details-title">
       <div className="detail-heading">
@@ -138,6 +146,72 @@ export function ScanDetails({ scan }: { scan: ScanRecord }) {
           </table>
         </div>
       ) : null}
+
+      {scan.status === "COMPLETED" ? (
+        <section
+          className="explanation-panel"
+          aria-labelledby="explanation-title"
+        >
+          <h3 id="explanation-title">AI-generated operator analysis</h3>
+          <p>
+            Optional context only. The deterministic result above remains the
+            source of truth.
+          </p>
+          {scan.explanation.state === "NOT_REQUESTED" ? (
+            <button type="button" onClick={onExplain} disabled={explaining}>
+              {explaining ? "Requesting explanation…" : "Explain result"}
+            </button>
+          ) : null}
+          {scan.explanation.state === "REQUESTED" ? (
+            <p role="status">Requesting explanation…</p>
+          ) : null}
+          {scan.explanation.state === "FAILED" && scan.explanation.error ? (
+            <div className="error-panel" role="alert">
+              <strong>{scan.explanation.error.code}</strong>
+              <p>{scan.explanation.error.message}</p>
+              <p>This terminal explanation is not retried.</p>
+            </div>
+          ) : null}
+          {scan.explanation.state === "SAVED" && scan.explanation.analysis ? (
+            <div className="operator-analysis">
+              <p>{scan.explanation.analysis.summary}</p>
+              {(
+                [
+                  [
+                    "Important differences",
+                    scan.explanation.analysis.importantDifferences,
+                  ],
+                  [
+                    "Likely implications",
+                    scan.explanation.analysis.likelyImplications,
+                  ],
+                  [
+                    "Investigation checks",
+                    scan.explanation.analysis.investigationChecks,
+                  ],
+                  [
+                    "Limitations and uncertainty",
+                    scan.explanation.analysis.limitations,
+                  ],
+                ] as const
+              ).map(([heading, items]) => (
+                <section key={heading}>
+                  <h4>{heading}</h4>
+                  {items.length === 0 ? (
+                    <p>None identified.</p>
+                  ) : (
+                    <ul>
+                      {items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  )}
+                </section>
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
     </article>
   );
 }
@@ -158,6 +232,7 @@ export function ScanConsole({
   const [ref, setRef] = useState("main");
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [explainingId, setExplainingId] = useState<string | null>(null);
 
   async function refreshHistory() {
     const scans = await api.listScans();
@@ -277,6 +352,24 @@ export function ScanConsole({
     }
   }
 
+  async function explain(id: string) {
+    if (explainingId) return;
+    setExplainingId(id);
+    setMessage(null);
+    try {
+      const scan = await api.explainScan(id);
+      setRecords((current) => mergeRecords(current, [scan]));
+    } catch (error) {
+      setMessage(
+        error instanceof ScanApiError
+          ? `${error.code}: ${error.message}`
+          : "Explanation could not be requested.",
+      );
+    } finally {
+      setExplainingId(null);
+    }
+  }
+
   const selected = selectedId ? records[selectedId] : undefined;
   const busy = submitting || activeId !== null;
 
@@ -371,7 +464,11 @@ export function ScanConsole({
           </nav>
           <section className="result-panel" aria-label="Scan result">
             {selected ? (
-              <ScanDetails scan={selected} />
+              <ScanDetails
+                scan={selected}
+                explaining={explainingId === selected.id}
+                onExplain={() => void explain(selected.id)}
+              />
             ) : (
               <p className="empty-result">Select a scan or start a new one.</p>
             )}
