@@ -2,6 +2,7 @@
 set -euo pipefail
 
 readonly SERVICE_ACCOUNT="driftlens-reader"
+readonly READ_PROBE_DEPLOYMENT="driftlens-read-probe"
 cluster_name="${DRIFTLENS_KIND_CLUSTER_NAME:-driftlens-demo}"
 namespace="${DRIFTLENS_DEMO_NAMESPACE:-driftlens-demo}"
 kubeconfig="${1:-}"
@@ -21,7 +22,7 @@ can_i() {
 }
 
 [[ "$(can_i get deployments.apps)" == "yes" ]]
-kubectl --kubeconfig "$kubeconfig" get deployment --namespace "$namespace" --ignore-not-found >/dev/null
+kubectl --kubeconfig "$kubeconfig" get deployment "$READ_PROBE_DEPLOYMENT" --namespace "$namespace" --ignore-not-found >/dev/null
 for denied in \
   "list deployments.apps" \
   "watch deployments.apps" \

@@ -46,6 +46,7 @@ describe("demo-cluster delivery contract", () => {
 
     expect(bootstrapSource).toContain("kindest/node:v1.35.5@sha256:");
     expect(bootstrapSource).toContain('verbs: ["get"]');
+    expect(verifySource).toContain('get deployment "$READ_PROBE_DEPLOYMENT"');
     for (const denied of [
       "list",
       "watch",
