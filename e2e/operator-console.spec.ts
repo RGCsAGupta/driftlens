@@ -109,7 +109,7 @@ test("operator starts, follows, reviews, and reloads a scan accessibly", async (
   ]) {
     await expect(page.getByRole("status")).toContainText(stage);
   }
-  await expect(page.getByText("DRIFTED")).toBeVisible();
+  await expect(page.getByText("DRIFTED", { exact: true })).toBeVisible();
   await expect(
     page.getByRole("table", { name: "Supported field differences" }),
   ).toContainText("Container app image");
