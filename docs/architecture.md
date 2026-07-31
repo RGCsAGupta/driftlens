@@ -304,6 +304,9 @@ failure becomes an explanation error and never alters scan truth.
 - CI, deployment, application, and demo-cluster identities and credentials
   remain isolated.
 - The application uses an immutable build tied to the merged commit SHA.
+- The application target consumes a root-owned runtime environment, a
+  read-only kubeconfig mount, and a preprovisioned private origin address. No
+  value is stored in the repository.
 - The existing private registry is reused without configuration or authority
   changes.
 - The existing Cloudflare account, tunnel, proxy, and access-policy

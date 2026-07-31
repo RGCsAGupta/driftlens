@@ -15,12 +15,15 @@ fail() {
   exit 1
 }
 
+. /usr/local/libexec/driftlens/v1/common.sh
+
 test "$(id -u)" -eq 0 || fail "smoke requires root"
 test "$#" -eq 1 || fail "usage: driftlens-smoke <revision>"
 
 expected_revision=$1
 printf '%s' "$expected_revision" | grep -Eq '^[0-9a-f]{40}$' ||
   fail "revision must be a full Git SHA"
+validate_runtime_files
 
 test -f "$release_root/candidate" || fail "release candidate metadata is missing"
 test "$(wc -l <"$release_root/candidate")" -eq 2 ||
@@ -45,6 +48,9 @@ validate_container() {
   docker container inspect "$checked_name" \
     --format '{{json .HostConfig.CapDrop}}' 2>/dev/null |
     grep -F 'ALL' >/dev/null || return 1
+  test "$(docker container inspect "$checked_name" \
+    --format '{{range .Mounts}}{{if eq .Destination "/run/driftlens/kubeconfig"}}{{.RW}}{{end}}{{end}}' \
+    2>/dev/null)" = false || return 1
 
   attempt=0
   until docker exec "$checked_name" node -e \
@@ -107,9 +113,11 @@ docker run --detach \
   --security-opt no-new-privileges \
   --cap-drop ALL \
   --user 1001:1001 \
+  --env-file "$runtime_env_file" \
   --tmpfs /tmp:rw,noexec,nosuid,nodev,size=64m \
   --mount "type=bind,source=$data_root,target=/data" \
-  --publish 127.0.0.1:3000:3000 \
+  --mount "type=bind,source=$kubeconfig_file,target=$container_kubeconfig,readonly" \
+  --publish "$origin_address:3000:3000" \
   --label "org.opencontainers.image.revision=$expected_revision" \
   "$candidate_image" >/dev/null 2>&1 ||
   fail "verified image failed to start on private origin"

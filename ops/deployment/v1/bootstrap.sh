@@ -24,13 +24,25 @@ printf '%s' "$deploy_user" | grep -Eq '^[a-z_][a-z0-9_-]*$' ||
 id "$deploy_user" >/dev/null 2>&1 || fail "deployment user must already exist"
 test "$(id -u "$deploy_user")" -ne 0 ||
   fail "deployment user must be non-root"
+test "$(id -u "$deploy_user")" -ne 1001 ||
+  fail "deployment user must not share the container identity"
+if id -G "$deploy_user" | tr ' ' '\n' | grep -Fx 1001 >/dev/null; then
+  fail "deployment user must not share the container group"
+fi
 if id -nG "$deploy_user" | grep -Eq '(^| )(docker|sudo|wheel)( |$)'; then
   fail "deployment user must not have a privileged group"
 fi
 
 command -v docker >/dev/null 2>&1 || fail "docker is required"
+command -v getent >/dev/null 2>&1 || fail "getent is required"
 command -v visudo >/dev/null 2>&1 || fail "visudo is required"
 docker info >/dev/null 2>&1 || fail "docker daemon is unavailable"
+if getent passwd 1001 >/dev/null 2>&1; then
+  fail "container UID must not map to a host account"
+fi
+if getent group 1001 >/dev/null 2>&1; then
+  fail "container GID must not map to a host group"
+fi
 
 test -f "$repository_file" || fail "approved image repository is not configured"
 test "$(stat -c '%u' "$repository_file")" -eq 0 ||
@@ -46,10 +58,13 @@ printf '%s' "$repository" |
   fail "approved image repository is invalid"
 
 script_root=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+. "$script_root/common.sh"
+validate_runtime_files
 
 install -d -o root -g root -m 0755 "$install_root"
 install -d -o root -g root -m 0750 "$state_root/releases"
 install -d -o 1001 -g 1001 -m 0750 "$state_root/data"
+install -o root -g root -m 0644 "$script_root/common.sh" "$install_root/common.sh"
 install -o root -g root -m 0755 "$script_root/release.sh" "$install_root/release.sh"
 install -o root -g root -m 0755 "$script_root/smoke.sh" "$install_root/smoke.sh"
 ln -sfn "$install_root/release.sh" /usr/local/sbin/driftlens-release

@@ -403,6 +403,8 @@ primary live demo. MVP Extended tests cover cancellation and timeout.
     separate dedicated host;
   - a dedicated runner host provides separate non-sudo CI and deployment
     services;
+  - the application target receives preprovisioned runtime-source
+    configuration, a read-only kubeconfig, and a private origin address;
   - the existing private registry is reused without changes;
   - the approved private virtualization environment supports the hosted demo;
   - UI and API reuse the existing Cloudflare account, tunnel, proxy, and access

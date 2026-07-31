@@ -17,6 +17,8 @@ fail() {
   exit 1
 }
 
+. /usr/local/libexec/driftlens/v1/common.sh
+
 test "$(id -u)" -eq 0 || fail "release requires root"
 test "$#" -eq 2 || fail "usage: driftlens-release <image-digest> <revision>"
 
@@ -42,6 +44,7 @@ printf '%s' "$repository" |
   fail "approved image repository is invalid"
 test "${image_digest%%@*}" = "$repository" ||
   fail "image repository does not match approved target"
+validate_runtime_files
 
 docker pull "$image_digest" >/dev/null 2>&1 || fail "image pull failed"
 docker image inspect "$image_digest" \
@@ -84,8 +87,10 @@ docker run --detach \
   --security-opt no-new-privileges \
   --cap-drop ALL \
   --user 1001:1001 \
+  --env-file "$runtime_env_file" \
   --tmpfs /tmp:rw,noexec,nosuid,nodev,size=64m \
   --mount "type=bind,source=$data_root,target=/data" \
+  --mount "type=bind,source=$kubeconfig_file,target=$container_kubeconfig,readonly" \
   --label "org.opencontainers.image.revision=$revision" \
   "$image_digest" >/dev/null 2>&1 ||
   fail "release candidate failed to start"

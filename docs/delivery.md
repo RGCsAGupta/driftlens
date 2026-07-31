@@ -34,14 +34,33 @@ The versioned scripts live in `ops/deployment/v1`. An operator runs
 
 - requires Docker, a pre-existing deployment user, existing private-registry
   authentication, and a root-owned approved repository configuration;
+- requires a root-owned mode-`0600` runtime environment file containing
+  `NODE_ENV=production`, `DRIFTLENS_DATA_DIR=/data`, the fixed in-container
+  kubeconfig path, `DRIFTLENS_GITHUB_REPOSITORY`,
+  `DRIFTLENS_MANIFEST_PATH`, and an optional
+  `DRIFTLENS_KUBECONTEXT`;
+- requires a root-owned, container-group-readable mode-`0440` kubeconfig that
+  is self-contained/flattened, uses no external credential files or exec
+  plugins, and is mounted read-only at `/run/driftlens/kubeconfig`;
+- requires a root-owned mode-`0600` private origin address containing one
+  strict RFC1918 IPv4 address reachable by the existing proxy path;
 - creates no user and performs no registry login or registry configuration;
 - installs versioned `release.sh` and `smoke.sh` implementations behind the
   stable `/usr/local/sbin/driftlens-release` and
   `/usr/local/sbin/driftlens-smoke` command paths; and
 - validates a narrow `sudoers` rule before installation.
 
-The repository deliberately contains no target identifier, registry endpoint,
-credential, or internal address. Re-running the same version is idempotent.
+These target files live under `/etc/driftlens`; their values never enter the
+repository or workflow logs. Runtime validation rejects duplicate or malformed
+environment keys, GitHub owner/repository values outside the application
+bounds, unsafe or over-500-character manifest paths, kubecontexts over 253
+characters, immutable build/runtime overrides, ownership or mode drift,
+external kubeconfig references, and non-private origin addresses. The existing
+deployment user must be non-root, outside privileged groups, and must not share
+the container UID or GID. The numeric container UID/GID must also have no host
+passwd or group mapping. Bootstrap fails before installation on any collision;
+it does not create network bindings or change proxy, registry, or Cloudflare
+controls. Re-running the same version is idempotent.
 
 ## Immutable release contract
 
@@ -56,10 +75,13 @@ the previous immutable image and release metadata, and keep persistent data
 outside the replaceable image lifecycle.
 
 The target pulls only from its root-owned approved repository configuration.
-It runs the image as numeric non-root user `1001:1001` with all capabilities
-dropped, `no-new-privileges`, a read-only root filesystem, a bounded temporary
-mount, and one persistent data bind mount. The container publishes only on
-loopback. It must not change Cloudflare or public routing.
+It passes the validated runtime environment, mounts the validated kubeconfig
+read-only, and runs the image as numeric non-root user `1001:1001` with all
+capabilities dropped, `no-new-privileges`, a read-only root filesystem, a
+bounded temporary mount, and one persistent data bind mount. The candidate is
+unpublished. The stable container publishes only on the preprovisioned private
+origin address required by the existing separate proxy path. Scripts do not
+print that address or change Cloudflare or public routing.
 
 After release, the target smoke command performs a bounded local readiness wait
 inside the container and requires:
