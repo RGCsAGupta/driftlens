@@ -280,6 +280,36 @@ describe("OpenAIExplanationProvider", () => {
     expect(parse).toHaveBeenCalledOnce();
   });
 
+  it("maps generic provider failure to one fixed safe error without retry", async () => {
+    const rawDetail = "raw upstream provider detail";
+    const parse = vi.fn().mockRejectedValue(new Error(rawDetail));
+    const provider = new OpenAIExplanationProvider(
+      "test-key",
+      "gpt-5.6",
+      12_000,
+      { parse } as unknown as OpenAI["responses"],
+    );
+
+    const failure = await provider.analyze(PROJECTION).then(
+      () => {
+        throw new Error("Expected provider failure.");
+      },
+      (error: unknown) => {
+        expect(error).toBeInstanceOf(ExplanationProviderError);
+        return error as ExplanationProviderError;
+      },
+    );
+
+    expect(failure.safe).toEqual({
+      code: "AI_PROVIDER_UNAVAILABLE",
+      message: "AI explanation provider is unavailable.",
+    });
+    expect(
+      JSON.stringify({ message: failure.message, safe: failure.safe }),
+    ).not.toContain(rawDetail);
+    expect(parse).toHaveBeenCalledOnce();
+  });
+
   it.each([
     ["missing key", " ", "gpt-5.6"],
     ["missing model", "test-key", " "],

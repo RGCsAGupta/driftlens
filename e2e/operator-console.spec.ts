@@ -11,6 +11,13 @@ function scan(overrides: Record<string, unknown> = {}) {
     differences: [],
     durable: true,
     error: null,
+    explanation: {
+      analysis: null,
+      error: null,
+      requestedAt: null,
+      savedAt: null,
+      state: "NOT_REQUESTED",
+    },
     id: ID,
     live: null,
     outcome: null,

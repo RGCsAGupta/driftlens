@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
+import { ExplanationService } from "@/server/scans/explanation";
 import { SqliteScanRepository } from "@/server/scans/repository";
 
 const directories: string[] = [];
@@ -120,7 +121,7 @@ describe("SqliteScanRepository", () => {
     inspection.close();
   });
 
-  it("migrates genuine schema v1 history and persists a saved explanation across restart", () => {
+  it("migrates genuine schema v1 history and reuses a saved explanation after restart", async () => {
     const path = databasePath();
     createSchemaV1Database(path);
 
@@ -150,7 +151,8 @@ describe("SqliteScanRepository", () => {
 
     const restarted = new SqliteScanRepository(path);
     expect(restarted.list(10)).toHaveLength(1);
-    expect(restarted.get("scan-v1")).toMatchObject({
+    const saved = restarted.get("scan-v1");
+    expect(saved).toMatchObject({
       desired: original?.desired,
       differences: original?.differences,
       explanation: {
@@ -166,6 +168,10 @@ describe("SqliteScanRepository", () => {
       status: original?.status,
       target: original?.target,
     });
+    const analyze = vi.fn().mockRejectedValue(new Error("must not be called"));
+    const restartedService = new ExplanationService(restarted, { analyze });
+    await expect(restartedService.explain("scan-v1")).resolves.toEqual(saved);
+    expect(analyze).not.toHaveBeenCalled();
     restarted.close();
 
     const inspection = new DatabaseSync(path, { readOnly: true });
