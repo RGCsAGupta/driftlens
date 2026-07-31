@@ -230,6 +230,86 @@
       "sha256": "fa656d20e249696d113fc8ab74a99ce12414ea9f3a2d4ccee3bd152d166ebb27",
       "lines": 39,
       "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue 12 submission-preparation owner",
+      "sessionId": "019fb868-5297-7a82-b3f0-890aece9a970",
+      "status": "completed",
+      "sessionFile": "sessions/issue-12-submission-owner.jsonl",
+      "redactionReport": "redactions/issue-12-submission-owner.json",
+      "sha256": "647ab912d4cca179a17f28d24c8d7697813493b7a02f5775c8dab894bfee0648",
+      "lines": 3081,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue 9 implementation owner",
+      "sessionId": "019fb60b-0b49-7891-a35d-44ecfb24b23d",
+      "status": "completed",
+      "sessionFile": "sessions/issue-9-implementation-owner.jsonl",
+      "redactionReport": "redactions/issue-9-implementation-owner.json",
+      "sha256": "0777e4284b27d991ccd2a44bfbd0e72c2680d30d640e57422cfc1dcef7c9942f",
+      "lines": 1153,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue 9 bounded reviewer",
+      "sessionId": "019fb690-a184-7022-825d-90bc4907257b",
+      "status": "completed",
+      "sessionFile": "sessions/issue-9-bounded-reviewer.jsonl",
+      "redactionReport": "redactions/issue-9-bounded-reviewer.json",
+      "sha256": "18aff3d401f1d81a8115395c988d75198067fb04b1d5cb8a4ce59cfc98cd8a3f",
+      "lines": 351,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue 10 user-visible owner record",
+      "sessionId": "019fb85c-78bd-7b02-87f0-cb1376c6d0a3",
+      "status": "completed",
+      "sessionFile": "sessions/issue-10-user-visible-owner.jsonl",
+      "redactionReport": "redactions/issue-10-user-visible-owner.json",
+      "sha256": "a628ad0d3e4425d5e3b7188a732f70a2179796a22b1fd231f0244ad7c0fe67e9",
+      "lines": 990,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue 11 second user-facing delivery record",
+      "sessionId": "019fb8c3-8ec5-70a0-81e1-ca904918da9f",
+      "status": "completed",
+      "sessionFile": "sessions/issue-11-user-facing-delivery-secondary.jsonl",
+      "redactionReport": "redactions/issue-11-user-facing-delivery-secondary.json",
+      "sha256": "8741b5affba9e6a38f513c2685e9a753faefa16f98fb4614cb3b72ce91d561c4",
+      "lines": 337,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Interrupted duplicate Issue 12 preparation task",
+      "sessionId": "019fb868-0ca0-7810-af7d-4d93258b8286",
+      "status": "completed",
+      "sessionFile": "sessions/issue-12-interrupted-duplicate.jsonl",
+      "redactionReport": "redactions/issue-12-interrupted-duplicate.json",
+      "sha256": "f62db17a9c909a12d7b8ff3e9c4937bffa43feb48aae6f410fab4ab309b6307d",
+      "lines": 136,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue 8 implementation owner",
+      "sessionId": "019fb4f6-2983-7302-8e37-b73f35e511ba",
+      "status": "completed",
+      "sessionFile": "sessions/issue-8-implementation-owner.jsonl",
+      "redactionReport": "redactions/issue-8-implementation-owner.json",
+      "sha256": "9599c1837718db0158f168d804840046861f8df88c3143cfe4ee92bc3605b636",
+      "lines": 1181,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue 8 bounded reviewer",
+      "sessionId": "019fb4f7-4857-7423-935b-de071135aebd",
+      "status": "completed",
+      "sessionFile": "sessions/issue-8-bounded-reviewer.jsonl",
+      "redactionReport": "redactions/issue-8-bounded-reviewer.json",
+      "sha256": "3f42eb06de4c681d56e1cec15fc97b0ba5fde3d378548a147544589e57ad348e",
+      "lines": 208,
+      "finalReview": "pass"
     }
   ],
   "held": [
@@ -239,53 +319,11 @@
       "status": "held-active"
     },
     {
-      "purpose": "Issue 12 submission-preparation owner",
-      "sessionId": "019fb868-5297-7a82-b3f0-890aece9a970",
-      "status": "held-active"
-    },
-    {
       "purpose": "Issue 12 coordinator review",
       "sessionId": "019fb926-109f-7a23-a7fe-6477f5fc57cf",
       "status": "held-active"
     }
   ],
-  "unavailable": [
-    {
-      "purpose": "Issue 9 implementation owner",
-      "sessionId": "019fb60b-0b49-7891-a35d-44ecfb24b23d",
-      "status": "unavailable-source"
-    },
-    {
-      "purpose": "Issue 9 bounded reviewer",
-      "sessionId": "019fb690-a184-7022-825d-90bc4907257b",
-      "status": "unavailable-source"
-    },
-    {
-      "purpose": "Issue 10 user-visible owner record",
-      "sessionId": "019fb85c-78bd-7b02-87f0-cb1376c6d0a3",
-      "status": "unavailable-source"
-    },
-    {
-      "purpose": "Issue 11 second user-facing delivery record",
-      "sessionId": "019fb8c3-8ec5-70a0-81e1-ca904918da9f",
-      "status": "unavailable-source"
-    },
-    {
-      "purpose": "Interrupted duplicate Issue 12 preparation task",
-      "sessionId": "019fb868-0ca0-7810-af7d-4d93258b8286",
-      "status": "unavailable-source"
-    }
-  ],
-  "pendingReconciliation": [
-    {
-      "purpose": "Issue 8 owner and bounded reviewer",
-      "status": "pending-exact-session-reconciliation",
-      "evidence": "parent-captured inventory only"
-    },
-    {
-      "purpose": "Requested read-only Issue 12 coordinator review",
-      "status": "pending-exact-session-reconciliation",
-      "evidence": "parent-captured delegated prompt, result, and owner review"
-    }
-  ]
+  "unavailable": [],
+  "pendingReconciliation": []
 }

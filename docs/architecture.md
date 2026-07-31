@@ -1,6 +1,6 @@
 # DriftLens MVP Architecture
 
-Status: approved baseline merged through PR #7; parent #3 release reconciliation in issue #12
+Status: approved baseline merged through PR #7; release evidence retained through #12 and final submission freeze in #3
 Architecture specification: GitHub issue #4
 Product scope: [PRD](./PRD.md)
 

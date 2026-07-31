@@ -1,0 +1,1426 @@
+{
+  "categoryCounts": {
+    "LOCAL PATH": 196,
+    "CREDENTIAL": 23,
+    "PERSONAL DATA": 7,
+    "PRIVATE TOPOLOGY": 4,
+    "PRIVATE NETWORK": 4,
+    "KUBECONFIG MATERIAL": 1
+  },
+  "inputLines": 337,
+  "outputLines": 337,
+  "redactions": [
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.cwd",
+      "line": 1,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.base_instructions.text",
+      "line": 1,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PERSONAL DATA",
+      "jsonPath": "$.payload.git.repository_url",
+      "line": 1,
+      "marker": "[REDACTED: PERSONAL DATA]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "PRIVATE TOPOLOGY",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: PRIVATE TOPOLOGY]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[6].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[6].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[6].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[6].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[6].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[6].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[6].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[6].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[6].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[6].text",
+      "line": 3,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 6,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 6,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE NETWORK",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 6,
+      "marker": "[REDACTED: PRIVATE NETWORK]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[1].text",
+      "line": 6,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[2].text",
+      "line": 6,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[2].text",
+      "line": 6,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[2].text",
+      "line": 6,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.state.agents_md.directory",
+      "line": 7,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.state.agents_md.text",
+      "line": 7,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.state.agents_md.text",
+      "line": 7,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE NETWORK",
+      "jsonPath": "$.payload.state.agents_md.text",
+      "line": 7,
+      "marker": "[REDACTED: PRIVATE NETWORK]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.state.environments.environments.local.cwd",
+      "line": 7,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.state.environments.filesystem",
+      "line": 7,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.state.environments.filesystem",
+      "line": 7,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.state.host_skills.body",
+      "line": 7,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.state.host_skills.body",
+      "line": 7,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.state.host_skills.body",
+      "line": 7,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.state.host_skills.body",
+      "line": 7,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.state.host_skills.body",
+      "line": 7,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.state.host_skills.body",
+      "line": 7,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.state.host_skills.body",
+      "line": 7,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.state.host_skills.body",
+      "line": 7,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.state.host_skills.body",
+      "line": 7,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.state.host_skills.body",
+      "line": 7,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.cwd",
+      "line": 8,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.workspace_roots[0]",
+      "line": 8,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.workspace_roots[1]",
+      "line": 8,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 9,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 9,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 18,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 18,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 18,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 18,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 18,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 18,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 18,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 18,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 18,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 19,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 19,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE NETWORK",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 19,
+      "marker": "[REDACTED: PRIVATE NETWORK]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.output[2].text",
+      "line": 19,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.output[2].text",
+      "line": 19,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PRIVATE NETWORK",
+      "jsonPath": "$.payload.output[2].text",
+      "line": 19,
+      "marker": "[REDACTED: PRIVATE NETWORK]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[5].text",
+      "line": 19,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[5].text",
+      "line": 19,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[5].text",
+      "line": 19,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[5].text",
+      "line": 19,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[5].text",
+      "line": 19,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 25,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 25,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 25,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 25,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 25,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 26,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 26,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 26,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 26,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 26,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 26,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 26,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 43,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.result.Ok.structuredContent.patches[0].patch",
+      "line": 47,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "PERSONAL DATA",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 51,
+      "marker": "[REDACTED: PERSONAL DATA]"
+    },
+    {
+      "category": "PERSONAL DATA",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 51,
+      "marker": "[REDACTED: PERSONAL DATA]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 59,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 59,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 59,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 59,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 66,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "KUBECONFIG MATERIAL",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 67,
+      "marker": "[REDACTED: KUBECONFIG MATERIAL]"
+    },
+    {
+      "category": "PERSONAL DATA",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 67,
+      "marker": "[REDACTED: PERSONAL DATA]"
+    },
+    {
+      "category": "PERSONAL DATA",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 67,
+      "marker": "[REDACTED: PERSONAL DATA]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 67,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 77,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 77,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 77,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.result.Ok.content[0].text",
+      "line": 78,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.result.Ok.content[0].text",
+      "line": 78,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 82,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 82,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 82,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.result.Ok.content[0].text",
+      "line": 83,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.result.Ok.content[0].text",
+      "line": 83,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.result.Ok.content[0].text",
+      "line": 83,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.result.Ok.content[0].text",
+      "line": 83,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.result.Ok.content[0].text",
+      "line": 83,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.result.Ok.content[0].text",
+      "line": 83,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 84,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 91,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 91,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 91,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 91,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 95,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 95,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 95,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 95,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 96,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 102,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 106,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 106,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 106,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 106,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "PERSONAL DATA",
+      "jsonPath": "$.payload.output[2].text",
+      "line": 107,
+      "marker": "[REDACTED: PERSONAL DATA]"
+    },
+    {
+      "category": "PERSONAL DATA",
+      "jsonPath": "$.payload.output[2].text",
+      "line": 107,
+      "marker": "[REDACTED: PERSONAL DATA]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.output[3].text",
+      "line": 107,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 110,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 110,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 110,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 121,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 121,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 141,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 145,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 145,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 145,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 146,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 146,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 146,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 146,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 146,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 146,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 146,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.thread_settings.cwd",
+      "line": 154,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.cwd",
+      "line": 156,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.workspace_roots[0]",
+      "line": 156,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.workspace_roots[1]",
+      "line": 156,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 170,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 170,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 170,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 170,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 170,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[2].text",
+      "line": 171,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[2].text",
+      "line": 171,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 179,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 180,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 180,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 180,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 180,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 180,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 180,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 180,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 180,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 180,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 180,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 180,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 180,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 180,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 180,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 180,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 180,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 180,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 194,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 202,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 202,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 202,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.stdout",
+      "line": 203,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.stdout",
+      "line": 203,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.stdout",
+      "line": 203,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.changes.[KEY]",
+      "line": 203,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.changes.[KEY]",
+      "line": 203,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.changes.[KEY]",
+      "line": 203,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 207,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 214,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 215,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 221,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 229,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.output[1].text",
+      "line": 234,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 244,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 244,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 244,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 251,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 255,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 261,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 265,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.encrypted_content",
+      "line": 272,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "CREDENTIAL",
+      "jsonPath": "$.payload.encrypted_content",
+      "line": 282,
+      "marker": "[REDACTED: CREDENTIAL]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 306,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 306,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 306,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 310,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.input",
+      "line": 329,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.message",
+      "line": 334,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.message",
+      "line": 334,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.message",
+      "line": 334,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.message",
+      "line": 334,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.message",
+      "line": 334,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.message",
+      "line": 334,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 335,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 335,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 335,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 335,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 335,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.content[0].text",
+      "line": 335,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 337,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 337,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 337,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 337,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 337,
+      "marker": "[REDACTED: LOCAL PATH]"
+    },
+    {
+      "category": "LOCAL PATH",
+      "jsonPath": "$.payload.last_agent_message",
+      "line": 337,
+      "marker": "[REDACTED: LOCAL PATH]"
+    }
+  ],
+  "sourceSessionId": "019fb8c3-8ec5-70a0-81e1-ca904918da9f",
+  "submittedFile": "issue-11-user-facing-delivery-secondary.jsonl"
+}
