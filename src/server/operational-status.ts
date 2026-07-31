@@ -42,7 +42,7 @@ export function readinessStatus(
   environment: RuntimeEnvironment = readRuntimeEnvironment(),
   buildSha: string | undefined = embeddedBuildSha,
   persistenceCheck: () => void = () => {
-    getScanService();
+    getScanService().checkPersistence();
   },
 ): ReadinessStatus {
   const configuration = resolveRuntimeConfiguration(environment, buildSha);

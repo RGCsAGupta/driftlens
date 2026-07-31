@@ -28,12 +28,15 @@ describe("SqliteScanRepository", () => {
     first.close();
 
     const second = new SqliteScanRepository(path);
+    const beforeProbe = second.get("scan-1");
+    second.checkWritable();
     expect(second.get("scan-1")).toMatchObject({
       id: "scan-1",
       requestedRef: "main",
       stage: "QUEUED",
       status: "QUEUED",
     });
+    expect(second.get("scan-1")).toEqual(beforeProbe);
     second.close();
 
     const inspection = new DatabaseSync(path, { readOnly: true });

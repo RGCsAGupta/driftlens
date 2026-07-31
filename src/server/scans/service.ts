@@ -15,8 +15,11 @@ export type Clock = () => string;
 export type IdFactory = () => string;
 export type ScanScheduler = (task: () => Promise<void>) => void;
 
+const MAX_VOLATILE_FAILURES = 50;
+
 export class ScanService {
   private activeScanId: string | null = null;
+  private volatileHistoryIncomplete = false;
   private readonly volatileFailures = new Map<string, ScanRecord>();
 
   constructor(
@@ -33,7 +36,15 @@ export class ScanService {
     return this.sourceMetadata;
   }
 
+  checkPersistence(): void {
+    if (this.volatileHistoryIncomplete) {
+      throw new ScanExecutionError("STORAGE_UNAVAILABLE");
+    }
+    this.repository.checkWritable();
+  }
+
   start(requestedRef: string): ScanRecord {
+    this.requireCompleteHistory();
     if (this.activeScanId !== null) {
       throw new ScanExecutionError("SCAN_ACTIVE");
     }
@@ -114,10 +125,16 @@ export class ScanService {
   }
 
   get(id: string): ScanRecord | null {
-    return this.volatileFailures.get(id) ?? this.repository.get(id);
+    const volatile = this.volatileFailures.get(id);
+    if (volatile) {
+      return volatile;
+    }
+    this.requireCompleteHistory();
+    return this.repository.get(id);
   }
 
   list(limit: number): ScanRecord[] {
+    this.requireCompleteHistory();
     const durable = this.repository.list(limit);
     return durable.map(
       (record) => this.volatileFailures.get(record.id) ?? record,
@@ -167,12 +184,19 @@ export class ScanService {
       status: "FAILED",
       updatedAt: at,
     });
-    if (this.volatileFailures.size > 50) {
+    if (this.volatileFailures.size > MAX_VOLATILE_FAILURES) {
       const oldest = this.volatileFailures.keys().next().value as
         string | undefined;
       if (oldest) {
         this.volatileFailures.delete(oldest);
+        this.volatileHistoryIncomplete = true;
       }
+    }
+  }
+
+  private requireCompleteHistory(): void {
+    if (this.volatileHistoryIncomplete) {
+      throw new ScanExecutionError("STORAGE_UNAVAILABLE");
     }
   }
 }

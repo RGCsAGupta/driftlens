@@ -250,6 +250,7 @@ describe("ScanService", () => {
   it("exposes a non-durable scheduler failure when terminal persistence fails", () => {
     const durable = new SqliteScanRepository(":memory:");
     const repository: ScanRepository = {
+      checkWritable: () => durable.checkWritable(),
       complete: (...args) => durable.complete(...args),
       createQueued: (...args) => durable.createQueued(...args),
       fail: () => {
@@ -301,6 +302,7 @@ describe("ScanService", () => {
   it("exposes a later storage failure as volatile without false durable history", async () => {
     const durable = new SqliteScanRepository(":memory:");
     const repository: ScanRepository = {
+      checkWritable: () => durable.checkWritable(),
       complete: () => {
         throw new ScanExecutionError("STORAGE_WRITE_FAILED");
       },
@@ -337,6 +339,80 @@ describe("ScanService", () => {
       stage: "QUEUED",
       status: "QUEUED",
     });
+    durable.close();
+  });
+
+  it("probes repository writability on every persistence check", () => {
+    const repository = new SqliteScanRepository(":memory:");
+    const checkWritable = vi.spyOn(repository, "checkWritable");
+    const scans = service(repository, { load: vi.fn() }, { read: vi.fn() });
+
+    scans.checkPersistence();
+    scans.checkPersistence();
+    expect(checkWritable).toHaveBeenCalledTimes(2);
+
+    checkWritable.mockImplementation(() => {
+      throw new ScanExecutionError("STORAGE_UNAVAILABLE");
+    });
+    expect(() => scans.checkPersistence()).toThrowError(
+      expect.objectContaining<Partial<ScanExecutionError>>({
+        code: "STORAGE_UNAVAILABLE",
+      }),
+    );
+    repository.close();
+  });
+
+  it("fails history closed after bounded volatile failure eviction", () => {
+    const durable = new SqliteScanRepository(":memory:");
+    const repository: ScanRepository = {
+      checkWritable: () => durable.checkWritable(),
+      complete: (...args) => durable.complete(...args),
+      createQueued: (...args) => durable.createQueued(...args),
+      fail: () => {
+        throw new ScanExecutionError("STORAGE_WRITE_FAILED");
+      },
+      get: (...args) => durable.get(...args),
+      list: (...args) => durable.list(...args),
+      saveDesired: (...args) => durable.saveDesired(...args),
+      saveLive: (...args) => durable.saveLive(...args),
+      transition: (...args) => durable.transition(...args),
+    };
+    let id = 0;
+    const scans = service(
+      repository,
+      { load: vi.fn() },
+      { read: vi.fn() },
+      () => `scan-${++id}`,
+    );
+
+    for (let attempt = 1; attempt <= 51; attempt += 1) {
+      expect(() =>
+        scans.startScheduled(`ref-${attempt}`, () => {
+          throw new Error("scheduler rejected");
+        }),
+      ).toThrow("scheduler rejected");
+    }
+
+    expect(scans.get("scan-51")).toMatchObject({
+      durable: false,
+      status: "FAILED",
+    });
+    expect(durable.get("scan-1")).toMatchObject({
+      durable: true,
+      status: "QUEUED",
+    });
+    for (const readHistory of [
+      () => scans.get("scan-1"),
+      () => scans.list(50),
+      () => scans.checkPersistence(),
+      () => scans.start("blocked"),
+    ]) {
+      expect(readHistory).toThrowError(
+        expect.objectContaining<Partial<ScanExecutionError>>({
+          code: "STORAGE_UNAVAILABLE",
+        }),
+      );
+    }
     durable.close();
   });
 });

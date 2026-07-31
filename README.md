@@ -91,7 +91,10 @@ Restart preserves existing history but clears the marker. Stale `QUEUED` or
 `RUNNING` records remain unchanged as evidence; Core does not resume, repair,
 or delete them. If a later history write fails, the current process exposes a
 non-durable safe storage failure without claiming that terminal state was
-persisted.
+persisted. Non-durable terminal overlays are bounded; if that bound is
+exceeded, new scans, history, and readiness fail closed with
+`STORAGE_UNAVAILABLE` rather than exposing an older durable state as current
+truth.
 
 Structured scan logs contain only a generated scan identifier, stage or safe
 error code, severity, and durability flag. They exclude refs, repository paths,
@@ -115,6 +118,9 @@ Successful responses use these stable shapes:
 
 Readiness failures return `503`, set `status` to `not_ready`, set the
 configuration or persistence check to `fail`, and report only safe issue codes:
+
+Each readiness request performs a rolled-back SQLite write probe. The probe
+verifies current write capability without retaining a scan or stage record.
 
 | Issue code                   | Action                                                    |
 | ---------------------------- | --------------------------------------------------------- |

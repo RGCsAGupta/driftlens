@@ -13,6 +13,7 @@ import type {
 import { ScanExecutionError } from "@/server/scans/errors";
 
 export interface ScanRepository {
+  checkWritable(): void;
   complete(id: string, result: ComparisonResult, at: string): void;
   createQueued(id: string, requestedRef: string, at: string): ScanRecord;
   fail(id: string, error: SafeScanError, at: string): void;
@@ -33,6 +34,8 @@ export interface ScanRepository {
     at: string,
   ): void;
 }
+
+const READINESS_PROBE_ID = "00000000-0000-0000-0000-000000000000";
 
 interface ScanRow extends Record<string, unknown> {
   completed_at: string | null;
@@ -163,6 +166,27 @@ export class SqliteScanRepository implements ScanRepository {
 
   close(): void {
     this.database.close();
+  }
+
+  checkWritable(): void {
+    try {
+      this.database.exec("BEGIN IMMEDIATE");
+      this.database
+        .prepare(
+          `INSERT INTO scans (
+            id, requested_ref, status, stage, created_at, updated_at
+          ) VALUES (?, 'readiness-probe', 'QUEUED', 'QUEUED', ?, ?)`,
+        )
+        .run(
+          READINESS_PROBE_ID,
+          "1970-01-01T00:00:00.000Z",
+          "1970-01-01T00:00:00.000Z",
+        );
+      this.database.exec("ROLLBACK");
+    } catch (error) {
+      this.rollback();
+      throw new ScanExecutionError("STORAGE_UNAVAILABLE", { cause: error });
+    }
   }
 
   createQueued(id: string, requestedRef: string, at: string): ScanRecord {
@@ -405,15 +429,19 @@ export class SqliteScanRepository implements ScanRepository {
       operation();
       this.database.exec("COMMIT");
     } catch (error) {
-      try {
-        this.database.exec("ROLLBACK");
-      } catch {
-        // Preserve the original storage failure.
-      }
+      this.rollback();
       if (error instanceof ScanExecutionError) {
         throw error;
       }
       throw new ScanExecutionError("STORAGE_WRITE_FAILED", { cause: error });
+    }
+  }
+
+  private rollback(): void {
+    try {
+      this.database.exec("ROLLBACK");
+    } catch {
+      // Preserve the original storage failure.
     }
   }
 }
