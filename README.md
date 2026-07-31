@@ -39,17 +39,22 @@ Successful responses use these stable shapes:
 Readiness failures return `503`, set `status` to `not_ready`, set the
 configuration check to `fail`, and report only safe issue codes:
 
-| Issue code           | Action                                                    |
-| -------------------- | --------------------------------------------------------- |
-| `BUILD_SHA_REQUIRED` | Inject a full commit SHA when building a production app   |
-| `BUILD_SHA_INVALID`  | Use exactly 40 lowercase hexadecimal characters           |
-| `DATA_DIR_INVALID`   | Use an absolute, null-byte-free production data directory |
+| Issue code             | Action                                                    |
+| ---------------------- | --------------------------------------------------------- |
+| `RUNTIME_MODE_INVALID` | Set `NODE_ENV` to `development`, `test`, or `production`  |
+| `BUILD_SHA_REQUIRED`   | Inject a full commit SHA when building a production app   |
+| `BUILD_SHA_INVALID`    | Use exactly 40 lowercase hexadecimal characters           |
+| `DATA_DIR_INVALID`     | Use an absolute, null-byte-free production data directory |
 
 Local development defaults to build version `development`. Production requires
 `DRIFTLENS_BUILD_SHA` at build time as a lowercase, full 40-character Git SHA.
 The value is embedded during `next build` and cannot be changed through the
 runtime environment. A missing or invalid production value leaves health
 successful but makes readiness fail.
+
+`NODE_ENV` must be exactly `development`, `test`, or `production`. A missing or
+unknown value leaves liveness successful but fails readiness with the safe
+`RUNTIME_MODE_INVALID` code.
 
 `DRIFTLENS_DATA_DIR` reserves the persistent-data location for the later SQLite
 slice. It defaults to `.driftlens` locally and `/data` in production. A
@@ -73,6 +78,7 @@ npm run lint
 npm run typecheck
 npm run test
 npm run test:coverage
+npm run test:scanner
 npm run build
 npm run audit
 npm run secret:scan

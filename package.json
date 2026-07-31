@@ -15,9 +15,10 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
+    "test:scanner": "./scripts/scan-secrets.test.sh",
     "audit": "npm audit --omit=dev --audit-level=high",
     "secret:scan": "./scripts/scan-secrets.sh",
-    "verify": "npm run format:check && npm run lint && npm run typecheck && npm run test:coverage && npm run build && npm run audit && npm run secret:scan"
+    "verify": "npm run format:check && npm run lint && npm run typecheck && npm run test:coverage && npm run test:scanner && npm run build && npm run audit && npm run secret:scan"
   },
   "dependencies": {
     "next": "16.2.12",

@@ -1,10 +1,23 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { resolveRuntimeConfiguration } from "./runtime-config";
+import {
+  readRuntimeEnvironment,
+  resolveRuntimeConfiguration,
+} from "./runtime-config";
 
 const SHA = "0123456789abcdef0123456789abcdef01234567";
 
+afterEach(() => {
+  vi.unstubAllEnvs();
+});
+
 describe("resolveRuntimeConfiguration", () => {
+  it("reads the runtime mode dynamically from the process environment", () => {
+    vi.stubEnv("NODE_ENV", "preview");
+
+    expect(readRuntimeEnvironment().NODE_ENV).toBe("preview");
+  });
+
   it("accepts production configuration with an immutable build SHA", () => {
     expect(
       resolveRuntimeConfiguration({
@@ -31,6 +44,16 @@ describe("resolveRuntimeConfiguration", () => {
     });
   });
 
+  it("accepts explicit test mode without production-only requirements", () => {
+    expect(resolveRuntimeConfiguration({ NODE_ENV: "test" })).toEqual({
+      buildSha: "development",
+      dataDirectory: ".driftlens",
+      issues: [],
+      mode: "test",
+      ready: true,
+    });
+  });
+
   it("fails readiness safely when required production configuration is absent", () => {
     expect(resolveRuntimeConfiguration({ NODE_ENV: "production" })).toEqual({
       buildSha: "unavailable",
@@ -39,6 +62,35 @@ describe("resolveRuntimeConfiguration", () => {
       mode: "production",
       ready: false,
     });
+  });
+
+  it("fails closed when the runtime mode is absent", () => {
+    expect(resolveRuntimeConfiguration({})).toEqual({
+      buildSha: "unavailable",
+      dataDirectory: "unavailable",
+      issues: ["RUNTIME_MODE_INVALID"],
+      mode: "invalid",
+      ready: false,
+    });
+  });
+
+  it("rejects an unknown runtime mode without echoing it", () => {
+    const configuration = resolveRuntimeConfiguration(
+      {
+        NODE_ENV: "preview",
+        DRIFTLENS_DATA_DIR: "/data",
+      },
+      SHA,
+    );
+
+    expect(configuration).toEqual({
+      buildSha: SHA,
+      dataDirectory: "unavailable",
+      issues: ["RUNTIME_MODE_INVALID"],
+      mode: "invalid",
+      ready: false,
+    });
+    expect(JSON.stringify(configuration)).not.toContain("preview");
   });
 
   it("rejects malformed values without echoing them", () => {

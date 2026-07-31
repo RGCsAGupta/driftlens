@@ -1,9 +1,20 @@
 const FULL_SHA = /^[0-9a-f]{40}$/;
 
-export type RuntimeMode = "development" | "test" | "production";
+type ConfiguredRuntimeMode = "development" | "test" | "production";
+
+export type RuntimeMode = ConfiguredRuntimeMode | "invalid";
 
 export type ConfigurationIssue =
-  "BUILD_SHA_REQUIRED" | "BUILD_SHA_INVALID" | "DATA_DIR_INVALID";
+  | "RUNTIME_MODE_INVALID"
+  | "BUILD_SHA_REQUIRED"
+  | "BUILD_SHA_INVALID"
+  | "DATA_DIR_INVALID";
+
+export interface RuntimeEnvironment {
+  DRIFTLENS_BUILD_SHA?: string;
+  DRIFTLENS_DATA_DIR?: string;
+  NODE_ENV?: string;
+}
 
 export interface RuntimeConfiguration {
   buildSha: string;
@@ -13,12 +24,29 @@ export interface RuntimeConfiguration {
   ready: boolean;
 }
 
-function runtimeMode(value: string | undefined): RuntimeMode {
-  if (value === "production" || value === "test") {
+export function readRuntimeEnvironment(): RuntimeEnvironment {
+  const readValue = (name: keyof RuntimeEnvironment): string | undefined => {
+    const value: unknown = Reflect.get(process.env, name);
+    return typeof value === "string" ? value : undefined;
+  };
+
+  return {
+    DRIFTLENS_BUILD_SHA: readValue("DRIFTLENS_BUILD_SHA"),
+    DRIFTLENS_DATA_DIR: readValue("DRIFTLENS_DATA_DIR"),
+    NODE_ENV: readValue("NODE_ENV"),
+  };
+}
+
+function runtimeMode(
+  value: string | undefined,
+  issues: ConfigurationIssue[],
+): RuntimeMode {
+  if (value === "development" || value === "production" || value === "test") {
     return value;
   }
 
-  return "development";
+  issues.push("RUNTIME_MODE_INVALID");
+  return "invalid";
 }
 
 function resolveBuildSha(
@@ -34,7 +62,7 @@ function resolveBuildSha(
       return "unavailable";
     }
 
-    return "development";
+    return mode === "invalid" ? "unavailable" : "development";
   }
 
   if (!FULL_SHA.test(buildSha)) {
@@ -50,6 +78,10 @@ function resolveDataDirectory(
   mode: RuntimeMode,
   issues: ConfigurationIssue[],
 ): string {
+  if (mode === "invalid") {
+    return "unavailable";
+  }
+
   const dataDirectory =
     value?.trim() || (mode === "production" ? "/data" : ".driftlens");
 
@@ -67,11 +99,11 @@ function resolveDataDirectory(
 }
 
 export function resolveRuntimeConfiguration(
-  environment: NodeJS.ProcessEnv = process.env,
+  environment: RuntimeEnvironment = readRuntimeEnvironment(),
   buildShaValue: string | undefined = environment.DRIFTLENS_BUILD_SHA,
 ): RuntimeConfiguration {
-  const mode = runtimeMode(environment.NODE_ENV);
   const issues: ConfigurationIssue[] = [];
+  const mode = runtimeMode(environment.NODE_ENV, issues);
   const buildSha = resolveBuildSha(buildShaValue, mode, issues);
   const dataDirectory = resolveDataDirectory(
     environment.DRIFTLENS_DATA_DIR,

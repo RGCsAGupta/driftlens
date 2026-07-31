@@ -1,6 +1,8 @@
 import {
+  readRuntimeEnvironment,
   resolveRuntimeConfiguration,
   type ConfigurationIssue,
+  type RuntimeEnvironment,
 } from "./runtime-config";
 
 const embeddedBuildSha = process.env.DRIFTLENS_BUILD_SHA;
@@ -32,7 +34,7 @@ export function healthStatus(): HealthStatus {
 }
 
 export function readinessStatus(
-  environment: NodeJS.ProcessEnv = process.env,
+  environment: RuntimeEnvironment = readRuntimeEnvironment(),
   buildSha: string | undefined = embeddedBuildSha,
 ): ReadinessStatus {
   const configuration = resolveRuntimeConfiguration(environment, buildSha);
@@ -48,7 +50,7 @@ export function readinessStatus(
 }
 
 export function versionStatus(
-  environment: NodeJS.ProcessEnv = process.env,
+  environment: RuntimeEnvironment = readRuntimeEnvironment(),
   buildSha: string | undefined = embeddedBuildSha,
 ): VersionStatus {
   return {

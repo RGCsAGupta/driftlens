@@ -42,6 +42,18 @@ describe("operational status", () => {
     });
   });
 
+  it("returns a safe issue code for an unknown runtime mode", () => {
+    const readiness = readinessStatus({ NODE_ENV: "preview" }, SHA);
+
+    expect(readiness).toEqual({
+      checks: { configuration: "fail" },
+      issues: ["RUNTIME_MODE_INVALID"],
+      service: "driftlens",
+      status: "not_ready",
+    });
+    expect(JSON.stringify(readiness)).not.toContain("preview");
+  });
+
   it("reports the exact immutable build SHA", () => {
     expect(
       versionStatus(
