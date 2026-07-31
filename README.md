@@ -204,10 +204,12 @@ npm run audit
 npm run secret:scan
 ```
 
-Chromium is required for the operator flow. Install the version pinned by the
-lockfile with `npx playwright install chromium`. The test runs with one worker,
-zero retries, and controlled same-origin API adapters; it does not contact
-GitHub or Kubernetes.
+Chromium is required for the operator flow. CI installs the lockfile-pinned
+browser and system dependencies with
+`npx playwright install --with-deps chromium`; local environments with browser
+dependencies already present may use `npx playwright install chromium`. The
+test runs with one worker, zero retries, and controlled same-origin API
+adapters; it does not contact GitHub or Kubernetes.
 
 ## Production container
 
@@ -251,10 +253,10 @@ is documented in [docs/delivery.md](docs/delivery.md).
   overall workflow timeout, or restart resumability.
 - Replicas and regular-container images only.
 - Read-only namespaced Deployment lookup only; no list, watch, or write.
-- No operator scan UI yet.
-- No AI explanation yet.
-- No private Git, configuration CRUD, live `kind` proof, or infrastructure
-  changes in this slice.
+- No AI explanation yet; issue #11 owns that manual capability.
+- No private Git, configuration UI, cancellation, retry, monitoring dashboard,
+  or multi-user behavior.
+- Live demo scenarios and release evidence remain owned by issue #12.
 
 Implementation follows the official
 [Next.js `after()` contract](https://nextjs.org/docs/app/api-reference/functions/after),

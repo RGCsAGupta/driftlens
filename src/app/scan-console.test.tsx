@@ -129,24 +129,24 @@ describe("scan result rendering", () => {
 describe("scan console interaction", () => {
   it("polls every Core stage through completed in-sync and refreshes history", async () => {
     const stages = [
+      "QUEUED",
       "LOADING_DESIRED",
       "READING_LIVE",
       "COMPARING",
       "SAVING_RESULT",
+      "COMPLETED",
     ] as const;
     const completed = record({
       completedAt: "2026-07-31T12:00:05.000Z",
       outcome: "IN_SYNC",
       stage: "COMPLETED",
+      stages: stages.map((stage, index) => ({
+        at: `2026-07-31T12:00:0${index}.000Z`,
+        stage,
+      })),
       status: "COMPLETED",
     });
-    const getScan = vi
-      .fn()
-      .mockResolvedValueOnce(record({ stage: stages[0], status: "RUNNING" }))
-      .mockResolvedValueOnce(record({ stage: stages[1], status: "RUNNING" }))
-      .mockResolvedValueOnce(record({ stage: stages[2], status: "RUNNING" }))
-      .mockResolvedValueOnce(record({ stage: stages[3], status: "RUNNING" }))
-      .mockResolvedValueOnce(completed);
+    const getScan = vi.fn().mockResolvedValue(completed);
     const listScans = vi
       .fn()
       .mockResolvedValueOnce([])
@@ -160,8 +160,19 @@ describe("scan console interaction", () => {
     expect(
       await screen.findByText(/Desired and live fields are in sync/),
     ).toBeTruthy();
-    expect(getScan).toHaveBeenCalledTimes(5);
+    expect(getScan).toHaveBeenCalledOnce();
     expect(listScans).toHaveBeenCalledTimes(2);
+    const timeline = screen.getByRole("list", { name: "Scan stage history" });
+    for (const label of [
+      "Queued",
+      "Loading desired manifest",
+      "Reading live Deployment",
+      "Comparing supported fields",
+      "Saving result",
+      "Completed",
+    ]) {
+      expect(timeline.textContent).toContain(label);
+    }
   });
 
   it.each([

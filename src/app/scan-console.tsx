@@ -74,6 +74,15 @@ export function ScanDetails({ scan }: { scan: ScanRecord }) {
         Stage: <strong>{STAGE_LABELS[scan.stage]}</strong>
       </p>
 
+      <ol className="stage-timeline" aria-label="Scan stage history">
+        {scan.stages.map((entry, index) => (
+          <li key={`${entry.at}-${entry.stage}-${index}`}>
+            <strong>{STAGE_LABELS[entry.stage]}</strong>
+            <span>{formatTime(entry.at)}</span>
+          </li>
+        ))}
+      </ol>
+
       {scan.target ? (
         <dl className="scan-meta">
           <div>

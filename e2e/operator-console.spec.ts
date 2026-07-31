@@ -1,6 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 
 const SHA = "0123456789abcdef0123456789abcdef01234567";
+const ID = "196cdf62-4da8-49cb-a47c-6e717523af48";
 
 function scan(overrides: Record<string, unknown> = {}) {
   return {
@@ -10,7 +11,7 @@ function scan(overrides: Record<string, unknown> = {}) {
     differences: [],
     durable: true,
     error: null,
-    id: "scan-1",
+    id: ID,
     live: null,
     outcome: null,
     requestedRef: "main",
@@ -65,7 +66,7 @@ async function controlledApi(page: Page) {
   await page.route("**/api/scans?limit=20", (route) =>
     route.fulfill({ json: { scans: completed ? [final] : [] } }),
   );
-  await page.route("**/api/scans/scan-1", (route) => {
+  await page.route(`**/api/scans/${ID}`, (route) => {
     const stage = stages[detailIndex++];
     if (!stage) {
       completed = true;
@@ -120,7 +121,7 @@ test("operator starts, follows, reviews, and reloads a scan accessibly", async (
   await expect(
     page.getByRole("button", { name: /Target: demo\/app/i }),
   ).toBeVisible();
-  await expect(page).toHaveURL(/\?scan=scan-1$/);
+  await expect(page).toHaveURL(new RegExp(`\\?scan=${ID}$`));
 
   await page.reload();
   await expect(page.getByText("DRIFTED")).toBeVisible();
