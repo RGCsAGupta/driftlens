@@ -4,6 +4,8 @@ import type {
   ComparisonResult,
   DeploymentProjection,
   DeploymentTarget,
+  OperatorAnalysis,
+  SafeExplanationError,
   SafeScanError,
   ScanRecord,
   ScanStage,
@@ -19,6 +21,9 @@ export interface ScanRepository {
   fail(id: string, error: SafeScanError, at: string): void;
   get(id: string): ScanRecord | null;
   list(limit: number): ScanRecord[];
+  failExplanation(id: string, error: SafeExplanationError, at: string): void;
+  requestExplanation(id: string, at: string): void;
+  saveExplanation(id: string, analysis: OperatorAnalysis, at: string): void;
   saveDesired(
     id: string,
     resolvedSha: string,
@@ -44,6 +49,12 @@ interface ScanRow extends Record<string, unknown> {
   differences_json: string | null;
   error_code: SafeScanError["code"] | null;
   error_message: string | null;
+  explanation_error_code: SafeExplanationError["code"] | null;
+  explanation_error_message: string | null;
+  explanation_json: string | null;
+  explanation_requested_at: string | null;
+  explanation_saved_at: string | null;
+  explanation_state: ScanRecord["explanation"]["state"];
   id: string;
   live_json: string | null;
   outcome: ScanRecord["outcome"];
@@ -68,6 +79,9 @@ const SCAN_COLUMNS = `
   s.target_api_version, s.target_kind, s.target_namespace, s.target_name,
   s.status, s.stage, s.outcome, s.desired_json, s.live_json,
   s.differences_json, s.error_code, s.error_message,
+  s.explanation_state, s.explanation_json, s.explanation_error_code,
+  s.explanation_error_message, s.explanation_requested_at,
+  s.explanation_saved_at,
   s.created_at, s.updated_at, s.completed_at
 `;
 
@@ -139,6 +153,19 @@ function recordFromRows(row: ScanRow, stages: StageRecord[]): ScanRecord {
     differences: parseJson(row.differences_json, []),
     durable: true,
     error,
+    explanation: {
+      analysis: parseJson(row.explanation_json, null),
+      error:
+        row.explanation_error_code && row.explanation_error_message
+          ? {
+              code: row.explanation_error_code,
+              message: row.explanation_error_message,
+            }
+          : null,
+      requestedAt: row.explanation_requested_at,
+      savedAt: row.explanation_saved_at,
+      state: row.explanation_state,
+    },
     id: row.id,
     live: parseJson(row.live_json, null),
     outcome: row.outcome,
@@ -208,6 +235,13 @@ export class SqliteScanRepository implements ScanRepository {
       differences: [],
       durable: true,
       error: null,
+      explanation: {
+        analysis: null,
+        error: null,
+        requestedAt: null,
+        savedAt: null,
+        state: "NOT_REQUESTED",
+      },
       id,
       live: null,
       outcome: null,
@@ -319,6 +353,50 @@ export class SqliteScanRepository implements ScanRepository {
     });
   }
 
+  requestExplanation(id: string, at: string): void {
+    this.write(() => {
+      this.requireChange(
+        this.database
+          .prepare(
+            `UPDATE scans SET explanation_state = 'REQUESTED',
+              explanation_requested_at = ?
+            WHERE id = ? AND status = 'COMPLETED'
+              AND explanation_state = 'NOT_REQUESTED'`,
+          )
+          .run(at, id).changes,
+      );
+    });
+  }
+
+  saveExplanation(id: string, analysis: OperatorAnalysis, at: string): void {
+    this.write(() => {
+      this.requireChange(
+        this.database
+          .prepare(
+            `UPDATE scans SET explanation_state = 'SAVED',
+              explanation_json = ?, explanation_saved_at = ?
+            WHERE id = ? AND explanation_state = 'REQUESTED'`,
+          )
+          .run(JSON.stringify(analysis), at, id).changes,
+      );
+    });
+  }
+
+  failExplanation(id: string, error: SafeExplanationError, at: string): void {
+    this.write(() => {
+      this.requireChange(
+        this.database
+          .prepare(
+            `UPDATE scans SET explanation_state = 'FAILED',
+              explanation_error_code = ?, explanation_error_message = ?,
+              explanation_saved_at = ?
+            WHERE id = ? AND explanation_state = 'REQUESTED'`,
+          )
+          .run(error.code, error.message, at, id).changes,
+      );
+    });
+  }
+
   get(id: string): ScanRecord | null {
     try {
       const rows = this.database
@@ -377,7 +455,21 @@ export class SqliteScanRepository implements ScanRepository {
     const row = this.database.prepare("PRAGMA user_version").get() as {
       user_version: number;
     };
+    if (row.user_version === 2) {
+      return;
+    }
     if (row.user_version === 1) {
+      this.write(() => {
+        this.database.exec(
+          `ALTER TABLE scans ADD COLUMN explanation_state TEXT NOT NULL DEFAULT 'NOT_REQUESTED';
+           ALTER TABLE scans ADD COLUMN explanation_json TEXT;
+           ALTER TABLE scans ADD COLUMN explanation_error_code TEXT;
+           ALTER TABLE scans ADD COLUMN explanation_error_message TEXT;
+           ALTER TABLE scans ADD COLUMN explanation_requested_at TEXT;
+           ALTER TABLE scans ADD COLUMN explanation_saved_at TEXT;`,
+        );
+        this.database.exec("PRAGMA user_version = 2");
+      });
       return;
     }
     if (row.user_version !== 0) {
@@ -388,7 +480,15 @@ export class SqliteScanRepository implements ScanRepository {
 
     this.write(() => {
       this.database.exec(SCHEMA);
-      this.database.exec("PRAGMA user_version = 1");
+      this.database.exec(
+        `ALTER TABLE scans ADD COLUMN explanation_state TEXT NOT NULL DEFAULT 'NOT_REQUESTED';
+         ALTER TABLE scans ADD COLUMN explanation_json TEXT;
+         ALTER TABLE scans ADD COLUMN explanation_error_code TEXT;
+         ALTER TABLE scans ADD COLUMN explanation_error_message TEXT;
+         ALTER TABLE scans ADD COLUMN explanation_requested_at TEXT;
+         ALTER TABLE scans ADD COLUMN explanation_saved_at TEXT;`,
+      );
+      this.database.exec("PRAGMA user_version = 2");
     });
   }
 

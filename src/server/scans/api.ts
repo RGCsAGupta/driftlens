@@ -18,7 +18,9 @@ export function scanErrorResponse(error: unknown): Response {
   }
 
   const status =
-    error.code === "SCAN_ACTIVE"
+    error.code === "SCAN_ACTIVE" ||
+    error.code === "EXPLANATION_NOT_ELIGIBLE" ||
+    error.code === "EXPLANATION_TERMINAL"
       ? 409
       : error.code === "SCAN_NOT_FOUND"
         ? 404
@@ -125,6 +127,17 @@ export function getScanResponse(id: string, service: ScanService): Response {
       throw new ScanExecutionError("SCAN_NOT_FOUND");
     }
     return json(scanEnvelope(scan));
+  } catch (error) {
+    return scanErrorResponse(error);
+  }
+}
+
+export async function explainScanResponse(
+  id: string,
+  service: { explain(id: string): Promise<ScanRecord> },
+): Promise<Response> {
+  try {
+    return json(scanEnvelope(await service.explain(id)));
   } catch (error) {
     return scanErrorResponse(error);
   }

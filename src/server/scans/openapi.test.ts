@@ -52,6 +52,16 @@ function responseStatuses(operation: OperationObject): string[] {
   return Object.keys(operation.responses).sort();
 }
 
+function responseExample(
+  operation: OperationObject,
+  status: string,
+): Record<string, unknown> {
+  const response = operation.responses[status] as {
+    content: { "application/json": { example: Record<string, unknown> } };
+  };
+  return response.content["application/json"].example;
+}
+
 describe("OpenAPI scan contract", () => {
   it("is an OpenAPI 3.1 document for exactly the implemented issue routes", () => {
     expect(contract.openapi).toBe("3.1.0");
@@ -62,6 +72,7 @@ describe("OpenAPI scan contract", () => {
     expect(Object.keys(contract.paths).sort()).toEqual([
       "/api/scans",
       "/api/scans/{id}",
+      "/api/scans/{id}/explanation",
       "/api/source",
     ]);
     expect(Object.keys(contract.paths["/api/source"] ?? {})).toEqual(["get"]);
@@ -72,6 +83,9 @@ describe("OpenAPI scan contract", () => {
     expect(Object.keys(contract.paths["/api/scans/{id}"] ?? {})).toEqual([
       "get",
     ]);
+    expect(
+      Object.keys(contract.paths["/api/scans/{id}/explanation"] ?? {}),
+    ).toEqual(["post"]);
   });
 
   it("matches runtime request bounds and normalization", () => {
@@ -151,11 +165,34 @@ describe("OpenAPI scan contract", () => {
       "500",
       "503",
     ]);
+    expect(
+      responseStatuses(contract.paths["/api/scans/{id}/explanation"]!.post!),
+    ).toEqual(["200", "404", "409", "500", "503"]);
+  });
+
+  it("includes required explanation state in scan response examples", () => {
+    const queued = responseExample(contract.paths["/api/scans"]!.post!, "202")
+      .scan as Record<string, unknown>;
+    const completed = responseExample(
+      contract.paths["/api/scans/{id}"]!.get!,
+      "200",
+    ).scan as Record<string, unknown>;
+
+    expect(queued.explanation).toEqual({
+      analysis: null,
+      error: null,
+      requestedAt: null,
+      savedAt: null,
+      state: "NOT_REQUESTED",
+    });
+    expect(completed.explanation).toEqual(queued.explanation);
   });
 
   it("separates API envelope codes from persisted scan failure codes", () => {
     expect(contract.components.schemas.ApiErrorCode?.enum).toEqual([
       "CONFIGURATION_INVALID",
+      "EXPLANATION_NOT_ELIGIBLE",
+      "EXPLANATION_TERMINAL",
       "INTERNAL_ERROR",
       "INVALID_LIMIT",
       "INVALID_REQUEST",
@@ -166,6 +203,8 @@ describe("OpenAPI scan contract", () => {
     ]);
     expect(contract.components.schemas.ScanErrorCode?.enum).toEqual([
       "CONFIGURATION_INVALID",
+      "EXPLANATION_NOT_ELIGIBLE",
+      "EXPLANATION_TERMINAL",
       "GITHUB_FILE_NOT_FOUND",
       "GITHUB_REF_NOT_FOUND",
       "GITHUB_RESPONSE_INVALID",

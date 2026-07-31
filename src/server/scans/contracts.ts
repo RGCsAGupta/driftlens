@@ -33,6 +33,44 @@ export const comparisonOutcomeSchema = z.enum([
 ]);
 export type ComparisonOutcome = z.infer<typeof comparisonOutcomeSchema>;
 
+export const explanationStateSchema = z.enum([
+  "NOT_REQUESTED",
+  "REQUESTED",
+  "SAVED",
+  "FAILED",
+]);
+export type ExplanationState = z.infer<typeof explanationStateSchema>;
+
+export const operatorAnalysisSchema = z.strictObject({
+  importantDifferences: z.array(z.string().min(1).max(500)).max(10),
+  investigationChecks: z.array(z.string().min(1).max(500)).min(1).max(10),
+  likelyImplications: z.array(z.string().min(1).max(500)).max(10),
+  limitations: z.array(z.string().min(1).max(500)).min(1).max(10),
+  summary: z.string().min(1).max(1_000),
+});
+export type OperatorAnalysis = z.infer<typeof operatorAnalysisSchema>;
+
+export type ExplanationErrorCode =
+  | "AI_CONFIGURATION_INVALID"
+  | "AI_INCOMPLETE"
+  | "AI_INVALID_RESPONSE"
+  | "AI_PROVIDER_UNAVAILABLE"
+  | "AI_REFUSED"
+  | "AI_TIMEOUT";
+
+export interface SafeExplanationError {
+  code: ExplanationErrorCode;
+  message: string;
+}
+
+export interface ExplanationRecord {
+  analysis: OperatorAnalysis | null;
+  error: SafeExplanationError | null;
+  requestedAt: string | null;
+  savedAt: string | null;
+  state: ExplanationState;
+}
+
 export const startScanSchema = z
   .object({
     ref: z
@@ -83,6 +121,8 @@ export interface SafeScanError {
 
 export type ScanErrorCode =
   | "CONFIGURATION_INVALID"
+  | "EXPLANATION_NOT_ELIGIBLE"
+  | "EXPLANATION_TERMINAL"
   | "GITHUB_FILE_NOT_FOUND"
   | "GITHUB_REF_NOT_FOUND"
   | "GITHUB_RESPONSE_INVALID"
@@ -110,6 +150,7 @@ export interface ScanRecord {
   differences: Difference[];
   durable: boolean;
   error: SafeScanError | null;
+  explanation: ExplanationRecord;
   id: string;
   live: DeploymentProjection | null;
   outcome: ComparisonOutcome | null;

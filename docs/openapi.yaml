@@ -105,6 +105,12 @@ paths:
                   differences: []
                   durable: true
                   error: null
+                  explanation:
+                    analysis: null
+                    error: null
+                    requestedAt: null
+                    savedAt: null
+                    state: NOT_REQUESTED
                   id: 196cdf62-4da8-49cb-a47c-6e717523af48
                   live: null
                   outcome: null
@@ -176,6 +182,12 @@ paths:
                       live: 1
                   durable: true
                   error: null
+                  explanation:
+                    analysis: null
+                    error: null
+                    requestedAt: null
+                    savedAt: null
+                    state: NOT_REQUESTED
                   id: 196cdf62-4da8-49cb-a47c-6e717523af48
                   live:
                     containers:
@@ -208,6 +220,44 @@ paths:
                 error:
                   code: SCAN_NOT_FOUND
                   message: Scan was not found.
+        "500":
+          $ref: "#/components/responses/InternalError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /api/scans/{id}/explanation:
+    post:
+      operationId: explainScan
+      summary: Manually request structured AI analysis for a completed scan
+      description: |
+        Makes at most one provider call. A saved explanation is returned
+        idempotently. Requested and failed states are terminal and cannot be
+        retried. AI never changes deterministic scan truth.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Scan with a saved or safely failed explanation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScanEnvelope"
+        "404":
+          description: Scan not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "409":
+          description: Scan is not completed or explanation is terminal
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
         "500":
           $ref: "#/components/responses/InternalError"
         "503":
@@ -300,6 +350,7 @@ components:
         - differences
         - durable
         - error
+        - explanation
         - id
         - live
         - outcome
@@ -332,6 +383,8 @@ components:
           oneOf:
             - $ref: "#/components/schemas/ScanExecutionError"
             - type: "null"
+        explanation:
+          $ref: "#/components/schemas/ExplanationRecord"
         id:
           type: string
           format: uuid
@@ -441,6 +494,77 @@ components:
     ComparisonOutcome:
       type: string
       enum: [IN_SYNC, DRIFTED, MISSING_LIVE]
+    ExplanationRecord:
+      type: object
+      additionalProperties: false
+      required: [analysis, error, requestedAt, savedAt, state]
+      properties:
+        analysis:
+          oneOf:
+            - $ref: "#/components/schemas/OperatorAnalysis"
+            - type: "null"
+        error:
+          oneOf:
+            - $ref: "#/components/schemas/ExplanationError"
+            - type: "null"
+        requestedAt:
+          type: [string, "null"]
+          format: date-time
+        savedAt:
+          type: [string, "null"]
+          format: date-time
+        state:
+          type: string
+          enum: [NOT_REQUESTED, REQUESTED, SAVED, FAILED]
+    OperatorAnalysis:
+      type: object
+      additionalProperties: false
+      required:
+        [
+          summary,
+          importantDifferences,
+          likelyImplications,
+          investigationChecks,
+          limitations,
+        ]
+      properties:
+        summary: { type: string, minLength: 1, maxLength: 1000 }
+        importantDifferences:
+          type: array
+          maxItems: 10
+          items: { type: string, minLength: 1, maxLength: 500 }
+        likelyImplications:
+          type: array
+          maxItems: 10
+          items: { type: string, minLength: 1, maxLength: 500 }
+        investigationChecks:
+          type: array
+          minItems: 1
+          maxItems: 10
+          items: { type: string, minLength: 1, maxLength: 500 }
+        limitations:
+          type: array
+          minItems: 1
+          maxItems: 10
+          items: { type: string, minLength: 1, maxLength: 500 }
+    ExplanationError:
+      type: object
+      additionalProperties: false
+      required: [code, message]
+      properties:
+        code:
+          type: string
+          enum:
+            [
+              AI_CONFIGURATION_INVALID,
+              AI_INCOMPLETE,
+              AI_INVALID_RESPONSE,
+              AI_PROVIDER_UNAVAILABLE,
+              AI_REFUSED,
+              AI_TIMEOUT,
+            ]
+        message:
+          type: string
     ScanExecutionError:
       type: object
       additionalProperties: false
@@ -472,6 +596,8 @@ components:
       type: string
       enum:
         - CONFIGURATION_INVALID
+        - EXPLANATION_NOT_ELIGIBLE
+        - EXPLANATION_TERMINAL
         - INTERNAL_ERROR
         - INVALID_LIMIT
         - INVALID_REQUEST
@@ -483,6 +609,8 @@ components:
       type: string
       enum:
         - CONFIGURATION_INVALID
+        - EXPLANATION_NOT_ELIGIBLE
+        - EXPLANATION_TERMINAL
         - GITHUB_FILE_NOT_FOUND
         - GITHUB_REF_NOT_FOUND
         - GITHUB_RESPONSE_INVALID
