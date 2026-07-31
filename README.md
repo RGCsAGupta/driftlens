@@ -32,6 +32,10 @@ only the namespaced Deployment `get` permission needed for the target.
 
 ## Scan API
 
+The formal, machine-readable contract for these routes is
+[OpenAPI 3.1](docs/openapi.yaml). It also records the current authentication
+and exposure boundary.
+
 | Endpoint             | Success | Purpose                                      |
 | -------------------- | ------- | -------------------------------------------- |
 | `GET /api/source`    | `200`   | Non-secret repository and manifest metadata  |
