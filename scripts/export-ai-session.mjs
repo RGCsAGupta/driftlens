@@ -10,6 +10,34 @@ import {
 import { basename, dirname, resolve } from "node:path";
 
 const SESSION_ID = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/;
+const SENSITIVE_KEY_CATEGORIES = new Map(
+  [
+    ["accesskey", "CREDENTIAL"],
+    ["accesskeyid", "CREDENTIAL"],
+    ["accesstoken", "CREDENTIAL"],
+    ["apikey", "CREDENTIAL"],
+    ["authorization", "CREDENTIAL"],
+    ["authtoken", "CREDENTIAL"],
+    ["certificateauthoritydata", "KUBECONFIG MATERIAL"],
+    ["clientcertificatedata", "KUBECONFIG MATERIAL"],
+    ["clientkeydata", "KUBECONFIG MATERIAL"],
+    ["clientsecret", "CREDENTIAL"],
+    ["credential", "CREDENTIAL"],
+    ["credentials", "CREDENTIAL"],
+    ["password", "CREDENTIAL"],
+    ["privatekey", "PRIVATE KEY"],
+    ["refreshtoken", "CREDENTIAL"],
+    ["secret", "CREDENTIAL"],
+    ["secretaccesskey", "CREDENTIAL"],
+    ["secretkey", "CREDENTIAL"],
+    ["token", "CREDENTIAL"],
+  ].map(([key, category]) => [key, category]),
+);
+const REDACTION_MARKERS = {
+  CREDENTIAL: "[REDACTED: CREDENTIAL]",
+  "KUBECONFIG MATERIAL": "[REDACTED: KUBECONFIG MATERIAL]",
+  "PRIVATE KEY": "[REDACTED: PRIVATE KEY]",
+};
 const REDACTION_RULES = [
   {
     category: "CREDENTIAL",
@@ -72,6 +100,41 @@ function jsonPath(parent, key) {
   return Array.isArray(parent) ? `[${key}]` : `.${key}`;
 }
 
+function sensitiveKeyCategory(key) {
+  const normalized = key.toLowerCase().replace(/[^a-z0-9]/g, "");
+  const exactCategory = SENSITIVE_KEY_CATEGORIES.get(normalized);
+  if (exactCategory) {
+    return exactCategory;
+  }
+
+  const segments = key
+    .replace(/([a-z0-9])([A-Z])/g, "$1_$2")
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter(Boolean);
+  if (segments.length < 2) {
+    return undefined;
+  }
+  return SENSITIVE_KEY_CATEGORIES.get(segments.at(-1));
+}
+
+function redactSensitiveValue(category, locator, lineNumber, redactions) {
+  const marker = REDACTION_MARKERS[category];
+  redactions.push({ category, jsonPath: locator, line: lineNumber, marker });
+  return marker;
+}
+
+function uniqueRedactedKey(key, output) {
+  if (!Object.hasOwn(output, key)) {
+    return key;
+  }
+  let suffix = 2;
+  while (Object.hasOwn(output, `${key}#${suffix}`)) {
+    suffix += 1;
+  }
+  return `${key}#${suffix}`;
+}
+
 function redactString(value, locator, lineNumber, redactions) {
   let sanitized = value;
   for (const rule of REDACTION_RULES) {
@@ -103,17 +166,19 @@ function redactValue(value, locator, lineNumber, redactions) {
     );
   }
   if (value && typeof value === "object") {
-    return Object.fromEntries(
-      Object.entries(value).map(([key, entry]) => [
-        key,
-        redactValue(
-          entry,
-          `${locator}${jsonPath(value, key)}`,
-          lineNumber,
-          redactions,
-        ),
-      ]),
-    );
+    const output = {};
+    for (const [key, entry] of Object.entries(value)) {
+      const redactedKey = uniqueRedactedKey(
+        redactString(key, `${locator}.[KEY]`, lineNumber, redactions),
+        output,
+      );
+      const entryLocator = `${locator}${jsonPath(value, redactedKey)}`;
+      const category = sensitiveKeyCategory(key);
+      output[redactedKey] = category
+        ? redactSensitiveValue(category, entryLocator, lineNumber, redactions)
+        : redactValue(entry, entryLocator, lineNumber, redactions);
+    }
+    return output;
   }
   return value;
 }

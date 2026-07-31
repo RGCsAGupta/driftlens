@@ -2,24 +2,290 @@
   "version": 1,
   "exported": [
     {
-      "purpose": "Issue 12 documentation read-only audit",
+      "purpose": "Architecture timebox review",
+      "sessionId": "019fb4aa-8c97-7203-9cb3-3e8def6c3da6",
+      "status": "completed",
+      "sessionFile": "sessions/architecture-timebox-review.jsonl",
+      "redactionReport": "redactions/architecture-timebox-review.json",
+      "sha256": "932e08714dcd06d7574732dd27a18bd95d9f970fa04edc3b0e2d2b79e669a190",
+      "lines": 1491,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Architecture traceability review",
+      "sessionId": "019fb4aa-7180-7192-bdbd-9650c742c719",
+      "status": "completed",
+      "sessionFile": "sessions/architecture-traceability-review.jsonl",
+      "redactionReport": "redactions/architecture-traceability-review.json",
+      "sha256": "83952a309f33a3dfffa3ce0f7e77e49247d5bfca5615c52a2fc7af13c6e94b18",
+      "lines": 1563,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Collaboration contract audit",
+      "sessionId": "019fb495-0f03-75e0-b9b9-3727dfb3f558",
+      "status": "completed",
+      "sessionFile": "sessions/collaboration-contract-audit.jsonl",
+      "redactionReport": "redactions/collaboration-contract-audit.json",
+      "sha256": "8c62c93bca079a37c488c760f9cf73b52ca369161d1fd81a08fba31a974475ea",
+      "lines": 1053,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Delivery pattern research",
+      "sessionId": "019fb4d3-22ca-7da1-a7ba-d88b20d61eff",
+      "status": "completed",
+      "sessionFile": "sessions/delivery-pattern-research.jsonl",
+      "redactionReport": "redactions/delivery-pattern-research.json",
+      "sha256": "fb118c4a9d2bf670a0dbfbcb15a5de5edaf479ffd601d5d5eadccbd8320aba2b",
+      "lines": 1571,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Infrastructure readiness audit",
+      "sessionId": "019fb448-2dfc-7cf1-bea0-989c8a64c4b0",
+      "status": "completed",
+      "sessionFile": "sessions/infrastructure-readiness-audit.jsonl",
+      "redactionReport": "redactions/infrastructure-readiness-audit.json",
+      "sha256": "f0b34ad00e50212a0b018c94e3b805ad8f17a125925ed30d4321fe795b8cec0d",
+      "lines": 465,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Initial assessment planning",
+      "sessionId": "019fae4f-99bb-7a11-a6ef-e79a04312d50",
+      "status": "completed",
+      "sessionFile": "sessions/initial-assessment-planning.jsonl",
+      "redactionReport": "redactions/initial-assessment-planning.json",
+      "sha256": "d1776d96238fa98cc83a4ac8682b0cbf89f2dc23580bbfcb59bf681457d07e6a",
+      "lines": 135,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue #10 exact head review",
+      "sessionId": "019fb875-e5c1-7c72-b213-a7750594cd34",
+      "status": "completed",
+      "sessionFile": "sessions/issue-10-exact-head-review.jsonl",
+      "redactionReport": "redactions/issue-10-exact-head-review.json",
+      "sha256": "e81a350fcf4add63a6fbe680149e64f110da7de4969e79301757c126054b228b",
+      "lines": 4136,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue #10 implementation owner",
+      "sessionId": "019fb86c-c3fc-7ac1-94f1-9fef99424dee",
+      "status": "completed",
+      "sessionFile": "sessions/issue-10-implementation-owner.jsonl",
+      "redactionReport": "redactions/issue-10-implementation-owner.json",
+      "sha256": "17361f774b7362255f2afe54e0d47650a86685e426b08898be084ef31e2f6fe8",
+      "lines": 3900,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue #11 implementation owner",
+      "sessionId": "019fb86c-432c-7c03-a755-536272766dfb",
+      "status": "completed",
+      "sessionFile": "sessions/issue-11-implementation-owner.jsonl",
+      "redactionReport": "redactions/issue-11-implementation-owner.json",
+      "sha256": "babebe24a2d311fd47ef118764bf7942eeb656609df187301172a0ccf5939ebd",
+      "lines": 3980,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue 11 read-only review A",
+      "sessionId": "019fb8a1-9a1b-7070-8724-f1042b3d6a8c",
+      "status": "completed",
+      "sessionFile": "sessions/issue-11-review-a.jsonl",
+      "redactionReport": "redactions/issue-11-review-a.json",
+      "sha256": "5a504a66e5164042126db6d59aaffee3293f9b200b252ab2893bb22b7a244e10",
+      "lines": 4513,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue 11 read-only review B",
+      "sessionId": "019fb8a1-c1b2-73e3-a5ff-d68833c156f1",
+      "status": "completed",
+      "sessionFile": "sessions/issue-11-review-b.jsonl",
+      "redactionReport": "redactions/issue-11-review-b.json",
+      "sha256": "982e0ae5e09d0177d093c78327a84ad36dd02b541cd9ad8f1e7bf5e57b9889b5",
+      "lines": 4557,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue #11 user facing delivery",
+      "sessionId": "019fb8bd-49b7-7b72-a751-53ccec952c51",
+      "status": "completed",
+      "sessionFile": "sessions/issue-11-user-facing-delivery.jsonl",
+      "redactionReport": "redactions/issue-11-user-facing-delivery.json",
+      "sha256": "08db69ea3f1b235864972057037f1d8c919af61880161897d5af608453c9bfa5",
+      "lines": 106,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue #12 docs audit",
       "sessionId": "019fb868-da36-7251-b5e5-bf2448d1c492",
       "status": "completed",
       "sessionFile": "sessions/issue-12-docs-audit.jsonl",
       "redactionReport": "redactions/issue-12-docs-audit.json",
       "sha256": "1233b51392dfe21bcebe9efd35a60316c389453895b04eac5ca7131b626567d5",
       "lines": 94,
-      "finalReview": "pending"
+      "finalReview": "pass"
     },
     {
-      "purpose": "Issue 12 GitHub and evidence read-only audit",
+      "purpose": "Issue #12 github audit",
       "sessionId": "019fb869-0231-7f40-908f-3c9e12957e3d",
       "status": "completed",
       "sessionFile": "sessions/issue-12-github-audit.jsonl",
       "redactionReport": "redactions/issue-12-github-audit.json",
       "sha256": "247bb40fe141b686695c3eb250ac32c491fd8db9ff3fd1e5a3001956423edde8",
       "lines": 108,
-      "finalReview": "pending"
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue #12 submission audit",
+      "sessionId": "019fb868-aaab-7a11-8daf-53e1af4f7020",
+      "status": "completed",
+      "sessionFile": "sessions/issue-12-submission-audit.jsonl",
+      "redactionReport": "redactions/issue-12-submission-audit.json",
+      "sha256": "4d9e25dbf10fa2ef4406a85cc04234ba62de1252b313c745b8560347e46b9b4b",
+      "lines": 325,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue #13 delivery owner",
+      "sessionId": "019fb711-70d0-72d1-92c3-3cd335b94b02",
+      "status": "completed",
+      "sessionFile": "sessions/issue-13-delivery-owner.jsonl",
+      "redactionReport": "redactions/issue-13-delivery-owner.json",
+      "sha256": "848bce676bb24c69190e33b70c66cd8cd55b87e04d806de6575054e9fc41fc5f",
+      "lines": 3336,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue #13 exact head review",
+      "sessionId": "019fb71f-e7c6-7cc0-9ccc-032629ed941a",
+      "status": "completed",
+      "sessionFile": "sessions/issue-13-exact-head-review.jsonl",
+      "redactionReport": "redactions/issue-13-exact-head-review.json",
+      "sha256": "7c5d2ccea1bc8c492b62d5feba92e5f7c311c28005941d191ceb6aaf95753393",
+      "lines": 3101,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Issue #17 repository assets",
+      "sessionId": "019fb82c-92e1-7772-a647-859a8702b032",
+      "status": "completed",
+      "sessionFile": "sessions/issue-17-repository-assets.jsonl",
+      "redactionReport": "redactions/issue-17-repository-assets.json",
+      "sha256": "55bac6359f219d11a06ca72e048821dec5f7c7bb0f60c79576cef024d3f99022",
+      "lines": 3384,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Prd review",
+      "sessionId": "019fb460-0880-7f13-a8ea-ecebdd0772a8",
+      "status": "completed",
+      "sessionFile": "sessions/prd-review.jsonl",
+      "redactionReport": "redactions/prd-review.json",
+      "sha256": "e6acdefa5fc0c655d0f611194e3ae64715f70ff88c9437805c2fde88c7de1663",
+      "lines": 711,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Prd traceability audit",
+      "sessionId": "019fb495-2968-7791-b6df-7b29f6ffc098",
+      "status": "completed",
+      "sessionFile": "sessions/prd-traceability-audit.jsonl",
+      "redactionReport": "redactions/prd-traceability-audit.json",
+      "sha256": "94a788ebb755ee59b71c1a517a8b539fae723bf9809e5768e3d6c29da3cde96b",
+      "lines": 1002,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Release evidence audit",
+      "sessionId": "019fb895-f59b-78f1-8639-2fbde220f90e",
+      "status": "completed",
+      "sessionFile": "sessions/release-evidence-audit.jsonl",
+      "redactionReport": "redactions/release-evidence-audit.json",
+      "sha256": "866700ec81e8b28fc878ffa2cbf7dc93f451c4a7aa234f218d6e4d697fc2476c",
+      "lines": 4272,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Scope review",
+      "sessionId": "019fb405-eafd-74d2-a692-5bd7c46a1c3b",
+      "status": "completed",
+      "sessionFile": "sessions/scope-review.jsonl",
+      "redactionReport": "redactions/scope-review.json",
+      "sha256": "d6f3acd095b9508bae563123c23748a517a7ac2974092adf3a18a8df6dae9ad5",
+      "lines": 27,
+      "finalReview": "pass"
+    },
+    {
+      "purpose": "Timebox review",
+      "sessionId": "019fb405-fa05-7b93-87e9-972f3c4ae4f8",
+      "status": "completed",
+      "sessionFile": "sessions/timebox-review.jsonl",
+      "redactionReport": "redactions/timebox-review.json",
+      "sha256": "143884b5b60119a4990c5d3dcdef5f9620e82a83b2b9482cc2690fd445fc4e37",
+      "lines": 39,
+      "finalReview": "pass"
+    }
+  ],
+  "held": [
+    {
+      "purpose": "Primary DriftLens coordinator",
+      "sessionId": "019fb403-ca02-7ea0-800a-3b873e3ba025",
+      "status": "held-active"
+    },
+    {
+      "purpose": "Issue 12 submission-preparation owner",
+      "sessionId": "019fb868-5297-7a82-b3f0-890aece9a970",
+      "status": "held-active"
+    },
+    {
+      "purpose": "Issue 12 coordinator review",
+      "sessionId": "019fb926-109f-7a23-a7fe-6477f5fc57cf",
+      "status": "held-active"
+    }
+  ],
+  "unavailable": [
+    {
+      "purpose": "Issue 9 implementation owner",
+      "sessionId": "019fb60b-0b49-7891-a35d-44ecfb24b23d",
+      "status": "unavailable-source"
+    },
+    {
+      "purpose": "Issue 9 bounded reviewer",
+      "sessionId": "019fb690-a184-7022-825d-90bc4907257b",
+      "status": "unavailable-source"
+    },
+    {
+      "purpose": "Issue 10 user-visible owner record",
+      "sessionId": "019fb85c-78bd-7b02-87f0-cb1376c6d0a3",
+      "status": "unavailable-source"
+    },
+    {
+      "purpose": "Issue 11 second user-facing delivery record",
+      "sessionId": "019fb8c3-8ec5-70a0-81e1-ca904918da9f",
+      "status": "unavailable-source"
+    },
+    {
+      "purpose": "Interrupted duplicate Issue 12 preparation task",
+      "sessionId": "019fb868-0ca0-7810-af7d-4d93258b8286",
+      "status": "unavailable-source"
+    }
+  ],
+  "pendingReconciliation": [
+    {
+      "purpose": "Issue 8 owner and bounded reviewer",
+      "status": "pending-exact-session-reconciliation",
+      "evidence": "parent-captured inventory only"
+    },
+    {
+      "purpose": "Requested read-only Issue 12 coordinator review",
+      "status": "pending-exact-session-reconciliation",
+      "evidence": "parent-captured delegated prompt, result, and owner review"
     }
   ]
 }

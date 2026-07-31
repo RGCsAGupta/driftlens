@@ -96,6 +96,77 @@ describe("AI session exporter", () => {
     }
   });
 
+  it("redacts entire nested values selected by normalized sensitive keys", () => {
+    const directory = fixtureDirectory();
+    const source = join(directory, "source.jsonl");
+    const destination = join(directory, "submitted.jsonl");
+    const report = join(directory, "redactions.json");
+    try {
+      writeFileSync(
+        source,
+        [
+          JSON.stringify({ type: "session_meta", payload: { id: sessionId } }),
+          JSON.stringify({
+            type: "response_item",
+            payload: {
+              api_key: "short-safe-looking-value",
+              database_password: "also-short",
+              github_token: "tiny-prefixed-token",
+              max_output_tokens: 1024,
+              nested: [
+                { token: "tiny" },
+                { private_key: { material: "not-pattern-shaped" } },
+                { "client-key-data": ["also", "not-pattern-shaped"] },
+              ],
+              pathMap: {
+                "/root/private/first": "one",
+                "/root/private/second": "two",
+              },
+              token_budget: 4096,
+              user: "safe-user",
+            },
+          }),
+        ].join("\n") + "\n",
+      );
+
+      execFileSync(
+        process.execPath,
+        [exporter, source, sessionId, destination, report],
+        { encoding: "utf8" },
+      );
+
+      const records = readFileSync(destination, "utf8")
+        .trimEnd()
+        .split("\n")
+        .map((line) => JSON.parse(line));
+      expect(records[1].payload).toEqual({
+        api_key: "[REDACTED: CREDENTIAL]",
+        database_password: "[REDACTED: CREDENTIAL]",
+        github_token: "[REDACTED: CREDENTIAL]",
+        max_output_tokens: 1024,
+        nested: [
+          { token: "[REDACTED: CREDENTIAL]" },
+          { private_key: "[REDACTED: PRIVATE KEY]" },
+          { "client-key-data": "[REDACTED: KUBECONFIG MATERIAL]" },
+        ],
+        pathMap: {
+          "[REDACTED: LOCAL PATH]": "one",
+          "[REDACTED: LOCAL PATH]#2": "two",
+        },
+        token_budget: 4096,
+        user: "safe-user",
+      });
+      expect(JSON.parse(readFileSync(report, "utf8")).categoryCounts).toEqual({
+        CREDENTIAL: 4,
+        "KUBECONFIG MATERIAL": 1,
+        "LOCAL PATH": 2,
+        "PRIVATE KEY": 1,
+      });
+    } finally {
+      rmSync(directory, { recursive: true, force: true });
+    }
+  });
+
   it("fails closed for invalid JSON or the wrong inventory ID", () => {
     const directory = fixtureDirectory();
     const source = join(directory, "source.jsonl");
@@ -160,7 +231,7 @@ describe("AI session export verifier", () => {
           version: 1,
           exported: [
             {
-              finalReview: "pending",
+              finalReview: "pass",
               lines: 1,
               purpose: "test",
               redactionReport: "redactions.json",
@@ -178,6 +249,50 @@ describe("AI session export verifier", () => {
           encoding: "utf8",
         }),
       ).not.toThrow();
+    } finally {
+      rmSync(directory, { recursive: true, force: true });
+    }
+  });
+
+  it("fails closed while final review is pending", () => {
+    const directory = fixtureDirectory();
+    const source = join(directory, "source.jsonl");
+    const destination = join(directory, "submitted.jsonl");
+    const report = join(directory, "redactions.json");
+    const index = join(directory, "index.json");
+    try {
+      writeFileSync(
+        source,
+        `${JSON.stringify({ type: "session_meta", payload: { id: sessionId } })}\n`,
+      );
+      execFileSync(
+        process.execPath,
+        [exporter, source, sessionId, destination, report],
+        { encoding: "utf8" },
+      );
+      const checksum = createHash("sha256")
+        .update(readFileSync(destination))
+        .digest("hex");
+      writeFileSync(
+        index,
+        JSON.stringify({
+          version: 1,
+          exported: [
+            {
+              finalReview: "pending",
+              lines: 1,
+              purpose: "test",
+              redactionReport: "redactions.json",
+              sessionFile: "submitted.jsonl",
+              sessionId,
+              sha256: checksum,
+              status: "completed",
+            },
+          ],
+        }),
+      );
+
+      expect(spawnSync(process.execPath, [verifier, index]).status).toBe(2);
     } finally {
       rmSync(directory, { recursive: true, force: true });
     }
@@ -209,7 +324,7 @@ describe("AI session export verifier", () => {
           version: 1,
           exported: [
             {
-              finalReview: "pending",
+              finalReview: "pass",
               lines: 1,
               purpose: "test",
               redactionReport: "redactions.json",

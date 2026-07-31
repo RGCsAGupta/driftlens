@@ -47,7 +47,7 @@ const submittedFiles = new Set();
 for (const entry of index.exported) {
   if (
     entry?.status !== "completed" ||
-    !["pending", "pass"].includes(entry?.finalReview) ||
+    entry?.finalReview !== "pass" ||
     !Number.isSafeInteger(entry?.lines) ||
     entry.lines < 1
   ) {

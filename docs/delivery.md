@@ -33,20 +33,21 @@ adds the separately approved public-route boundary below.
 ## Parent #3 public route boundary
 
 Issue #12 approves one new dedicated remotely managed Cloudflare Tunnel for
-`nayanse.com`. The outbound-only `cloudflared` connector runs on the DriftLens
-application server and routes directly to `http://127.0.0.1:3000`.
+`nayanse.com`. The outbound-only `cloudflared` connector runs on the same host
+as DriftLens and routes to the existing private-interface application origin
+on port `3000`.
 
 The hostname is intentionally public. Do not create a Cloudflare Access
 application or policy, use the shared reverse proxy, add a router port-forward,
-or expose the origin directly. Restrict port `3000` to the local connector
-path, then prove the public response reports the exact deployed SHA and that
-direct-origin bypass fails.
+or expose the origin directly. Host firewall controls admit the same-host
+connector and dedicated deployment runner while denying unrelated
+private-network clients. Retained proof confirms the public response reports
+the exact deployed SHA and direct-origin bypass fails.
 
 The #13 scripts still publish the stable container on the preprovisioned
-private origin used for private smoke verification. They do not create the
-tunnel or claim the loopback-only public-route boundary. Final #12 execution
-must reconcile that host binding and local ingress before the domain proof;
-until then, the dedicated route remains pending rather than implied complete.
+private origin used for private smoke verification. They do not create or
+manage the tunnel or firewall policy. The separately authorized #12 execution
+completed that control-plane configuration and retained public-safe proof.
 
 ## Target bootstrap contract
 
@@ -110,9 +111,9 @@ capabilities dropped, `no-new-privileges`, a read-only root filesystem, a
 bounded temporary mount, and one persistent data bind mount. The candidate is
 unpublished. The stable container publishes only on the preprovisioned private
 origin address used by the current private release path. Scripts do not print
-that address or change Cloudflare or public routing. The parent #3 route must
-complete the loopback/local-ingress reconciliation described above before
-public exposure.
+that address or change Cloudflare or public routing. Public exposure uses the
+separately managed dedicated Tunnel and host-firewall boundary described
+above.
 
 After release, the target smoke command performs a bounded local readiness wait
 inside the container and requires:

@@ -522,14 +522,14 @@ is documented in [docs/delivery.md](docs/delivery.md).
 
 The approved parent-issue release topology makes `nayanse.com` intentionally
 public through one dedicated remotely managed Cloudflare Tunnel. The
-outbound-only `cloudflared` connector runs on the DriftLens application server
-and routes directly to the loopback application origin at
-`http://127.0.0.1:3000`.
+outbound-only `cloudflared` connector runs on the same host as DriftLens and
+routes to the existing private-interface application origin on port `3000`.
 
 This route uses no Cloudflare Access application or policy, no shared reverse
-proxy, and no router port-forward. Port `3000` must remain unavailable outside
-the local connector path. Final release evidence must prove the public domain
-reports the exact deployed commit and that direct-origin bypass fails. Local
+proxy, and no router port-forward. Host firewall controls permit only the
+same-host connector path and the dedicated deployment runner to reach port
+`3000`; unrelated private-network clients are denied. Public proof has already
+confirmed the exact deployed commit and failed direct-origin bypass. Local
 setup does not require or create this route.
 
 ## Current limitations

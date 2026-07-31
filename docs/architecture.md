@@ -58,20 +58,20 @@ flowchart LR
     Public["Public operator"]
     Edge["Cloudflare public hostname"]
     Connector["Dedicated cloudflared connector<br/>on DriftLens app server"]
-    Origin["DriftLens loopback origin<br/>127.0.0.1:3000"]
+    Origin["Existing private-interface origin<br/>port 3000"]
 
     Public --> Edge
     Edge -->|"Dedicated tunnel"| Connector
-    Connector -->|"Local HTTP only"| Origin
+    Connector -->|"Same-host private route"| Origin
 ```
 
 The selected hostname is intentionally public. This topology has no
 Cloudflare Access application or identity policy, no shared reverse proxy, and
-no router port-forward. Port `3000` must remain unavailable outside the local
-connector path. Final evidence must prove the public response reports the
-exact deployed commit and that direct-origin bypass fails. Tunnel identifiers,
-credentials, internal addresses, and connector details remain outside public
-evidence.
+no router port-forward. Host firewall controls admit only the same-host
+connector and dedicated deployment runner to port `3000`; unrelated
+private-network clients are denied. Public evidence proves the exact deployed
+commit and failed direct-origin bypass. Tunnel identifiers, credentials,
+internal addresses, and connector details remain outside public evidence.
 
 ## 3. Application boundaries
 
@@ -338,7 +338,8 @@ failure becomes an explanation error and never alters scan truth.
   changes.
 - The existing Cloudflare account is reused. Issue #12 adds one dedicated
   remotely managed Tunnel whose connector runs on the DriftLens application
-  host and reaches only the loopback application origin.
+  host and reaches the existing private-interface application origin on port
+  `3000`.
 - The public route uses no Cloudflare Access application or policy and no
   shared reverse proxy. Direct origin access must remain unavailable.
 
