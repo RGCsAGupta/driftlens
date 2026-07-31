@@ -34,7 +34,7 @@ describe("operational API routes", () => {
 
   it("returns the ready contract with HTTP 200", async () => {
     const body = {
-      checks: { configuration: "pass" },
+      checks: { configuration: "pass", persistence: "pass" },
       issues: [],
       service: "driftlens",
       status: "ready",
@@ -49,7 +49,7 @@ describe("operational API routes", () => {
 
   it("returns a safe readiness failure with HTTP 503", async () => {
     const body = {
-      checks: { configuration: "fail" },
+      checks: { configuration: "fail", persistence: "fail" },
       issues: ["DATA_DIR_INVALID"],
       service: "driftlens",
       status: "not_ready",
