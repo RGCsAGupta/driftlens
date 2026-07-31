@@ -1,17 +1,62 @@
 # DriftLens Collaboration Contract
 
-Status: approved and effective
-Version: 1.0
+Status: version 1.0 approved and effective; documentation amendment proposed
+Version: 1.0 effective; 1.1 proposed
 Proposed: 2026-07-30
 Effective: 2026-07-30
 Approved head: `39edb29d633a5b84abebdb07c81ef17c40883659`
 Activation merge: `27b2b08e039063ec6da7c5c00dd32510ed93b30b`
+Proposed amendment: issue #12 / draft PR #19; exact head approval pending
 
 ## Intent
 
 User and Codex collaborate at goal, outcome, risk, and acceptance-criteria
 level. Codex handles routine execution without turning every command into an
 approval request.
+
+## Repository entry path for humans and agents
+
+This section is a proposed documentation amendment and is not effective until
+the user approves its exact pull-request head and merges it.
+
+- Humans start with `README.md`. It is the runnable setup and operator guide.
+- Agents read this file completely, then `README.md`, `docs/PRD.md`,
+  `docs/architecture.md`, `docs/openapi.yaml`, and the issue-specific evidence
+  document before changing the repository.
+- AI evidence work also requires `docs/ai-interaction-evidence.md` and
+  `docs/ai-interactions/manifest.md`.
+- Reverify current `main`, the active issue/PR, dependencies, and the worktree
+  before relying on documentation status statements.
+- Treat commands containing example owners, repositories, paths, contexts,
+  namespaces, or Deployment names as placeholders. Never guess a private
+  infrastructure value.
+
+The supported local target contract is deliberately narrow:
+
+- one public GitHub `owner/repository` and one safe relative YAML path;
+- one plain, single-document `apps/v1` Deployment with explicit name and
+  namespace;
+- one reachable Kubernetes cluster/context; and
+- a dedicated identity that may `get` the required namespaced Deployment but
+  cannot list, watch, mutate Deployments, or read Secrets.
+
+For a human or agent setup to be considered verified:
+
+1. use the repository-pinned Node version and `npm ci`;
+2. configure values through the environment or an ignored `.env.local` file;
+3. verify the public desired file exists at the requested Git ref;
+4. verify the kubeconfig/context and RBAC contract without printing
+   kubeconfig content, tokens, certificates, endpoints, or unrelated resource
+   data;
+5. require `/api/health` and `/api/ready` to pass before scanning;
+6. run one scan and retain its resolved SHA, terminal state, stages, and safe
+   result/error; and
+7. never use the DriftLens credential for demo mutation.
+
+Keep `README.md` synchronized whenever configuration, supported resource
+shape, setup, API, security boundary, test command, or limitation changes.
+Examples must work for a clean-clone human and be deterministic enough for an
+agent to validate without hidden machine context.
 
 ## Authority and precedence
 

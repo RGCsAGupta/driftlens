@@ -5,33 +5,255 @@ Kubernetes `apps/v1` Deployment with its live cluster state. The current API
 starts one read-only scan, exposes persisted progress and history, and reports
 exact replica and regular-container image differences.
 
+It is for a platform engineer, reviewer, or automation agent who can provide
+one Deployment manifest in a **public GitHub repository** and one **read-only
+Kubernetes kubeconfig/context** that can reach the matching live Deployment.
+DriftLens reads both sides and reports drift; it never applies or remediates
+desired state.
+
+One running instance targets one repository/path and one cluster/context.
+Restart with different configuration, or run another isolated instance, to
+analyze another target.
+
+## Documentation map
+
+| Audience or task                | Start here                                         |
+| ------------------------------- | -------------------------------------------------- |
+| Human local operator            | Prerequisites, target preparation, and local setup |
+| Automation or coding agent      | `AGENTS.md`, then the agent setup contract below   |
+| API consumer                    | `docs/openapi.yaml` and the Scan API section       |
+| Disposable `kind` demonstration | `docs/demo-cluster.md`                             |
+| Architecture and trade-offs     | `docs/architecture.md` and `docs/PRD.md`           |
+| AI evidence reviewer            | `docs/ai-interaction-evidence.md` and its manifest |
+| Private deployment operator     | `docs/delivery.md`                                 |
+
 ## Prerequisites
 
-- Node.js `24.15.0`
-- npm `11`
-- Docker for the production-container check
+- Git and outbound HTTPS access to the configured public GitHub repository.
+- Node.js `24.15.0`; `.node-version`, `.nvmrc`, `package.json`, CI, and the
+  container pin Node 24.
+- npm `11` and the checked-in `package-lock.json`.
+- `kubectl` for target/RBAC validation. DriftLens uses the Kubernetes
+  JavaScript client and does not shell out to `kubectl`.
+- Network reachability from the DriftLens process to the Kubernetes API.
+- Docker only for the disposable `kind` demo, production-container check, or
+  containerized run.
+
+This repository uses the exact Node 24 patch for reproducibility and
+`node:sqlite`. See the official
+[Node release schedule](https://nodejs.org/en/about/previous-releases) and
+[Next.js installation requirements](https://nextjs.org/docs/app/getting-started/installation).
+
+## Prepare a desired-state repository
+
+DriftLens reads GitHub through server-side commit and repository-content REST
+APIs. It does **not** read the local checkout. Commit and push a manifest before
+asking DriftLens to resolve it.
+
+The source contract is:
+
+- public `owner/repository`; private-repository credentials are unsupported;
+- a safe relative path such as `deployments/api.yaml`;
+- one plain YAML document, not Helm, Kustomize, Jsonnet, or a YAML list;
+- one `apps/v1` `Deployment`; and
+- explicit `metadata.name` and `metadata.namespace`.
+
+The repository contains [a minimal example](demo/deployment.yaml). For your own
+repository, commit and push an equivalent manifest:
+
+```bash
+git add path/to/deployment.yaml
+git commit -m "docs(kubernetes): add desired deployment"
+git push origin YOUR_BRANCH
+git rev-parse HEAD
+```
+
+The UI accepts `YOUR_BRANCH` or the full 40-character commit SHA. DriftLens
+resolves that ref to an immutable SHA before retrieving the configured file.
+GitHub's official [repository-contents endpoint](https://docs.github.com/en/rest/repos/contents#get-repository-content)
+defines this upstream lookup.
+
+## Prepare any Kubernetes cluster
+
+The cluster may be local `kind`, a development cluster, or another authorized
+cluster reachable from the machine running DriftLens. The desired manifest's
+namespace and name determine the exact live read.
+
+Use a dedicated kubeconfig identity. The minimum recommended Role is
+namespace-scoped and restricts `get` to the target Deployment:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: driftlens-reader
+  namespace: YOUR_NAMESPACE
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    resourceNames: ["YOUR_DEPLOYMENT"]
+    verbs: ["get"]
+```
+
+An authorized administrator must bind that Role to a dedicated user or
+ServiceAccount and deliver its kubeconfig outside the repository. Credential
+creation differs by provider. Do not give DriftLens an administrator
+kubeconfig merely to simplify setup. Follow the official
+[RBAC good practices](https://kubernetes.io/docs/concepts/security/rbac-good-practices/)
+and [kubeconfig guidance](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/).
+
+Validate the selected credential without printing its content:
+
+```bash
+export DRIFTLENS_KUBECONFIG_PATH=/absolute/path/to/read-only.kubeconfig
+export DRIFTLENS_KUBECONTEXT=your-read-only-context
+export TARGET_NAMESPACE=your-namespace
+export TARGET_DEPLOYMENT=your-deployment
+
+kubectl --kubeconfig "$DRIFTLENS_KUBECONFIG_PATH" \
+  --context "$DRIFTLENS_KUBECONTEXT" \
+  auth can-i get "deployment/$TARGET_DEPLOYMENT" \
+  --namespace "$TARGET_NAMESPACE"
+
+kubectl --kubeconfig "$DRIFTLENS_KUBECONFIG_PATH" \
+  --context "$DRIFTLENS_KUBECONTEXT" \
+  auth can-i create deployments.apps \
+  --namespace "$TARGET_NAMESPACE"
+
+kubectl --kubeconfig "$DRIFTLENS_KUBECONFIG_PATH" \
+  --context "$DRIFTLENS_KUBECONTEXT" \
+  auth can-i get secrets \
+  --namespace "$TARGET_NAMESPACE"
+```
+
+Expected results: the named Deployment read is `yes`; Deployment creation and
+Secret reads are `no`. Also deny list, watch, update, patch, and delete. The
+official [`kubectl auth can-i` reference](https://kubernetes.io/docs/reference/kubectl/generated/kubectl_auth/kubectl_auth_can-i/)
+documents these non-mutating authorization checks.
+
+For a self-contained disposable target, follow the
+[pinned `kind` bootstrap, scenario, verification, and teardown guide](docs/demo-cluster.md).
 
 ## Local setup
 
-```bash
-export DRIFTLENS_GITHUB_REPOSITORY=owner/public-repository
-export DRIFTLENS_MANIFEST_PATH=path/to/deployment.yaml
-export DRIFTLENS_KUBECONFIG_PATH=/absolute/path/to/read-only.kubeconfig
-# Optional: export DRIFTLENS_KUBECONTEXT=explicit-context
-# AI analysis configuration (both required to enable the manual capability):
-export OPENAI_API_KEY=...
-export OPENAI_MODEL=gpt-5.6
+Clone and install the lockfile-defined dependencies:
 
+```bash
+git clone https://github.com/RGCsAGupta/driftlens.git
+cd driftlens
+node --version
+npm --version
 npm ci
+```
+
+Create a local ignored configuration file:
+
+```bash
+cp .env.example .env.local
+```
+
+Edit `.env.local`:
+
+```dotenv
+DRIFTLENS_GITHUB_REPOSITORY=owner/public-repository
+DRIFTLENS_MANIFEST_PATH=path/to/deployment.yaml
+DRIFTLENS_KUBECONFIG_PATH=/absolute/path/to/read-only.kubeconfig
+DRIFTLENS_KUBECONTEXT=explicit-read-only-context
+
+# Optional until manual AI analysis is required. Both values are required
+# together; keep the key server-side and never commit it.
+OPENAI_API_KEY=replace-locally
+OPENAI_MODEL=gpt-5.6
+```
+
+Never commit or print `.env.local`. It may contain the server-side OpenAI key
+and a kubeconfig **path**; it must never contain kubeconfig content,
+certificates, or unrelated credentials.
+
+Start the long-lived local server:
+
+```bash
 npm run dev
 ```
 
-Open `http://localhost:3000`.
+Open `http://localhost:3000`, or validate the machine-readable endpoints:
+
+```bash
+curl --fail-with-body http://localhost:3000/api/health
+curl --fail-with-body http://localhost:3000/api/ready
+curl --fail-with-body http://localhost:3000/api/source
+```
+
+Health proves the process is alive. Readiness proves configuration and SQLite
+writeability. `/api/source` returns public repository/path metadata, never
+kubeconfig information.
 
 The configured GitHub repository must be public. The manifest path must be a
 safe relative path to one plain-YAML `apps/v1` Deployment with explicit
 `metadata.name` and `metadata.namespace`. The kubeconfig identity must have
 only the namespaced Deployment `get` permission needed for the target.
+
+## Run and interpret a scan
+
+1. Open the operator console.
+2. Enter a pushed branch or full commit SHA from the configured repository.
+3. Choose **Run scan**.
+4. Retain the resolved SHA, target identity, stages, terminal status, and safe
+   result/error when collecting evidence.
+
+| Outcome        | Meaning                                                           |
+| -------------- | ----------------------------------------------------------------- |
+| `IN_SYNC`      | Supported desired/live replicas and images match exactly          |
+| `DRIFTED`      | A supported replica or regular-container image differs            |
+| `MISSING_LIVE` | Desired Deployment exists in GitHub but not in the target cluster |
+
+GitHub, YAML, Kubernetes authorization/availability, timeout, and storage
+problems are failed executions, not drift. Correct the cause and start a new
+scan; DriftLens does not automatically retry.
+
+## Switch repositories or clusters
+
+Configuration is process-wide. To inspect another target:
+
+1. stop the local process;
+2. change repository/path and kubeconfig/context in `.env.local`;
+3. optionally set a separate absolute `DRIFTLENS_DATA_DIR` so histories do not
+   mix;
+4. restart the process; and
+5. re-run health, readiness, source, and RBAC validation.
+
+Do not change configuration while a scan is active. Core has no multi-cluster,
+multi-repository, tenant, or configuration-UI abstraction.
+
+## Agent setup contract
+
+An agent can reproduce a target without hidden machine context when given:
+
+| Input             | Required value                                          |
+| ----------------- | ------------------------------------------------------- |
+| Source repository | Public `owner/repository`                               |
+| Manifest path     | Safe relative path to one supported Deployment          |
+| Git ref           | Pushed branch or full commit SHA                        |
+| Kubeconfig path   | Absolute path supplied out of band                      |
+| Kube context      | Explicit read-only context when more than one exists    |
+| Expected target   | Namespace and Deployment name from the desired manifest |
+| Data directory    | Optional isolated absolute path                         |
+
+Agent completion checks:
+
+```text
+1. Exact repository and branch/worktree state recorded.
+2. Pinned Node/npm prerequisites and npm ci pass.
+3. Desired file exists in public GitHub at the requested ref.
+4. Named Deployment get is allowed; mutation and Secret reads are denied.
+5. Health, readiness, and source endpoints pass without sensitive output.
+6. One scan reaches a terminal state with a resolved immutable SHA.
+7. No credential, kubeconfig content, private endpoint, or raw upstream body is logged.
+```
+
+Agents must not search for credentials, print kubeconfig content, substitute an
+administrator identity, guess a private endpoint, or mutate a non-disposable
+cluster. A required missing value is a blocker, not permission to infer one.
 
 ## Operator console
 
@@ -209,6 +431,25 @@ unknown value leaves liveness successful but fails readiness with the safe
 `driftlens.sqlite` scan-history database. It defaults to `.driftlens` locally
 and `/data` in production. A production override must be an absolute path.
 
+## Troubleshooting
+
+| Symptom or safe code                      | Check                                                             |
+| ----------------------------------------- | ----------------------------------------------------------------- |
+| Readiness is `not_ready`                  | Use its issue codes and the configuration table above             |
+| `GITHUB_REF_NOT_FOUND`                    | Push the entered branch/SHA to the configured public repository   |
+| `GITHUB_FILE_NOT_FOUND`                   | Confirm the configured relative path exists at that pushed ref    |
+| `MANIFEST_INVALID`                        | Parse the YAML and add explicit Deployment name and namespace     |
+| `MANIFEST_UNSUPPORTED`                    | Use one plain `apps/v1` Deployment document                       |
+| `KUBERNETES_FORBIDDEN`                    | Re-run the named `auth can-i get` check with the exact context    |
+| `KUBERNETES_TIMEOUT`                      | Check API reachability from the DriftLens host and client timeout |
+| `KUBERNETES_UNAVAILABLE`                  | Check kubeconfig/context validity and API availability            |
+| `STORAGE_UNAVAILABLE`                     | Check data-directory existence, permissions, and available space  |
+| Scan remains queued/running after restart | Core does not resume it; retain it and start a new scan           |
+
+Do not paste upstream response bodies, kubeconfig content, cluster endpoints,
+or credentials into an issue when diagnosing these codes. The safe public code
+and retained stage history are the intended first evidence.
+
 ## Quality gates
 
 ```bash
@@ -276,6 +517,20 @@ curl --fail http://localhost:3000/api/version
 
 The versioned private-target bootstrap, release, smoke, and rollback contract
 is documented in [docs/delivery.md](docs/delivery.md).
+
+## Public assessment route
+
+The approved parent-issue release topology makes `nayanse.com` intentionally
+public through one dedicated remotely managed Cloudflare Tunnel. The
+outbound-only `cloudflared` connector runs on the DriftLens application server
+and routes directly to the loopback application origin at
+`http://127.0.0.1:3000`.
+
+This route uses no Cloudflare Access application or policy, no shared reverse
+proxy, and no router port-forward. Port `3000` must remain unavailable outside
+the local connector path. Final release evidence must prove the public domain
+reports the exact deployed commit and that direct-origin bypass fails. Local
+setup does not require or create this route.
 
 ## Current limitations
 

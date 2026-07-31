@@ -18,8 +18,9 @@ Status: template only; do not mark complete before functional code freeze.
    exactly one inventory row plus its parent/delegation relationship.
 4. Reconcile prompt, interaction, output, owner review, corrections, final
    outcome, and interrupted work whose output influenced delivery.
-5. Secret-review a derived copy. Apply explicit markers only in that copy and
-   add one redaction row below for every replacement.
+5. Secret-review a derived copy. Apply explicit markers only in that copy. A
+   generated redaction report may enumerate every replacement by line and JSON
+   path; summarize that report below without reproducing removed values.
 6. Place reviewed copies under `docs/ai-interactions/sessions/`, compute SHA-256
    checksums, then run manifest/file reconciliation and the final secret scan.
 

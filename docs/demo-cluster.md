@@ -28,6 +28,32 @@ ops/demo-cluster/v1/bootstrap.sh /secure/private/driftlens.kubeconfig
 ops/demo-cluster/v1/verify.sh /secure/private/driftlens.kubeconfig
 ```
 
+For a local-only disposable demo, bind the `kind` API to loopback and keep both
+kubeconfigs under the ignored `.driftlens` directory:
+
+```bash
+repository_root="$(pwd)"
+ops/demo-cluster/v1/install-tools.sh "$repository_root/.driftlens/bin"
+export PATH="$repository_root/.driftlens/bin:$PATH"
+export DRIFTLENS_KIND_API_ADDRESS=127.0.0.1
+
+ops/demo-cluster/v1/bootstrap.sh \
+  "$repository_root/.driftlens/demo-reader.kubeconfig"
+kind get kubeconfig --name driftlens-demo \
+  >"$repository_root/.driftlens/demo-admin.kubeconfig"
+chmod 0600 "$repository_root/.driftlens/demo-admin.kubeconfig"
+
+ops/demo-cluster/v1/scenario.sh \
+  "$repository_root/.driftlens/demo-admin.kubeconfig" in-sync
+ops/demo-cluster/v1/verify.sh \
+  "$repository_root/.driftlens/demo-reader.kubeconfig"
+```
+
+Configure DriftLens with public repository path `demo/deployment.yaml`, the
+absolute reader-kubeconfig path, and reader context `driftlens-demo`. Enter a
+pushed ref that contains the manifest. The administrator kubeconfig is only
+for explicit scenario setup/teardown and must never be supplied to DriftLens.
+
 Optional `DRIFTLENS_KIND_CLUSTER_NAME`, `DRIFTLENS_DEMO_NAMESPACE`, and
 `DRIFTLENS_KIND_API_PORT` overrides are validated before use. Re-running the
 bootstrap reuses the named cluster only when it is single-node and uses the

@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "exported": [
+    {
+      "purpose": "Issue 12 documentation read-only audit",
+      "sessionId": "019fb868-da36-7251-b5e5-bf2448d1c492",
+      "status": "completed",
+      "sessionFile": "sessions/issue-12-docs-audit.jsonl",
+      "redactionReport": "redactions/issue-12-docs-audit.json",
+      "sha256": "1233b51392dfe21bcebe9efd35a60316c389453895b04eac5ca7131b626567d5",
+      "lines": 94,
+      "finalReview": "pending"
+    },
+    {
+      "purpose": "Issue 12 GitHub and evidence read-only audit",
+      "sessionId": "019fb869-0231-7f40-908f-3c9e12957e3d",
+      "status": "completed",
+      "sessionFile": "sessions/issue-12-github-audit.jsonl",
+      "redactionReport": "redactions/issue-12-github-audit.json",
+      "sha256": "247bb40fe141b686695c3eb250ac32c491fd8db9ff3fd1e5a3001956423edde8",
+      "lines": 108,
+      "finalReview": "pending"
+    }
+  ]
+}
