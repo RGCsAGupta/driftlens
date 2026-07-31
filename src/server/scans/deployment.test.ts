@@ -85,6 +85,34 @@ describe("Deployment projection and comparison", () => {
     });
   });
 
+  it("preserves declared image whitespace instead of reporting false sync", () => {
+    const desired = parseDesiredDeployment(
+      manifest(
+        "replicas: 2",
+        `
+        - name: api
+          image: " example/api:1 "`,
+      ),
+    ).projection;
+
+    expect(desired.containers[0]?.image).toBe(" example/api:1 ");
+    expect(
+      compareDeployments(desired, {
+        containers: [{ image: "example/api:1", name: "api" }],
+        replicas: 2,
+      }),
+    ).toEqual({
+      differences: [
+        {
+          desired: " example/api:1 ",
+          field: "spec.template.spec.containers[name=api].image",
+          live: "example/api:1",
+        },
+      ],
+      outcome: "DRIFTED",
+    });
+  });
+
   it("classifies a missing live Deployment without inventing differences", () => {
     const desired = parseDesiredDeployment(manifest()).projection;
     expect(compareDeployments(desired, null)).toEqual({

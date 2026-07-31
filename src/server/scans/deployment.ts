@@ -21,7 +21,7 @@ const dnsLabel = z
   .max(63)
   .regex(/^[a-z0-9](?:[-a-z0-9]*[a-z0-9])?$/);
 const containerSchema = z.object({
-  image: z.string().trim().min(1).max(2_048),
+  image: z.string().min(1).max(2_048),
   name: dnsLabel,
 });
 const resourceIdentitySchema = z.object({
