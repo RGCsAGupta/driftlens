@@ -6,7 +6,7 @@ Issue: [#12](https://github.com/RGCsAGupta/driftlens/issues/12)
 
 Evidence base: `d8cf01eac14384ffbff65b9d5b705537ae03f96d`
 
-Recorded: `2026-07-31T14:59:24Z`
+Recorded: `2026-07-31T15:23:06Z`
 
 This document records public-safe evidence available after issue #10 merged and
 before issue #11 completed. `PENDING` means the requirement must not be claimed
@@ -16,18 +16,18 @@ digest belongs in this file.
 
 ## Release checkpoint
 
-| Prerequisite                  | State   | Evidence or blocker                                                                                                   |
-| ----------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------- |
-| #8 foundation                 | PASS    | PR [#14](https://github.com/RGCsAGupta/driftlens/pull/14), merge `c06562f004c30714dfd7eb799b43e0239ad9d719`           |
-| #13 trusted delivery          | PASS    | PR [#15](https://github.com/RGCsAGupta/driftlens/pull/15), merge `43fc8fbb19d0a3709e6588e544e7d57d533556b4`           |
-| #17 demo-cluster prerequisite | PASS    | PR [#18](https://github.com/RGCsAGupta/driftlens/pull/18), merge `96074e9c0373df37640378aba23eb4870c86feca`           |
-| #9 deterministic scan         | PASS    | PR [#16](https://github.com/RGCsAGupta/driftlens/pull/16), merge `fb1bea1a8f359c8c52f32dbaa9a6e4e125e16965`           |
-| #10 operator UI               | PASS    | PR [#20](https://github.com/RGCsAGupta/driftlens/pull/20), merge `d8cf01eac14384ffbff65b9d5b705537ae03f96d`           |
-| #11 AI explanation            | PENDING | [Issue #11](https://github.com/RGCsAGupta/driftlens/issues/11) open; do not claim explanation proof                   |
-| User-selected domain          | PENDING | No approved hostname recorded in #12; do not guess one                                                                |
-| Server-side OpenAI preflight  | PENDING | No current server-side preflight evidence; no secret value was inspected or printed                                   |
-| Session source readability    | PARTIAL | Candidate files found; final mapping, derived exports, and secret review wait for code freeze                         |
-| #12 continuation authority    | PASS    | Prior conservative charge is `6m00s`; user explicitly authorized immediate continuation without another time approval |
+| Prerequisite                  | State   | Evidence or blocker                                                                                                                |
+| ----------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| #8 foundation                 | PASS    | PR [#14](https://github.com/RGCsAGupta/driftlens/pull/14), merge `c06562f004c30714dfd7eb799b43e0239ad9d719`                        |
+| #13 trusted delivery          | PASS    | PR [#15](https://github.com/RGCsAGupta/driftlens/pull/15), merge `43fc8fbb19d0a3709e6588e544e7d57d533556b4`                        |
+| #17 demo-cluster prerequisite | PASS    | PR [#18](https://github.com/RGCsAGupta/driftlens/pull/18), merge `96074e9c0373df37640378aba23eb4870c86feca`                        |
+| #9 deterministic scan         | PASS    | PR [#16](https://github.com/RGCsAGupta/driftlens/pull/16), merge `fb1bea1a8f359c8c52f32dbaa9a6e4e125e16965`                        |
+| #10 operator UI               | PASS    | PR [#20](https://github.com/RGCsAGupta/driftlens/pull/20), merge `d8cf01eac14384ffbff65b9d5b705537ae03f96d`                        |
+| #11 AI explanation            | PENDING | [Issue #11](https://github.com/RGCsAGupta/driftlens/issues/11) open; do not claim explanation proof                                |
+| User-selected domain          | PENDING | No approved hostname recorded in #12; do not guess one                                                                             |
+| Server-side OpenAI preflight  | PENDING | No current server-side preflight evidence; no secret value was inspected or printed                                                |
+| Session source readability    | PARTIAL | Candidate files found; final mapping, derived exports, and secret review wait for code freeze                                      |
+| #12 continuation authority    | PASS    | `25m22s` charged through the demo correction push; user explicitly authorized immediate continuation without another time approval |
 
 Go/no-go result: **NO-GO for release execution**. Continue only preparation
 that does not conflict with #11. Recalculate this table after #11 merges.
@@ -55,15 +55,16 @@ that does not conflict with #11. Recalculate this table after #11 merges.
 
 ## Exact revision and CI/deployment evidence
 
-| Slice              | Source head                                | Merge SHA                                  | Authoritative evidence                                                                                                                                                                                                                                                                                 |
-| ------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Governance         | `39edb29d633a5b84abebdb07c81ef17c40883659` | `27b2b08e039063ec6da7c5c00dd32510ed93b30b` | PR [#2](https://github.com/RGCsAGupta/driftlens/pull/2)                                                                                                                                                                                                                                                |
-| Architecture       | `76ab0237e1f61d3adf1b75ff289177bece1a4b35` | `89d99f461ddb1c3620a68117c12e9e8cee530217` | PR [#7](https://github.com/RGCsAGupta/driftlens/pull/7)                                                                                                                                                                                                                                                |
-| Foundation         | `317f19a3f948ba00a6d4fd2dd8003a031b4d7a6a` | `c06562f004c30714dfd7eb799b43e0239ad9d719` | PR [#14](https://github.com/RGCsAGupta/driftlens/pull/14)                                                                                                                                                                                                                                              |
-| Trusted delivery   | `8c5e7df44cf9425bade3929da824459e87e2d1e3` | `43fc8fbb19d0a3709e6588e544e7d57d533556b4` | [Main run 30631735176](https://github.com/RGCsAGupta/driftlens/actions/runs/30631735176) succeeded                                                                                                                                                                                                     |
-| Demo cluster       | `3b5b6607bd9286bde974869be8f2d659d40fdb6d` | `96074e9c0373df37640378aba23eb4870c86feca` | [Main run 30634458368](https://github.com/RGCsAGupta/driftlens/actions/runs/30634458368) and private release succeeded                                                                                                                                                                                 |
-| Deterministic scan | `80ef4c84ec32c4b38351644198c524f2e7e29f9f` | `fb1bea1a8f359c8c52f32dbaa9a6e4e125e16965` | [Main run 30635279699](https://github.com/RGCsAGupta/driftlens/actions/runs/30635279699): [verify](https://github.com/RGCsAGupta/driftlens/actions/runs/30635279699/job/91171192064) and [private release](https://github.com/RGCsAGupta/driftlens/actions/runs/30635279699/job/91171711853) succeeded |
-| Operator console   | `76c3a2aeed4816106f62830c3b704a0a5c85b744` | `d8cf01eac14384ffbff65b9d5b705537ae03f96d` | [Main run 30639327549](https://github.com/RGCsAGupta/driftlens/actions/runs/30639327549): [verify](https://github.com/RGCsAGupta/driftlens/actions/runs/30639327549/job/91184933285) and [private release](https://github.com/RGCsAGupta/driftlens/actions/runs/30639327549/job/91185514520) succeeded |
+| Slice                | Source head                                | Merge SHA                                  | Authoritative evidence                                                                                                                                                                                                                                                                                                             |
+| -------------------- | ------------------------------------------ | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Governance           | `39edb29d633a5b84abebdb07c81ef17c40883659` | `27b2b08e039063ec6da7c5c00dd32510ed93b30b` | PR [#2](https://github.com/RGCsAGupta/driftlens/pull/2)                                                                                                                                                                                                                                                                            |
+| Architecture         | `76ab0237e1f61d3adf1b75ff289177bece1a4b35` | `89d99f461ddb1c3620a68117c12e9e8cee530217` | PR [#7](https://github.com/RGCsAGupta/driftlens/pull/7)                                                                                                                                                                                                                                                                            |
+| Foundation           | `317f19a3f948ba00a6d4fd2dd8003a031b4d7a6a` | `c06562f004c30714dfd7eb799b43e0239ad9d719` | PR [#14](https://github.com/RGCsAGupta/driftlens/pull/14)                                                                                                                                                                                                                                                                          |
+| Trusted delivery     | `8c5e7df44cf9425bade3929da824459e87e2d1e3` | `43fc8fbb19d0a3709e6588e544e7d57d533556b4` | [Main run 30631735176](https://github.com/RGCsAGupta/driftlens/actions/runs/30631735176) succeeded                                                                                                                                                                                                                                 |
+| Demo cluster         | `3b5b6607bd9286bde974869be8f2d659d40fdb6d` | `96074e9c0373df37640378aba23eb4870c86feca` | [Main run 30634458368](https://github.com/RGCsAGupta/driftlens/actions/runs/30634458368) and private release succeeded                                                                                                                                                                                                             |
+| Deterministic scan   | `80ef4c84ec32c4b38351644198c524f2e7e29f9f` | `fb1bea1a8f359c8c52f32dbaa9a6e4e125e16965` | [Main run 30635279699](https://github.com/RGCsAGupta/driftlens/actions/runs/30635279699): [verify](https://github.com/RGCsAGupta/driftlens/actions/runs/30635279699/job/91171192064) and [private release](https://github.com/RGCsAGupta/driftlens/actions/runs/30635279699/job/91171711853) succeeded                             |
+| Operator console     | `76c3a2aeed4816106f62830c3b704a0a5c85b744` | `d8cf01eac14384ffbff65b9d5b705537ae03f96d` | [Main run 30639327549](https://github.com/RGCsAGupta/driftlens/actions/runs/30639327549): [verify](https://github.com/RGCsAGupta/driftlens/actions/runs/30639327549/job/91184933285) and [private release](https://github.com/RGCsAGupta/driftlens/actions/runs/30639327549/job/91185514520) succeeded                             |
+| #12 demo preparation | `eef7b684278db771a15456ad35dabe803afb0f1f` | PENDING                                    | Draft PR [#19](https://github.com/RGCsAGupta/driftlens/pull/19); exact-head [run 30642477534](https://github.com/RGCsAGupta/driftlens/actions/runs/30642477534) and [verify 91195600838](https://github.com/RGCsAGupta/driftlens/actions/runs/30642477534/job/91195600838) succeeded; no merge, deployment, or live-scenario claim |
 
 The main-run private-release jobs prove immutable publication, private deploy,
 health, readiness, exact-version smoke, and transient credential cleanup. They
@@ -80,21 +81,26 @@ Only implementation, correction, and verification activity counts. Planning,
 read-only review, approval waits, CI waits, idle time, and wall-clock gaps do
 not count.
 
-| Lane |            Active time | Status/source                                                               |
-| ---- | ---------------------: | --------------------------------------------------------------------------- |
-| #9   | approximately `61m02s` | Final corrected issue comment; includes approved OpenAPI amendment          |
-| #10  |               `24m05s` | Final issue-owner checkpoint; delivered through protected main              |
-| #11  | approximately `10m00s` | Initial target consumed; owner findings remain before publication           |
-| #17  |               `24m00s` | Final acceptance checkpoint; combined #17/#12 cap unchanged                 |
-| #12  |   `6m00s` prior charge | Continuation explicitly authorized; current segment recorded at publication |
-| #8   |              RECONCILE | Exact active-only total not yet consolidated here                           |
-| #13  |              RECONCILE | Exact active-only total not yet consolidated here                           |
+| Lane |            Active time | Status/source                                                           |
+| ---- | ---------------------: | ----------------------------------------------------------------------- |
+| #9   | approximately `61m02s` | Final corrected issue comment; includes approved OpenAPI amendment      |
+| #10  |               `24m05s` | Final issue-owner checkpoint; delivered through protected main          |
+| #11  | approximately `10m00s` | Initial target consumed; owner findings remain before publication       |
+| #17  |               `24m00s` | Final acceptance checkpoint; original combined cap was `32m00s`         |
+| #12  |               `25m22s` | `12m00s` prior plus `13m22s` demo/correction segment; CI waits excluded |
+| #8   |              RECONCILE | Exact active-only total not yet consolidated here                       |
+| #13  |              RECONCILE | Exact active-only total not yet consolidated here                       |
 
 Do not infer missing totals from commit timestamps or PR age. Final ledger must
 sum authoritative issue-owner handoffs against the 240-active-minute ceiling.
 The parent records one `65m39s` implementation/review window spanning #8
 completion while #13 was active, with parallel work counted once; it is not a
 defensible per-issue total. The original target was `12m00s` for each lane.
+The combined #17/#12 record is now `49m22s`, exceeding its original `32m00s`
+cap by `17m22s`. The continuation was explicitly authorized, but this overrun
+must remain visible in the final 240-active-minute reconciliation. Time spent
+on this evidence-only reconciliation after the demo correction push is not yet
+included and remains a ledger gap.
 
 ## Live cluster and RBAC proof
 
@@ -279,6 +285,8 @@ implying any deferred capability exists today.
   cropped screenshot as failure-step evidence; never publish the private
   origin.
 - #8/#13 active-only totals require authoritative reconciliation.
+- The combined #17/#12 active record exceeds its original cap as detailed in
+  the ledger; final assessment-time reconciliation remains blocking evidence.
 - Complete chat exports, checksums, and redaction review are intentionally
   incomplete before code freeze.
 - Historical trusted-delivery run
