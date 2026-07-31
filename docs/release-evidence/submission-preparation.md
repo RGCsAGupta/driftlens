@@ -155,9 +155,11 @@ kubeconfig content or private topology into evidence.
 
 Retain for each scenario: frozen SHA, start request, terminal scan identifier,
 stage history, deterministic outcome or safe error code, and one secret-reviewed
-UI/API proof. Current blockers to an executable clean-clone demo are the missing
-repository demo manifest, scenario orchestration, named teardown command, #11
-explanation path, and final configuration values.
+UI/API proof. The repository now prepares a public desired manifest plus
+bounded, idempotent scenario and named teardown commands. They remain unproven
+against the live demo cluster until #11 is delivered and the frozen source is
+deployed. Other blockers are the #11 explanation path and final configuration
+values.
 
 Official operator references: [kind quick start](https://kind.sigs.k8s.io/docs/user/quick-start/),
 [kubectl auth can-i](https://kubernetes.io/docs/reference/kubectl/generated/kubectl_auth/kubectl_auth_can-i/),
@@ -267,8 +269,15 @@ implying any deferred capability exists today.
 - Exact domain absent; Cloudflare route/protected proof cannot start.
 - Server-side OpenAI configuration preflight remains pending; no value was
   inspected or exposed.
-- Repository demo manifest, scenario orchestration, named teardown, clean-clone
-  execution, and final live demo evidence remain pending.
+- Repository demo manifest, bounded scenario orchestration, and named teardown
+  are prepared but not live-proven. Clean-clone execution and final live demo
+  evidence remain pending until #11 delivery and deployment of the frozen
+  source.
+- A 2026-07-31 15:02 UTC scan reached `LOADING_DESIRED` and failed safely with
+  `GITHUB_FILE_NOT_FOUND` because canonical main did not contain the configured
+  public manifest path. Preserve its history and, after secret review, a
+  cropped screenshot as failure-step evidence; never publish the private
+  origin.
 - #8/#13 active-only totals require authoritative reconciliation.
 - Complete chat exports, checksums, and redaction review are intentionally
   incomplete before code freeze.
