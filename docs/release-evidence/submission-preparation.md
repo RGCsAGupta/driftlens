@@ -158,18 +158,19 @@ boundaries. Final audit must verify:
 These entries identify required roles, not completed exports. Session source
 files remain private until code freeze and secret review.
 
-| Interaction                         | Known ID                                                         | State                                             |
-| ----------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------- |
-| Primary DriftLens coordinator       | `019fb403-ca02-7ea0-800a-3b873e3ba025`                           | Source file found; final mapping/review pending   |
-| #12 submission-preparation owner    | `019fb868-5297-7a82-b3f0-890aece9a970`                           | Active; export forbidden before completion/freeze |
-| #12 documentation read-only audit   | Resolve from persisted child session                             | Active; prompt/result/owner synthesis required    |
-| #12 GitHub/evidence read-only audit | Resolve from persisted child session                             | Active; prompt/result/owner synthesis required    |
-| #8 owner and bounded reviewer       | Inventory exists in `docs/ai-interaction-evidence.md`            | Exact IDs/export pending                          |
-| #9 owner and reviewers              | Resolve from persisted sessions                                  | Exact IDs/export pending                          |
-| #10 owner and reviewers             | PENDING                                                          | Lane incomplete                                   |
-| #11 owner and reviewers             | PENDING                                                          | Lane incomplete                                   |
-| #13 owner and reviewer              | Inventory exists in `docs/ai-interactions/inventory/issue-13.md` | Exact IDs/export pending                          |
-| #17 owner and reviewers             | Resolve from persisted sessions                                  | Exact IDs/export pending                          |
+| Interaction                         | Known ID                                                         | State                                                                                                           |
+| ----------------------------------- | ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Primary DriftLens coordinator       | `019fb403-ca02-7ea0-800a-3b873e3ba025`                           | Source file found; final mapping/review pending                                                                 |
+| #12 submission-preparation owner    | `019fb868-5297-7a82-b3f0-890aece9a970`                           | Active; export forbidden before completion/freeze                                                               |
+| #12 duplicate preparation task      | `019fb868-0ca0-7810-af7d-4d93258b8286`                           | Interrupted and archived before completion; no final result claimed; inventory/export any used partial evidence |
+| #12 documentation read-only audit   | `019fb868-da36-7251-b5e5-bf2448d1c492`                           | Completed; prompt/result/owner synthesis retained; export pending freeze                                        |
+| #12 GitHub/evidence read-only audit | `019fb869-0231-7f40-908f-3c9e12957e3d`                           | Completed; prompt/result/owner synthesis retained; export pending freeze                                        |
+| #8 owner and bounded reviewer       | Inventory exists in `docs/ai-interaction-evidence.md`            | Exact IDs/export pending                                                                                        |
+| #9 owner and reviewers              | Resolve from persisted sessions                                  | Exact IDs/export pending                                                                                        |
+| #10 owner and reviewers             | PENDING                                                          | Lane incomplete                                                                                                 |
+| #11 owner and reviewers             | PENDING                                                          | Lane incomplete                                                                                                 |
+| #13 owner and reviewer              | Inventory exists in `docs/ai-interactions/inventory/issue-13.md` | Exact IDs/export pending                                                                                        |
+| #17 owner and reviewers             | Resolve from persisted sessions                                  | Exact IDs/export pending                                                                                        |
 
 Candidate discovery found multiple DriftLens-related session files. Keyword
 matches are not proof of ownership or completeness. At freeze, map each source
